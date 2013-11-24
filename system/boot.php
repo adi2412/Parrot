@@ -3,36 +3,30 @@
 /**
  * Libraries
  */
-require APP . 'libraries' . DS . 'toro' . EXT;
-require APP . 'libraries' . DS . 'auth' . EXT;
-require APP . 'libraries' . DS . 'database' . EXT;
-require APP . 'libraries' . DS . 'discussion' . EXT;
-require APP . 'libraries' . DS . 'parsedown' . EXT;
+$files = glob(APP . 'libraries' . DS . '/*' . EXT);
+foreach ($files as $file) {
+    require_once($file);   
+}
 
+/**
+ * Functions
+ */
 $files = glob(SYS . 'functions' . DS . '/*' . EXT);
 foreach ($files as $file) {
-    require($file);   
+    require_once($file);   
 }
 
 /**
  * Handlers
  */
-// frontend
-require APP . 'handlers' . DS . 'admin' . EXT;
-require APP . 'handlers' . DS . 'discussions' . EXT;
-require APP . 'handlers' . DS . 'user' . EXT;
-require APP . 'handlers' . DS . 'login' . EXT;
-require APP . 'handlers' . DS . 'signup' . EXT;
+$files = glob(APP . 'handlers' . DS . '/*' . EXT);
+foreach ($files as $file) {
+    require_once($file);   
+}
 
-// backend
-require APP . 'handlers' . DS . 'submit_signup' . EXT;
-require APP . 'handlers' . DS . 'delete_discussion' . EXT;
-require APP . 'handlers' . DS . 'view_discussion' . EXT;
-require APP . 'handlers' . DS . 'verify_login' . EXT;
-require APP . 'handlers' . DS . 'create_discussion' . EXT;
-require APP . 'handlers' . DS . 'submit_discussion' . EXT;
-require APP . 'handlers' . DS . 'reply_discussion' . EXT;
-
+/**
+ * Vars
+ */
 $discussion_title = null;
 
 ?>

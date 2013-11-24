@@ -6,8 +6,6 @@ class signup {
     	 * This is the signup page
     	 */
         // TODO: Make the theme name an option
-
-        require(SYS . 'admin' . EXT);
         require(APP . 'views' . DS . 'signup' . EXT);
     }
 }
