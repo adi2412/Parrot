@@ -8,7 +8,6 @@
 			<?php endwhile; ?>
 		</select>
 		<input value="Submit" type="submit" class="submit" form="post"/>
-		<!-- log in / out button-->
 		<a href="<?php echo session_link(); ?>"><button><?php echo session_text(); ?></button></a>
 		</div>
 	<form id="post" name="input" action="<?php echo get_submitLink(); ?>" method="post">

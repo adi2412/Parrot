@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<!-- meta -->
 		<title><?php echo siteinfo('title'); ?> :: <?php echo siteinfo('description'); ?></title>
 		<link rel="stylesheet" type="text/css" href="<?php echo the_stylesheet(); ?>">
 	</head>

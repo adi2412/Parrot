@@ -38,6 +38,77 @@ header>a {
 	color: #4A4A4A;
 }
 
+input {
+	padding: 8px;
+	border-width: 0px;
+	margin-bottom: 10px;
+	width: 100%;
+	font-size: 52px;
+	font-weight: 300;
+	color: #4A4A4A;
+}
+
+textarea {
+	padding: 8px;
+	border-width: 0px;
+	margin-bottom: 10px;
+	width: 100%;
+	font-family: Georgia, serif;
+	font-size: 14px;
+	font-weight: 300;
+	color: #4A4A4A;
+	resize: none;
+}
+
+input:focus {
+	outline: none; 
+}
+
+textarea:focus {
+	outline: none;
+}
+
+h1 {
+	font-weight: 400;
+	font-size: 24px;
+	text-transform: uppercase;
+	text-decoration: none;
+}
+
+h2 {
+	font-weight: 300;
+	font-size: 22px;
+	color: #4A4A4A;
+	margin-bottom: 6px;
+	text-decoration: none;
+}
+
+h3 {
+    font-weight: 400;
+    font-size: 12px;
+}
+
+h4 {
+	font-weight: 400;
+	font-size: 32px;
+	font-style: normal;
+	margin-bottom: 10px;
+	color: #4A4A4A;
+}
+
+hr {
+	width: 100%;
+	border-style: solid;
+	height: 3px;
+	border-width: 0px;
+	border-top-width: 2px;
+	border-top-color: #4A4A4A;
+	border-bottom-width: 1px;
+	border-bottom-color: #E8E8E8;
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
 button {
 	background-color: #fff;
 	color: #5B696E;
@@ -85,81 +156,10 @@ button {
 	float: right;
 }
 
-input {
-	padding: 8px;
-	border-width: 0px;
-	margin-bottom: 10px;
-	width: 100%;
-	font-size: 52px;
-	font-weight: 300;
-	color: #4A4A4A;
-}
-
-textarea {
-	padding: 8px;
-	border-width: 0px;
-	margin-bottom: 10px;
-	width: 100%;
-	font-family: Georgia, serif;
-	font-size: 14px;
-	font-weight: 300;
-	color: #4A4A4A;
-	resize: none;
-}
-
-input:focus {
-	outline: none; 
-}
-
-textarea:focus {
-	outline: none;
-}
-
 .boxsizingBorder {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
-}
-
-hr {
-	width: 100%;
-	border-style: solid;
-	height: 3px;
-	border-width: 0px;
-	border-top-width: 2px;
-	border-top-color: #4A4A4A;
-	border-bottom-width: 1px;
-	border-bottom-color: #E8E8E8;
-	margin-top: 20px;
-	margin-bottom: 20px;
-}
-
-h1 {
-	font-weight: 400;
-	font-size: 24px;
-	text-transform: uppercase;
-	text-decoration: none;
-}
-
-h2 {
-	font-weight: 300;
-	font-size: 22px;
-	color: #4A4A4A;
-	margin-bottom: 6px;
-	text-decoration: none;
-}
-
-h3 {
-    font-weight: 400;
-    font-size: 12px;
-}
-
-h4 {
-	font-weight: 400;
-	font-size: 32px;
-	font-style: normal;
-	margin-bottom: 10px;
-	color: #4A4A4A;
 }
 
 .content {

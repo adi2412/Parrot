@@ -3,7 +3,6 @@
 <div class="wrap">
 	<div class="menu" align="right">
 		<a href="<?php echo get_createlink(); ?>"><button>Create a new discussion</button></a>
-		<!-- log in / out button-->
 		<a href="<?php echo session_link(); ?>"><button><?php echo session_text(); ?></button></a>
 	</div>
 	<?php while(have_discussion()) : thediscussion() ?>
