@@ -14,7 +14,7 @@
 					margin: 0px;
 					padding: 0px;
 					height: 100%;
-					background-color: #4A4A4A;
+					background-color: #EDF1F2;
 				}
 
 				hr {
@@ -33,65 +33,70 @@
 				h1 {
 					font-weight: 400;
 					font-size: 14px;
+					text-transform: uppercase;
+					margin: 10px;
 					text-decoration: none;
-					text-align: left;
-					color: #E8E8E8;
+					color: #5B696E;
+					margin-left: 0px;
 					margin-bottom: 20px;
 				}
 
 				h2 {
-					margin: 0px;
-					margin-top: 10px;
-					margin-bottom: 5px;
-					font-size: 13px;
-					text-align: left;
-					text-decoration: none;
-					color: #B8B8B8;
 					font-weight: 300;
+					font-size: 13px;
+					margin: 10px;
+					text-decoration: none;
+					color: #D6D6D6;
+					margin-left: 0px;
 				}
 
 				input {
-					padding: 8px;
+					padding: 6px;
+					width: 250px;
 					border-width: 1px;
 					border-style: solid;
-					border-color: #C4C4C4;
+					border-color: #EDF1F2;
 					border-radius: 3px;
 					margin-bottom: 10px;
-					width: 100%;
-					color: #B8B8B8;
-					-webkit-box-sizing: border-box;
+				    -webkit-box-sizing: border-box;
 				    -moz-box-sizing: border-box;
 				    box-sizing: border-box;
+				    color: #EDF1F2;
 				}
 
 				input:focus {
-					background-color: #B8B8B8;
+					outline: none;
+					background-color: #EDF1F2;
 					color: #fff;
 				}
 
 				.group {
-					background-color: #7A7A7A;
-					border-width: 0px;
+					background-color: #fff;
+					border-width: 1px;
 					border-radius: 3px;
-					padding: 25px;
-					margin: 20px;
+					border-style: solid;
+					border-color: #D6D6D6;
 					width: inherit;
+					margin: 40px;
+					padding: 20px;
 				}
 
 				.submit {
-					background-color: #7A7A7A;
-					color: #F5FFFF;
-					padding: 12px;
-					width: inherit;
-					border-width: 0px;
+					background-color: #fff;
+					color: #5B696E;
+					border-width: 1px;
+					border-style: solid;
+					border-radius: 3px;
+					border-color: #EDF1F2;
+					padding: 10px;
+					padding-left: 16px;
+					padding-right: 16px;
+					font-size: 14px;
+					font-weight: 300;
 					cursor: pointer;
-					float: right;
-					display: inline-block;
-					margin: 20px;
+					width: inherit;
+					margin: 40px;
 					margin-top: 0px;
-					-webkit-box-sizing: border-box;
-				    -moz-box-sizing: border-box;
-				    box-sizing: border-box;
 				}
 
 				.wrap {
@@ -115,7 +120,7 @@
 		<body>
 			<div class="wrap">
 				<div class="inner">
-					<form name="input" action="./install/setup.php" method="post">
+					<form name="input" action="./install/setup.php" method="post" align="left">
 						<div class="group">
 							<h1>Forum</h1>
 							<h2>Name</h2>
@@ -148,7 +153,7 @@
 							<input name="DBprefix" value="parrot_"/><br/>
 						</div>
 						<input type="hidden" value="<?php echo getenv(DOMAIN_NAME) . BASE; ?>" name="url"/>
-						<input type="submit" class="submit" value="Let's Fly"/>
+						<div align="right"><input type="submit" class="submit" value="Let's Fly"/></div>
 					</form>
 				</div>
 			</div>

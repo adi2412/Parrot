@@ -42,6 +42,7 @@ if (!file_exists(PATH . 'config' . EXT)) {
   	mysqli_query($DB, "INSERT INTO " . $DBprefix . "Users(session, username, password, name, email, role)VALUES (NULL, '$username', '$password', '$name', '$email', '3')");
   	$date = date('jS F, Y');
   	mysqli_query($DB, "INSERT INTO " . $DBprefix . "Discussion(title, content, author, time, category, timestamp)VALUES ('Hello World', 'This is your first discussion.', '$username', '$date', NULL, NULL)");
+  	mysqli_query($DB, "INSERT INTO " . $DBprefix . "Category(title)VALUES ('Uncategorized')");
 
 	file_put_contents(dirname(__FILE__) . '/' . 'config.php', "<?php ", FILE_APPEND);
 
