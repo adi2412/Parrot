@@ -12,7 +12,7 @@
 		</div>
 	<form id="post" name="input" action="<?php echo get_submitLink(); ?>" method="post">
 		<input placeholder="Title" name="title" class="boxsizingBorder" required autocomplete="off" autofocus/>
-		<textarea rows="10" placeholder="Your thoughts..." name="content" class="boxsizingBorder" required></textarea>
+		<textarea rows="10" placeholder="Just type..." name="content" class="boxsizingBorder" required></textarea>
 	</form>
 </div>
 
