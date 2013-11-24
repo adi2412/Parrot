@@ -15,8 +15,8 @@ p {
 }
 
 header {
-	padding-top: 40px;
-	padding-bottom: 40px;
+	padding-top: 80px;
+	padding-bottom: 80px;
 	text-align: center;
 	background-color: #4A4A4A;
 	color: #E8E8E8;
@@ -32,13 +32,13 @@ header>a {
 }
 
 button {
-	background-color: #A3CFCE;
+	background-color: #A1A1A1;
 	color: #F5FFFF;
 	padding: 10px;
 	padding-left: 16px;
 	padding-right: 16px;
 	border-width: 0px;
-	border-radius: 3px;
+	border-radius: 2px;
 	font-size: 14px;
 	font-weight: 300;
 	cursor: pointer;
@@ -56,16 +56,17 @@ button {
 }
 
 .submit {
-	background-color:  #A3CFCE;
+	background-color:  #A1A1A1;
 	color: #F5FFFF;
 	padding: 10px;
 	padding-left: 16px;
 	padding-right: 16px;
 	border-width: 0px;
-	border-radius: 3px;
+	border-radius: 2px;
 	font-size: 14px;
 	font-weight: 300;
 	cursor: pointer;
+	width: inherit;
 }
 
 .small {
@@ -75,23 +76,32 @@ button {
 
 input {
 	padding: 8px;
-	border-width: 1px;
-	border-style: solid;
-	border-color: #C4C4C4;
-	border-radius: 3px;
+	border-width: 0px;
 	margin-bottom: 10px;
 	width: 100%;
+	font-size: 52px;
+	font-weight: 300;
+	color: #4A4A4A;
 }
 
 textarea {
 	padding: 8px;
-	border-width: 1px;
-	border-style: solid;
-	border-color: #C4C4C4;
-	border-radius: 3px;
+	border-width: 0px;
 	margin-bottom: 10px;
 	width: 100%;
-	font-family: "Helvetica Neue", sans-serif;
+	font-family: Georgia, serif;
+	font-size: 14px;
+	font-weight: 300;
+	color: #4A4A4A;
+	resize: none;
+}
+
+input:focus {
+	outline: none; 
+}
+
+textarea:focus {
+	outline: none;
 }
 
 .boxsizingBorder {

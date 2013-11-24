@@ -124,18 +124,18 @@ function get_submitLink() {
  * LOOP
  * Create get the reply form
  */
-function reply_form($btnText = 'Reply') {
+function reply_form($btnText = 'Reply', $errorMsg = 'Please log in to reply') {
 	global $discussion_title;
 
 	if (auth::isLoggedIn()) {
 		echo '
 		<form name="input" action="' . BASE . 'discussion' . DS . discussion::encode_title($discussion_title) . DS . 'reply' . '" method="post">
-			<textarea rows="18" placeholder="Your thoughts..." name="content" class="boxsizingBorder"></textarea><br/>
+			<textarea rows="7" placeholder="Your thoughts..." name="content" class="boxsizingBorder" autofocus></textarea><br/>
 			<input type="submit" class="submit small" value="' . $btnText .'"/>
 		</form>
 		';
 	} else {
-		echo '<a href="http://' . getenv(DOMAIN_NAME) . BASE . 'login' . '">Please log in to reply</a>';
+		echo '<a href="http://' . getenv(DOMAIN_NAME) . BASE . 'login' . '">' . $errorMsg . '</a>';
 	}
 }
 

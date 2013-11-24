@@ -8,8 +8,13 @@ class discussion {
 		// check if logged in again as a safety net
 		// the first check is mainly just to redirect
 		// pesky users
-		require_once(APP . 'libraries' . DS . 'auth' . EXT);
-		if (auth::isLoggedIn()) {
+		$query = database::getInstance()->query("SELECT * FROM `" . DB_PREFIX . "Discussion` WHERE `title`='$title'");
+	    $rows = $query->fetchAll();
+	    $checkTitle;
+	    foreach ($rows as $row) {
+	    	$checkTitle = $row['title'];
+	    }
+		if (auth::isLoggedIn() && $checkTitle !== $title) {
 			// strip the HTML tags... Markdown only
 			$title = strip_tags($title);
 			$content = strip_tags($content);
@@ -22,6 +27,9 @@ class discussion {
 	    	}
 	    	$date = date('jS F, Y');
 	    	$query = database::getInstance()->query("INSERT INTO `" . DB_PREFIX . "Discussion` (title, author, content, time) VALUES ('$title', '$username', '$content', '$date')");
+			header('Location: http://' . getenv(DOMAIN_NAME) . BASE . 'discussion' . DS . str_replace(' ', '-', $title));
+		} else {
+			// not logged in or another post already has same title
 		}
 	}
 
@@ -29,7 +37,6 @@ class discussion {
 	 * Reply to a discussion
 	 */
 	public function reply($content, $discussionTitle) {
-		require_once(APP . 'libraries' . DS . 'auth' . EXT);
 		if (auth::isLoggedIn()) {
 			$content = strip_tags($content);
 			$session = auth::getSession();
@@ -63,8 +70,6 @@ class discussion {
 		// check if logged in again as a safety net
 		// the first check is mainly just to redirect
 		// pesky users
-		require_once(APP . 'libraries' . DS . 'auth' . EXT);
-		require_once(APP . 'libraries' . DS . 'database' . EXT);
 		$title = discussion::decode_title($title);
 		$query = database::getInstance()->query("SELECT * FROM `" . DB_PREFIX . "Discussion` WHERE `title`='$title'");
 		$rows = $query->fetchAll();
