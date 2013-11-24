@@ -23,8 +23,10 @@ header {
 }
 
 select {
-	border: 0 !important;
-	width: 100px;
+	width: inherit;
+	border-radius: 3px; 
+	border-color: #EDF1F2;
+	padding: 9px;
 }
 
 footer {
@@ -206,4 +208,16 @@ h4 {
 
 .wrap>.menu {
 	margin-bottom: 50px;
+}
+
+.badge {
+	display: inline-block;
+	margin-left: 4px;
+	margin-right: 4px;
+	border-width: 0px;
+	border-radius: 2px;
+	background-color: #EDF1F2;
+	color: #4A4A4A;
+	font-size: 11px;
+	padding: 2px;
 }

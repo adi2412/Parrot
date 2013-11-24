@@ -92,6 +92,17 @@ class auth {
     }
 
     /**
+     * Checks if the given username is an admin
+     */
+    function checkAdmin($username) {
+        if (auth::getUserNumRole($username) == 3) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
      * Checks if the current user is a moderator
      */
     function isMod() {
@@ -119,6 +130,17 @@ class auth {
     private function getCurrentUserNumRole() {
         $cookie = $_COOKIE['parrotSession'];
         $query = database::getInstance()->query("SELECT * FROM `" . DB_PREFIX . "Users` WHERE `session`='$cookie'");
+        $rows = $query->fetchAll();
+        foreach ($rows as $row) {
+            return $row['role'];
+        }
+    }
+
+    /**
+     * Gets the numeric role of a user
+     */
+    private function getUserNumRole($username) {
+        $query = database::getInstance()->query("SELECT * FROM `" . DB_PREFIX . "Users` WHERE `username`='$username'");
         $rows = $query->fetchAll();
         foreach ($rows as $row) {
             return $row['role'];

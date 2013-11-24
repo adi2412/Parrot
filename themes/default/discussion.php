@@ -11,7 +11,12 @@
 		<div class="title">
 			<h4><?php echo the_title(); ?></h4>
 			<div class="details">
-				<div class="col"><h3>By <?php echo the_author(); ?></h3></div>
+				<div class="col">
+					<h3 style="display: inline-block;">By <?php echo the_author(); ?></h3>
+					<?php if (auth::checkAdmin(the_author())) : ?>
+						<div class="badge">Admin</div>
+					<?php endif; ?>
+				</div>
 	    		<div class="col"><h3>In <?php echo the_category(); ?></h3></div>
 	    		<div class="col"></div>
 	    		<div class="lastcol"><h3><?php echo the_time(); ?></h3></div>

@@ -209,3 +209,11 @@ form {
 .grid-33>.inner {
 	padding: 40px;
 }
+
+select {
+	width: 100%; 
+	margin-bottom: 20px; 
+	border-radius: 3px; 
+	border-color: #EDF1F2;
+	padding: 6px;
+}

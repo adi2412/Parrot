@@ -35,7 +35,7 @@
 								<h2>Description</h2>
 								<input name="description" value="<?php echo siteinfo('description'); ?>" class="full">
 								<h2>Theme</h2>
-								<select name="theme" style="width: 100%; margin-bottom: 20px;">
+								<select name="theme">
 									<?php foreach (get_themes() as $theme) : ?>
 										<option value="<?php echo $theme['title']; ?>"><?php echo ucfirst($theme['title']); ?><?php echo ucfirst($theme['description']); ?></option>
 									<?php endforeach; ?>
