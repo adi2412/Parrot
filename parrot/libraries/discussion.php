@@ -41,6 +41,9 @@ class discussion {
 		}
 	}
 
+	/**
+	 * Gets the replies for a discussion
+	 */
 	public function get_replies($title) {
 		$query = database::getInstance()->query("SELECT * FROM `" . DB_PREFIX . "Replies` WHERE `discussionTitle`='$title'");
 	    $rows = $query->fetchAll();

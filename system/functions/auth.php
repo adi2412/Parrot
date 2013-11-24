@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Get the session log in/out link
+ * Get the session log in / out link
  */
 function session_link() {
 	return BASE . 'login';

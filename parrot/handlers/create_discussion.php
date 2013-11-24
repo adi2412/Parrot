@@ -5,7 +5,6 @@ class create_discussion {
     	/**
     	 * This is the create discussion page
     	 */
-        //require(SYS . 'queries' . EXT);
         require(SYS . 'admin' . EXT);
         require(PATH . 'themes' . DS . 'default' . DS . 'create' . EXT);
     }

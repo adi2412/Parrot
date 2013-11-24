@@ -13,9 +13,13 @@ $reply = null;
 $replies_count = 0;
 $replies_index = 0;
 
+/**
+ * Check if have discussions to loop through
+ */
 function have_discussion() {
 	global $discussions_index, $discussion, $discussions, $discussions_count, $discussion_title;
 
+	// check if single discussion page
 	if (!$discussion_title) {
 		$discussions_count = count(get_discussions());
 		$discussions = get_discussions();
@@ -33,6 +37,10 @@ function have_discussion() {
 	}
 }
 
+/**
+ * LOOP
+ * Updates the discussion object
+ */
 function thediscussion() {
 	global $discussions_index, $discussion, $discussions, $discussion_title;
 	$discussion = $discussions[$discussions_index - 1];
@@ -113,6 +121,7 @@ function get_submitLink() {
 }
 
 /**
+ * LOOP
  * Create get the reply form
  */
 function reply_form($btnText = 'Reply') {
@@ -130,6 +139,10 @@ function reply_form($btnText = 'Reply') {
 	}
 }
 
+/**
+ * LOOP
+ * Gets replies for a discussion
+ */
 function get_replies($title) {
 	if (is_array(discussion::get_replies($title))) {
 		return discussion::get_replies($title);
@@ -138,40 +151,55 @@ function get_replies($title) {
 	}
 }
 
+/**
+ * LOOP
+ * Gets discussion title
+ */
 function the_title() {
 	global $discussion;
 	return $discussion['title'];
 }
 
-function the_description() {
-	global $discussion;
-	return $discussion['description'];
-}
-
+/**
+ * LOOP
+ * Gets discussion author
+ */
 function the_author() {
 	global $discussion;
 	return $discussion['author'];
 }
 
+/**
+ * LOOP
+ * Gets discussion link
+ */
 function the_link() {
 	global $discussion;
 	return BASE . 'discussion' . DS . discussion::encode_title($discussion['title']);
 }
 
+/**
+ * LOOP
+ * Gets discussion posted time
+ */
 function the_time() {
 	global $discussion;
 	return $discussion['time'];
 }
 
+/**
+ * LOOP
+ * Gets discussion content
+ */
 function the_content() {
 	global $discussion;
 	return Parsedown::instance()->parse($discussion['content']);
 }
 
 /**
- * Replies
+ * LOOP
+ * Check if have discussions to loop through
  */
-
 function have_replies() {
 	global $replies_index, $reply, $replies, $replies_count, $discussion_title;
 
@@ -187,6 +215,10 @@ function have_replies() {
 	}
 }
 
+/**
+ * LOOP
+ * Updates the reply object
+ */
 function thereply() {
 	global $replies_index, $reply, $replies;
 
@@ -194,16 +226,28 @@ function thereply() {
 	return $reply;
 }
 
+/**
+ * LOOP
+ * Gets the reply author
+ */
 function reply_author() {
 	global $reply;
 	return $reply['author'];
 }
 
+/**
+ * LOOP
+ * Gets the reply posted time
+ */
 function reply_time() {
 	global $reply;
 	return $reply['time'];
 }
 
+/**
+ * LOOP
+ * Gets the reply content
+ */
 function reply_content() {
 	global $reply;
 	return Parsedown::instance()->parse($reply['content']);

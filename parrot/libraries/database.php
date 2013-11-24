@@ -8,6 +8,9 @@ class database {
   private function __construct() { }
   private function __clone() { }
 
+  /**
+   * Gets the DB instance
+   */
   public static function getInstance() {
     if (!self::$instance) {
       self::$instance = new PDO('mysql:host=' . DB_URL . ';dbname=' . DB_NAME, DB_USER, DB_PASSWORD);

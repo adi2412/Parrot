@@ -1,6 +1,9 @@
 <?php
 
 class auth {
+    /**
+     * Checks if the request to login is valid
+     */
 	public function verify($username, $password) {
         require_once(APP . 'libraries' . DS . 'database' . EXT);
 		$query = database::getInstance()->query("SELECT * FROM `" . DB_PREFIX . "Users` WHERE `username`='$username' AND `password`='$password'");
@@ -23,6 +26,9 @@ class auth {
         }
 	}
 
+    /**
+     * Checks if the current user is logged in
+     */
     public function isLoggedIn() {
         require_once(APP . 'libraries' . DS . 'database' . EXT);
         $cookie = $_COOKIE['parrotSession'];
@@ -39,6 +45,9 @@ class auth {
         }
     }
 
+    /**
+     * Creates an account
+     */
     public function createAccount($username, $password, $email, $name) {
        require_once(APP . 'libraries' . DS . 'database' . EXT);
        if (!empty($username) && !empty($password) && !empty($email) && !empty($name)) {
@@ -55,10 +64,16 @@ class auth {
        }
     }
 
+    /**
+     * Gets the session cookie
+     */
     public function getSession() {
        return $_COOKIE['parrotSession'];
     }
 
+    /**
+     * Gets the username of the current user
+     */
     public function getCurrentUser() {
         $cookie = $_COOKIE['parrotSession'];
         $query = database::getInstance()->query("SELECT * FROM `" . DB_PREFIX . "Users` WHERE `session`='$cookie'");
@@ -68,6 +83,9 @@ class auth {
         }
     }
 
+    /**
+     * Generates a random alpha-num string
+     */
     private function generateRandomString($length = 10) {
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $randomString = '';

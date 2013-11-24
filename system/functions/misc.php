@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * Gets misc site info
+ */
 function siteinfo($selector) {
 	if ($selector == 'title') {
 		return FORUM_NAME;
