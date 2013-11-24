@@ -6,11 +6,11 @@
 		<title><?php echo siteinfo('title'); ?> :: Admin</title>
 		<link rel="stylesheet" type="text/css" href="<?php echo admin_stylesheet(); ?>">
 	</head>
-	<body class="lightbg">
+	<body>
 		<div class="bg">
 			<div class="inner">
 				<div class="content">
-					<div class="right"><h1>Hi, <?php echo auth::getCurrentUser(); ?></h1></div>
+					<div class="right"><h1 style="margin: 0px;">Hi, <?php echo auth::getCurrentUser(); ?></h1></div>
 				</div>
 				<hr>
 				<div class="content">
@@ -32,7 +32,10 @@
 				</div>
 			</div>
 		</div>
-		<div class="credit">Powered by Parrot</div>
+		<div class="credit">
+			Powered by Parrot
+			<h1><a class="perma" href="http://<?php echo getenv(DOMAIN_NAME) . BASE; ?>">Visit site</a></h1>
+		</div>
 	</body>
 </html>
 

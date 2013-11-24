@@ -30,8 +30,9 @@ class category {
     // check if logged in again as an admin as a 
     // safety net the first check is mainly just 
     //to redirect pesky users
+    $title = discussion::decode_title($slug);
     if (auth::isAdmin()) {
-        $query = database::getInstance()->query("DELETE FROM `" . DB_PREFIX . "Category` WHERE `title`='$slug'");
+        $query = database::getInstance()->query("DELETE FROM `" . DB_PREFIX . "Category` WHERE `title`='$title'");
         $query->execute();
     } else {
       // not an admin

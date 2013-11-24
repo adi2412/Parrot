@@ -54,7 +54,7 @@ function get_categories() {
  * Get's the link to delete a category
  */
 function cat_delete_link() {
-	return BASE . 'admin' . DS . 'category' . DS . cat_title() . DS . 'delete';
+	return discussion::encode_title(BASE . 'admin' . DS . 'category' . DS . cat_title() . DS . 'delete');
 }
 
 /**
