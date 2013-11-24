@@ -3,26 +3,73 @@ html {
 }
 
 body {
-	font-family: "Helvetica Neue", sans-serif;
+	font-family: 'Helvetica Neue', sans-serif;
 	margin: 0px;
 	padding: 0px;
 	height: 100%;
 	background-color: #4A4A4A;
+	color: #5B696E;
+}
+
+hr {
+	height: 0px;
+	border-width: 0px;
+	border-top-width: 1px;
+	border-top-style: solid;
+	border-top-color: #D6D6D6;
+	margin: 0px;
+}
+
+.lightbg {
+	background-color: #EDF1F2;
+}
+
+.credit {
+	text-align: center;
+	font-weight: 300;
+	font-size: 13px;
+	text-transform: uppercase;
+	margin: 26px;
 }
 
 input {
-	padding: 8px;
+	padding: 6px;
 	width: 250px;
 	border-width: 1px;
 	border-style: solid;
-	border-color: #C4C4C4;
+	border-color: #EDF1F2;
 	border-radius: 3px;
 	margin-bottom: 10px;
+}
+
+input:focus {outline: none; }
+
+.left-input {
+	border-top-right-radius: 0px;
+	border-bottom-right-radius: 0px;
+}
+
+.right-button {
+	width: auto;
+	padding: 7px;
+	padding-left: 10px;
+	padding-right: 10px;
+	border-width: 0px;
+	border-radius: 3px;
+	background-color: #EDF1F2;
+	border-top-left-radius: 0px;
+	border-bottom-left-radius: 0px;
+	margin-left: -1px;
+	color: #5B696E;
 }
 
 a {
 	color: #4A4A4A;
 	text-decoration: none;
+}
+
+.del:hover {
+	color: #DBBDBD;
 }
 
 button {
@@ -35,6 +82,31 @@ button {
 	border-radius: 3px;
 	margin-bottom: 10px;
 	cursor: pointer;
+}
+
+h1 {
+	font-weight: 400;
+	font-size: 14px;
+	text-transform: uppercase;
+	margin: 10px;
+	text-decoration: none;
+	color: #5B696E;
+	margin-left: 0px;
+	margin-bottom: 20px;
+}
+
+h2 {
+	font-family: Georgia, serif;
+	font-weight: 300;
+	font-size: 13px;
+	margin: 10px;
+	text-decoration: none;
+	color: #D6D6D6;
+	margin-left: 0px;
+}
+
+form {
+	margin-top: 20px;
 }
 
 .group {
@@ -78,4 +150,33 @@ button {
 	display: table-cell;
 	vertical-align: middle;
 	text-align: center;
+	padding: 30px;
+}
+
+.bg {
+	padding: 50px;
+}
+
+.bg>.inner {
+	background-color: #fff;
+	border-width: 1px;
+	border-radius: 3px;
+	border-style: solid;
+	border-color: #D6D6D6;
+}
+
+.right {
+	float: right;
+	text-align: right;
+	width: inherit;
+}
+
+.content {
+	padding: 50px;
+	overflow: auto;
+}
+
+.grid-33 {
+	float: left;
+	width: 33.33333%;
 }

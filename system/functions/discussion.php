@@ -21,11 +21,11 @@ function have_discussion() {
 
 	// check if single discussion page
 	if (!$discussion_title) {
-		$discussions_count = count(get_discussions());
-		$discussions = get_discussions();
+		$discussions_count = count(discussion::get_discussions());
+		$discussions = discussion::get_discussions();
 	} else {
 		$discussions_count = 1;
-		$discussions = get_discussion($discussion_title);
+		$discussions = discussion::get_discussion($discussion_title);
 	}
 
 	if ($discussions && $discussions_index + 1 <= $discussions_count) {
@@ -48,41 +48,6 @@ function thediscussion() {
 }
 
 /**
- * Get all discussions
- */
-function get_discussions() {
-	$query = database::getInstance()->query("SELECT * FROM `" . DB_PREFIX . "Discussion` ORDER BY `timestamp` DESC");
-	$rows = $query->fetchAll();
-	$discuss_array;
-	for($i = 0; $i < count($rows); $i++) {
-	    $discuss_array[$i]['title'] = $rows[$i]['title'];
-	    $discuss_array[$i]['content'] = $rows[$i]['content'];
-	    $discuss_array[$i]['author'] = $rows[$i]['author'];
-	    $discuss_array[$i]['time'] = $rows[$i]['time'];
-	    $discuss_array[$i]['replies'] = $rows[$i]['replies'];
-	}
-	return $discuss_array;
-}
-
-/**
- * Get indivigual discussion details
- */
-function get_discussion($title) {
-	$decodedtitle = discussion::decode_title($title);
-	$query = database::getInstance()->query("SELECT * FROM `" . DB_PREFIX . "Discussion` WHERE `title`='$decodedtitle'");
-	$rows = $query->fetchAll();
-	$discuss_array;
-	foreach ($rows as $row) {
-		$discuss_array[0]['title'] = $row['title'];
-	    $discuss_array[0]['content'] = $row['content'];
-	    $discuss_array[0]['author'] = $row['author'];
-	    $discuss_array[0]['time'] = $row['time'];
-	    $discuss_array[0]['replies'] = $row['replies'];
-	}
-	return $discuss_array;
-}
-
-/**
  * Show the discussion menu
  */
 function discussion_menu($title) {
@@ -92,7 +57,7 @@ function discussion_menu($title) {
 	$owner;
 	foreach ($rows as $row) { $owner = $row['author']; }
 	// display these if it's the owner of the article
-	if ($owner == auth::getCurrentUser()) {
+	if ($owner == auth::getCurrentUser() || auth::isAdmin() || auth::isMod()) {
 		echo '<a href="' . delete_link($title) . '"><button class="red">Delete</button></a>';
 	} else {
 		// don't display delete, because they're not the owner
@@ -167,6 +132,15 @@ function the_title() {
 function the_author() {
 	global $discussion;
 	return $discussion['author'];
+}
+
+/**
+ * LOOP
+ * Gets discussion category
+ */
+function the_category() {
+	global $discussion;
+	return $discussion['category'];
 }
 
 /**

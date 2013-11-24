@@ -5,7 +5,6 @@ class auth {
      * Checks if the request to login is valid
      */
 	public function verify($username, $password) {
-        require_once(APP . 'libraries' . DS . 'database' . EXT);
 		$query = database::getInstance()->query("SELECT * FROM `" . DB_PREFIX . "Users` WHERE `username`='$username' AND `password`='$password'");
     	$rows = $query->fetchAll();
         if (count($rows) == 1) {
@@ -30,7 +29,6 @@ class auth {
      * Checks if the current user is logged in
      */
     public function isLoggedIn() {
-        require_once(APP . 'libraries' . DS . 'database' . EXT);
         $cookie = $_COOKIE['parrotSession'];
         $query = database::getInstance()->query("SELECT * FROM `" . DB_PREFIX . "Users` WHERE `session`='$cookie'");
         $rows = $query->fetchAll();
@@ -49,13 +47,12 @@ class auth {
      * Creates an account
      */
     public function createAccount($username, $password, $email, $name) {
-       require_once(APP . 'libraries' . DS . 'database' . EXT);
        if (!empty($username) && !empty($password) && !empty($email) && !empty($name)) {
             $query = database::getInstance()->query("SELECT * FROM `" . DB_PREFIX . "Users` WHERE `username`='$username'");
             $rows = $query->fetchAll();
             if (count($rows) == 0) {
                 // woo! username is not taken
-                $query = database::getInstance()->query("INSERT INTO `" . DB_PREFIX . "Users` (session, username, password, name, email) VALUES (NULL, '$username', '$password', '$name', '$email')");
+                $query = database::getInstance()->query("INSERT INTO `" . DB_PREFIX . "Users` (session, username, password, name, email, role) VALUES (NULL, '$username', '$password', '$name', '$email', 1)");
             } else {
                 // username is already taken
             }
@@ -80,6 +77,51 @@ class auth {
         $rows = $query->fetchAll();
         foreach ($rows as $row) {
             return $row['username'];
+        }
+    }
+
+    /**
+     * Checks if the current user is an admin
+     */
+    function isAdmin() {
+        if (auth::getCurrentUserNumRole() == 3) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Checks if the current user is a moderator
+     */
+    function isMod() {
+        if (auth::getCurrentUserNumRole() == 2) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Checks if the current user is a participant 
+     */
+    function isParticipant() {
+        if (auth::getCurrentUserNumRole() == 1) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Gets the numeric role of the current user
+     */
+    private function getCurrentUserNumRole() {
+        $cookie = $_COOKIE['parrotSession'];
+        $query = database::getInstance()->query("SELECT * FROM `" . DB_PREFIX . "Users` WHERE `session`='$cookie'");
+        $rows = $query->fetchAll();
+        foreach ($rows as $row) {
+            return $row['role'];
         }
     }
 

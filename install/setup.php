@@ -30,13 +30,16 @@ if (!file_exists(PATH . 'config' . EXT)) {
   	$query = "CREATE TABLE " . $DBprefix . "Replies(discussionTitle TEXT(20000), content TEXT(20000), author TEXT(20000), time TEXT(20000), approved TEXT(20000), timestamp TIMESTAMP NOT NULL)";
   	mysqli_query($DB, $query);
 
-  	$query = "CREATE TABLE " . $DBprefix . "Users(session TEXT(20000), username TEXT(20000), password TEXT(20000), name TEXT(20000), email TEXT(20000))";
+  	$query = "CREATE TABLE " . $DBprefix . "Users(session TEXT(20000), username TEXT(20000), password TEXT(20000), name TEXT(20000), email TEXT(20000), role TEXT(20000))";
+  	mysqli_query($DB, $query);
+
+  	$query = "CREATE TABLE " . $DBprefix . "Category(title TEXT(20000))";
   	mysqli_query($DB, $query);
 
   	// create a new user
   	// use this lib, because DB lib won't work yet
   	$DB = mysqli_connect($DBURL, $DBuser, $DBpassword, $DBname);
-  	mysqli_query($DB, "INSERT INTO " . $DBprefix . "Users(session, username, password, name, email)VALUES (NULL, '$username', '$password', '$name', '$email')");
+  	mysqli_query($DB, "INSERT INTO " . $DBprefix . "Users(session, username, password, name, email, role)VALUES (NULL, '$username', '$password', '$name', '$email', '3')");
   	$date = date('jS F, Y');
   	mysqli_query($DB, "INSERT INTO " . $DBprefix . "Discussion(title, content, author, time, category, timestamp)VALUES ('Hello World', 'This is your first discussion.', '$username', '$date', NULL, NULL)");
 

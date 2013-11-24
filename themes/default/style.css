@@ -18,34 +18,41 @@ header {
 	padding-top: 80px;
 	padding-bottom: 80px;
 	text-align: center;
-	background-color: #4A4A4A;
-	color: #E8E8E8;
+	background-color: #EDF1F2;
+	color: #4A4A4A;
+}
+
+select {
+	border: 0 !important;
+	width: 100px;
 }
 
 footer {
-	padding: 20px;
+	padding: 50px;
 }
 
 header>a {
 	text-decoration: none;
-	color: #E8E8E8;
+	color: #4A4A4A;
 }
 
 button {
-	background-color: #A1A1A1;
-	color: #F5FFFF;
+	background-color: #fff;
+	color: #5B696E;
+	border-width: 1px;
+	border-style: solid;
+	border-radius: 3px;
+	border-color: #EDF1F2;
 	padding: 10px;
 	padding-left: 16px;
 	padding-right: 16px;
-	border-width: 0px;
-	border-radius: 2px;
 	font-size: 14px;
 	font-weight: 300;
 	cursor: pointer;
 }
 
 .red {
-	background-color: #BF8888;
+	border-color: #BF8888;
 }
 
 .reply>a {
@@ -56,13 +63,15 @@ button {
 }
 
 .submit {
-	background-color:  #A1A1A1;
-	color: #F5FFFF;
+	background-color: #fff;
+	color: #5B696E;
+	border-width: 1px;
+	border-style: solid;
+	border-radius: 3px;
+	border-color: #EDF1F2;
 	padding: 10px;
 	padding-left: 16px;
 	padding-right: 16px;
-	border-width: 0px;
-	border-radius: 2px;
 	font-size: 14px;
 	font-weight: 300;
 	cursor: pointer;
@@ -148,13 +157,14 @@ h4 {
 	font-size: 32px;
 	font-style: normal;
 	margin-bottom: 10px;
+	color: #4A4A4A;
 }
 
 .content {
 	font-family: Georgia, serif;
 	font-size: 16px;
 	margin-top: 20px;
-	color: #A1A1A1;
+	color: #D6D6D6;
 	line-height: 2;
 }
 

@@ -1,16 +1,15 @@
 <?php
 
-class submit_discussion {
+class admin_cat_create {
     function post() {
     	/**
-    	 * This is the submit discussion function
+    	 * This is the submit category function
     	 */
-		if (auth::isLoggedIn()) {
+		if (auth::isLoggedIn() || auth::isAdmin()) {
             if (preg_match("/^[A-Za-z0-9-_\s]+$/", $_POST['title'])) {
             	$title = $_POST['title'];
-            	$content = $_POST['content'];
-                $category = $_POST['category'];
-            	discussion::submit($title, $content, $category);
+            	category::submit($title);
+                header('Location: http://' . getenv(DOMAIN_NAME) . BASE . 'admin');
             } else {
                 // make it alpha-numeric, asshole
             }

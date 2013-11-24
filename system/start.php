@@ -1,6 +1,9 @@
 <?php
 
-require SYS . 'boot' . EXT;
+/**
+ * Get requires and init important variables
+ */
+require_once(SYS . 'boot' . EXT);
 
 /**
  * Page not found (404)
@@ -12,7 +15,6 @@ ToroHook::add('404', function() {
 
 /**
  * Routes
- *  - Be sure to require them in the boot file if you're adding more
  */
 Toro::serve(array(
     BASE => 'discussions',
@@ -25,7 +27,10 @@ Toro::serve(array(
     BASE . 'discussion/submit' => 'submit_discussion',
     BASE . 'discussion/:alpha' => 'view_discussion',
     BASE . 'discussion/:alpha/delete' => 'delete_discussion',
-    BASE . 'discussion/:alpha/reply' => 'reply_discussion'
+    BASE . 'discussion/:alpha/reply' => 'reply_discussion',
+    BASE . 'admin' => 'admin',
+    BASE . 'admin/category/:alpha/delete' => 'admin_cat_delete',
+    BASE . 'admin/category/create' => 'admin_cat_create'
 ));
 
 ?>

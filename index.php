@@ -20,10 +20,10 @@ define('PPS', '5');
 
 // let's fly
 if (file_exists(PATH . 'install' . DS . 'config' . EXT)) {
-	require INSTALL . 'config' . EXT;
-	require SYS . 'start' . EXT;
+	require_once(INSTALL . 'config' . EXT);
+	require_once(SYS . 'start' . EXT);
 } else {
-	require INSTALL . 'install' . EXT;
+	require_once(INSTALL . 'install' . EXT);
 }
 
 ?>
