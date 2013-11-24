@@ -5,7 +5,7 @@ class create_discussion {
     	/**
     	 * This is the create discussion page
     	 */
-        require(PATH . 'themes' . DS . 'default' . DS . 'create' . EXT);
+        require(PATH . 'themes' . DS . siteinfo('theme') . DS . 'create' . EXT);
     }
 }
 

@@ -26,6 +26,7 @@ hr {
 	font-size: 13px;
 	text-transform: uppercase;
 	margin: 26px;
+	padding-bottom: 40px;
 }
 
 input {
@@ -50,6 +51,7 @@ input:focus { outline: none; }
 .left-input {
 	border-top-right-radius: 0px;
 	border-bottom-right-radius: 0px;
+	width: 90%;
 }
 
 .right-button {
@@ -188,6 +190,12 @@ form {
 	width: inherit;
 }
 
+.left {
+	float: left;
+	text-align: left;
+	width: inherit;
+}
+
 .content {
 	padding: 50px;
 	overflow: auto;
@@ -196,4 +204,8 @@ form {
 .grid-33 {
 	float: left;
 	width: 33.33333%;
+}
+
+.grid-33>.inner {
+	padding: 40px;
 }

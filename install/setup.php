@@ -36,18 +36,22 @@ if (!file_exists(PATH . 'config' . EXT)) {
   	$query = "CREATE TABLE " . $DBprefix . "Category(title TEXT(20000))";
   	mysqli_query($DB, $query);
 
+  	$query = "CREATE TABLE " . $DBprefix . "Meta(title TEXT(20000), description TEXT(20000), theme TEXT(20000))";
+  	mysqli_query($DB, $query);
+
   	// create a new user
   	// use this lib, because DB lib won't work yet
   	$DB = mysqli_connect($DBURL, $DBuser, $DBpassword, $DBname);
   	mysqli_query($DB, "INSERT INTO " . $DBprefix . "Users(session, username, password, name, email, role)VALUES (NULL, '$username', '$password', '$name', '$email', '3')");
   	$date = date('jS F, Y');
-  	mysqli_query($DB, "INSERT INTO " . $DBprefix . "Discussion(title, content, author, time, category, timestamp)VALUES ('Hello World', 'This is your first discussion.', '$username', '$date', NULL, NULL)");
-  	mysqli_query($DB, "INSERT INTO " . $DBprefix . "Category(title)VALUES ('Uncategorized')");
+  	mysqli_query($DB, "INSERT INTO " . $DBprefix . "Discussion(title, content, author, time, category, timestamp) VALUES('Hello World', 'This is your first discussion.', '$username', '$date', 'Uncategorized', NULL)");
+  	mysqli_query($DB, "INSERT INTO " . $DBprefix . "Category(title) VALUES('Uncategorized')");
+  	mysqli_query($DB, "INSERT INTO " . $DBprefix . "Meta(title, description, theme) VALUES('$forumname', '$forumdescription', 'default')");
 
 	file_put_contents(dirname(__FILE__) . '/' . 'config.php', "<?php ", FILE_APPEND);
 
-	file_put_contents(dirname(__FILE__) . '/' . 'config.php', "define('FORUM_NAME', '" . $forumname . "');", FILE_APPEND);
-	file_put_contents(dirname(__FILE__) . '/' . 'config.php', "define('FORUM_DESCRIPTION', '" . $forumdescription . "');", FILE_APPEND);
+	// file_put_contents(dirname(__FILE__) . '/' . 'config.php', "define('FORUM_NAME', '" . $forumname . "');", FILE_APPEND);
+	// file_put_contents(dirname(__FILE__) . '/' . 'config.php', "define('FORUM_DESCRIPTION', '" . $forumdescription . "');", FILE_APPEND);
 
 	file_put_contents(dirname(__FILE__) . '/' . 'config.php', "define('DB_NAME', '" . $DBname . "');", FILE_APPEND);
 	file_put_contents(dirname(__FILE__) . '/' . 'config.php', "define('DB_USER', '" . $DBuser . "');", FILE_APPEND);

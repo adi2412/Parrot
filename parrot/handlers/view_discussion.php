@@ -7,7 +7,7 @@ class view_discussion {
     	 */
         global $discussion_title;
         $discussion_title = discussion::decode_title($slug);
-        require_once(PATH . 'themes' . DS . 'default' . DS . 'discussion' . EXT);
+        require_once(PATH . 'themes' . DS . siteinfo('theme') . DS . 'discussion' . EXT);
     }
 }
 

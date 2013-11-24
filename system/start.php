@@ -30,7 +30,8 @@ Toro::serve(array(
     BASE . 'discussion/:alpha/reply' => 'reply_discussion',
     BASE . 'admin' => 'admin',
     BASE . 'admin/category/:alpha/delete' => 'admin_cat_delete',
-    BASE . 'admin/category/create' => 'admin_cat_create'
+    BASE . 'admin/category/create' => 'admin_cat_create',
+    BASE . 'admin/info/update' => 'admin_info_update',
 ));
 
 ?>
