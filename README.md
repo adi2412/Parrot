@@ -1,7 +1,7 @@
 Parrot
 ======
 
-Parrot is a super easy to use forum solution that's build to be fast, secure, and simple. It's so quick to install that you'll finally have time to feed Poly that cracker.
+Parrot is a super easy to use forum solution that's built to be fast, secure, and simple. It's so quick to install that you'll finally have time to feed Poly that cracker.
 
 Use
 ===
