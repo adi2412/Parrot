@@ -13,7 +13,7 @@ class login {
             setcookie('parrotSession', null, -1, BASE);
 		}
 
-        require(SYS . 'queries' . EXT);
+        //require(SYS . 'queries' . EXT);
         require(SYS . 'admin' . EXT);
         require(APP . 'views' . DS . 'login' . EXT);
     }

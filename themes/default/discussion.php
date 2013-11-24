@@ -1,4 +1,4 @@
-<?php meta_header(); ?>
+<?php get_header(); ?>
 
 <div class="wrap">
 	<div class="menu" align="right">
@@ -6,42 +6,40 @@
 		<!-- log in / out button-->
 		<a href="<?php echo session_link(); ?>"><button><?php echo session_text(); ?></button></a>
 	</div>
-	<?php $discussion = get_discussion($slug); ?>
-	<div class="discussion">
+	<?php while(have_discussion()) : thediscussion() ?>
+		<div class="discussion">
 		<div class="title">
-			<h4><?php echo $discussion['title']; ?></h4>
+			<h4><?php echo the_title(); ?></h4>
 			<div class="details">
-				<div class="col"><h3>By <?php echo $discussion['author']; ?></h3></div>
+				<div class="col"><h3>By <?php echo the_author(); ?></h3></div>
 	    		<div class="col"></div>
 	    		<div class="col"></div>
-	    		<div class="lastcol"><h3><?php echo $discussion['time']; ?></h3></div>
+	    		<div class="lastcol"><h3><?php echo the_time(); ?></h3></div>
 			</div>
 			<p>
-				<?php echo Parsedown::instance()->parse($discussion['content']); ?>
+				<?php echo the_content(); ?>
 			</p>
 			<hr>
-		</div>
-		<!-- foreach goes here -->
-		<div class="reply">
-			<?php $replies = get_replies($discussion['title']); ?>
-			<?php foreach ($replies as $reply) : ?>
-				<div class="content">
-					<div class="details">
-						<div class="col"><h3>By <?php echo $reply['author']; ?></h3></div>
-	    				<div class="col"></div>
-	    				<div class="lastcol"><h3><?php echo $reply['time']; ?></h3></div>
-					</div>
-					<?php echo Parsedown::instance()->parse($reply['content']); ?>
-				</div>
-				<hr>
-			<?php endforeach; ?>
-		</div>
 
-		<div class="reply">
-			<?php // create a new reply form with button text 'Reply' ?>
-			<?php reply_form($discussion['title'], 'Reply'); ?>
-		</div>
+			<div class="reply">
+				<?php while(have_replies()) : thereply() ?>
+					<div class="content">
+						<div class="details">
+							<div class="col"><h3>By <?php echo reply_author(); ?></h3></div>
+		    				<div class="col"></div>
+		    				<div class="lastcol"><h3><?php echo reply_time(); ?></h3></div>
+						</div>
+						<?php echo reply_content(); ?>
+						</div>
+					<hr>
+				<?php endwhile; ?>
+			</div>
+
+			<div class="reply">
+				<?php reply_form('Reply'); ?>
+			</div>
+		<?php endwhile; ?>
 	</div>
 </div>
 
-<?php meta_footer(); ?>
+<?php get_footer(); ?>

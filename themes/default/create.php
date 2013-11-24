@@ -1,4 +1,4 @@
-<?php meta_header(); ?>
+<?php get_header(); ?>
 
 <div class="wrap">
 	<div class="menu" align="right">
@@ -12,4 +12,4 @@
 	</form>
 </div>
 
-<?php meta_footer(); ?>
+<?php get_footer(); ?>

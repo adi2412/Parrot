@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<!-- meta -->
-		<title><?php echo meta_title(); ?> :: Signup</title>
+		<title><?php echo siteinfo('title'); ?> :: Signup</title>
 		<link rel="stylesheet" type="text/css" href="<?php echo admin_stylesheet(); ?>">
 	</head>
 	<body>
@@ -17,7 +17,7 @@
 						<input type="submit" class="submit" value="Signup"/>
 					</form>
 					<a href="<?php echo admin_loginLink(); ?>"><button class="light">Login</button></a><br/>
-					<a href="<?php echo meta_URL(); ?>" class="small">&larr; Back to <?php echo meta_title(); ?></a>
+					<a href="<?php echo get_site_url(); ?>" class="small">&larr; Back to <?php echo siteinfo('title'); ?></a>
 				</div>
 			</div>
 		</div>

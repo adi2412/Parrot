@@ -73,6 +73,7 @@ class discussion {
 	    if ($author == $currentUser) {
 	    	$query = database::getInstance()->query("DELETE FROM `" . DB_PREFIX . "Discussion` WHERE `title`='$title'");
 	    	$query->execute();
+	    	$query = database::getInstance()->query("DELETE FROM `" . DB_PREFIX . "Replies` WHERE `discussionTitle`='$title'");
 	    	header('Location: http://' . getenv(DOMAIN_NAME) . BASE);
 		} else {
 			// not the same person

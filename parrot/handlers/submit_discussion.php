@@ -7,7 +7,7 @@ class submit_discussion {
     	 */
 		if (auth::isLoggedIn()) {
             if (preg_match("/^[A-Za-z0-9-_\s]+$/", $_POST['title'])) {
-    			require_once(SYS . 'queries' . EXT);
+    			//require_once(SYS . 'queries' . EXT);
             	require_once(SYS . 'admin' . EXT);
             	require_once(APP . 'libraries' . DS . 'discussion' . EXT);
             	$title = $_POST['title'];

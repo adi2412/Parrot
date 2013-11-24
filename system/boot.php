@@ -7,6 +7,12 @@ require APP . 'libraries' . DS . 'toro' . EXT;
 require APP . 'libraries' . DS . 'auth' . EXT;
 require APP . 'libraries' . DS . 'database' . EXT;
 require APP . 'libraries' . DS . 'discussion' . EXT;
+require APP . 'libraries' . DS . 'parsedown' . EXT;
+
+$files = glob(SYS . 'functions' . DS . '/*' . EXT);
+foreach ($files as $file) {
+    require($file);   
+}
 
 /**
  * Handlers
@@ -26,5 +32,7 @@ require APP . 'handlers' . DS . 'verify_login' . EXT;
 require APP . 'handlers' . DS . 'create_discussion' . EXT;
 require APP . 'handlers' . DS . 'submit_discussion' . EXT;
 require APP . 'handlers' . DS . 'reply_discussion' . EXT;
+
+$discussion_title = null;
 
 ?>
