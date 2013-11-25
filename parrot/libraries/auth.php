@@ -17,11 +17,9 @@ class auth {
             $query->execute();
             header('Location: http://' . getenv(DOMAIN_NAME) . BASE);
         } else {
-            /*
-            $errorMsg = urlencode('Incorrect username or password.');
-            header('Location: http://' . getenv(DOMAIN_NAME) . BASE . 'login' . '?error=' . $errorMsg);
-            */
-            header('Location: http://' . getenv(DOMAIN_NAME) . BASE . 'login');
+            global $messages;
+            $messages = 'Incorrect username or password.';
+            require(APP . 'views' . DS . 'login' . EXT);
         }
 	}
 
@@ -54,10 +52,14 @@ class auth {
                 // woo! username is not taken
                 $query = database::getInstance()->query("INSERT INTO `" . DB_PREFIX . "Users` (session, username, password, name, email, role) VALUES (NULL, '$username', '$password', '$name', '$email', 1)");
             } else {
-                // username is already taken
+                global $messages;
+                $messages = 'Username is already taken';
+                require(APP . 'views' . DS . 'signup' . EXT);
             }
        } else {
-            // they need to fill in all of the fields
+            global $messages;
+            $messages = 'Please fill out all fields.';
+            require(APP . 'views' . DS . 'signup' . EXT);
        }
     }
 

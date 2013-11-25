@@ -69,4 +69,15 @@ function info_update_link() {
 	return BASE . 'admin' . DS . 'info' . DS . 'update';
 }
 
+/**
+ * Gets current message in variable
+ */
+function msg_read() {
+	global $messages;
+	if ($messages !== null) {
+		echo '<div class="msg">' . $messages . '</div>';
+		$messages = null;
+	}
+}
+
 ?>

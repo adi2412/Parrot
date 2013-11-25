@@ -12,7 +12,9 @@ class submit_discussion {
                 $category = $_POST['category'];
             	discussion::submit($title, $content, $category);
             } else {
-                // make it alpha-numeric, asshole
+                global $messages;
+                $messages = 'Only include spaces, letters and numbers in the title.';
+                require(PATH . 'themes' . DS . siteinfo('theme') . DS . 'create' . EXT);
             }
 		} else {
 			header('Location: http://' . getenv(DOMAIN_NAME) . BASE . 'login');

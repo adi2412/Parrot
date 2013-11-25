@@ -14,22 +14,31 @@ class discussion {
 	    foreach ($rows as $row) {
 	    	$checkTitle = $row['title'];
 	    }
-		if (auth::isLoggedIn() && $checkTitle !== $title) {
-			// strip the HTML tags... Markdown only
-			$title = strip_tags($title);
-			$content = strip_tags($content);
-			$session = auth::getSession();
-			$query = database::getInstance()->query("SELECT * FROM `" . DB_PREFIX . "Users` WHERE `session`='$session'");
-	    	$rows = $query->fetchAll();
-	    	$username;
-	    	foreach ($rows as $row) {
-	    		$username = $row['username'];
-	    	}
-	    	$date = date('jS F, Y');
-	    	$query = database::getInstance()->query("INSERT INTO `" . DB_PREFIX . "Discussion` (title, author, content, time, category) VALUES ('$title', '$username', '$content', '$date', '$category')");
-			header('Location: http://' . getenv(DOMAIN_NAME) . BASE . 'discussion' . DS . str_replace(' ', '-', $title));
+		if (auth::isLoggedIn()) {
+			if ($checkTitle !== $title) {
+				// strip the HTML tags... Markdown only
+				$title = strip_tags($title);
+				$content = strip_tags($content);
+				$session = auth::getSession();
+				$query = database::getInstance()->query("SELECT * FROM `" . DB_PREFIX . "Users` WHERE `session`='$session'");
+		    	$rows = $query->fetchAll();
+		    	$username;
+		    	foreach ($rows as $row) {
+		    		$username = $row['username'];
+		    	}
+		    	$date = date('jS F, Y');
+		    	$query = database::getInstance()->query("INSERT INTO `" . DB_PREFIX . "Discussion` (title, author, content, time, category) VALUES ('$title', '$username', '$content', '$date', '$category')");
+				header('Location: http://' . getenv(DOMAIN_NAME) . BASE . 'discussion' . DS . str_replace(' ', '-', $title));
+		    } else {
+		    	global $messages;
+		    	$messages = 'Please choose another title.';
+		    	require(PATH . 'themes' . DS . siteinfo('theme') . DS . 'create' . EXT);
+		    }
 		} else {
-			// not logged in or another post already has same title
+			// the user should have already been re-directed to the login page by now
+			global $messages;
+		    $messages = 'Please login to post.';
+		    require(PATH . 'themes' . DS . siteinfo('theme') . DS . 'create' . EXT);
 		}
 	}
 

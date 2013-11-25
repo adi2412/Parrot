@@ -221,3 +221,21 @@ button {
 	font-size: 11px;
 	padding: 2px;
 }
+
+.msg {
+	background-color: #fff;
+	color: #5B696E;
+	border-width: 1px;
+	border-style: solid;
+	border-radius: 3px;
+	border-color: #EDF1F2;
+	padding: 10px;
+	padding-left: 16px;
+	padding-right: 16px;
+	font-size: 14px;
+	font-weight: 300;
+	margin-bottom: 20px;
+	-webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}

@@ -28,5 +28,6 @@ foreach ($files as $file) {
  * Vars
  */
 $discussion_title = null;
+$messages;
 
 ?>

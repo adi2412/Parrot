@@ -8,6 +8,7 @@
 	<body>
 		<div class="wrap">
 			<div class="inner">
+				<?php msg_read(); ?>
 				<div class="group">
 					<form name="input" action="<?php echo signup_submitURL(); ?>" method="post">
 						<input placeholder="Username" name="username" class="full"/><br/>
