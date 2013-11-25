@@ -19,7 +19,7 @@ class category {
       $title = strip_tags($title);
       $query = database::getInstance()->query("INSERT INTO `" . DB_PREFIX . "Category` (title) VALUES ('$title')");
     } else {
-      // not logged in or another post already has same title
+      // not logged in or not admin
     }
   }
 

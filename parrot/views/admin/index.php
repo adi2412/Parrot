@@ -15,6 +15,7 @@
 				</div>
 				<hr>
 				<div class="content">
+					<?php msg_read(); ?>
 					<div class="grid-33">
 						<div class="inner">
 							<h1>Categories</h1>

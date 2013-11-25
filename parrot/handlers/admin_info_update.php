@@ -13,7 +13,9 @@ class admin_info_update {
             	info::update($title, $description, $theme);
                 header('Location: http://' . getenv(DOMAIN_NAME) . BASE . 'admin');
             } else {
-                // make it alpha-numeric, asshole
+                global $messages;
+                $messages = 'Only include spaces, letters and numbers in the name.';
+                require(APP . 'views' . DS . 'admin' . DS . 'index' . EXT);
             }
 		} else {
 			header('Location: http://' . getenv(DOMAIN_NAME) . BASE . 'login');
