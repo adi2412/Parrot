@@ -23,7 +23,7 @@
 								<a href="<?php echo cat_delete_link(); ?>"><h2 class="del"><?php echo cat_title(); ?></h2></a>
 							<?php endwhile; ?>
 							<form action="<?php echo cat_create_link(); ?>" method="post">
-								<input class="left-input" name="title"><input type="submit" class="right-button" value="+"/>
+								<input class="left-input" name="title" autocomplete="off"><input type="submit" class="right-button" value="+"/>
 							</form>
 						</div>
 					</div>
@@ -32,9 +32,9 @@
 							<h1>Meta</h1>
 							<form action="<?php echo info_update_link(); ?>" method="post">
 								<h2>Name</h2>
-								<input name="title" value="<?php echo siteinfo('title'); ?>" class="full">
+								<input name="title" value="<?php echo siteinfo('title'); ?>" class="full" autocomplete="off">
 								<h2>Description</h2>
-								<input name="description" value="<?php echo siteinfo('description'); ?>" class="full">
+								<input name="description" value="<?php echo siteinfo('description'); ?>" class="full" autocomplete="off">
 								<h2>Theme</h2>
 								<select name="theme">
 									<?php foreach (get_themes() as $theme) : ?>

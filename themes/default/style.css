@@ -19,7 +19,7 @@ header {
 	padding-bottom: 80px;
 	text-align: center;
 	background-color: #EDF1F2;
-	color: #4A4A4A;
+	color: #5B696E;
 }
 
 select {
@@ -27,6 +27,7 @@ select {
 	border-radius: 3px; 
 	border-color: #EDF1F2;
 	padding: 9px;
+	color: #5B696E;
 }
 
 footer {
@@ -35,7 +36,7 @@ footer {
 
 header>a {
 	text-decoration: none;
-	color: #4A4A4A;
+	color: #5B696E;
 }
 
 input {
@@ -45,7 +46,7 @@ input {
 	width: 100%;
 	font-size: 52px;
 	font-weight: 300;
-	color: #4A4A4A;
+	color: #5B696E;
 }
 
 textarea {
@@ -56,7 +57,7 @@ textarea {
 	font-family: Georgia, serif;
 	font-size: 14px;
 	font-weight: 300;
-	color: #4A4A4A;
+	color: #5B696E;
 	resize: none;
 }
 
@@ -78,7 +79,7 @@ h1 {
 h2 {
 	font-weight: 300;
 	font-size: 22px;
-	color: #4A4A4A;
+	color: #5B696E;
 	margin-bottom: 6px;
 	text-decoration: none;
 }
@@ -93,7 +94,7 @@ h4 {
 	font-size: 32px;
 	font-style: normal;
 	margin-bottom: 10px;
-	color: #4A4A4A;
+	color: #5B696E;
 }
 
 hr {
@@ -102,7 +103,7 @@ hr {
 	height: 3px;
 	border-width: 0px;
 	border-top-width: 2px;
-	border-top-color: #4A4A4A;
+	border-top-color: #5B696E;
 	border-bottom-width: 1px;
 	border-bottom-color: #E8E8E8;
 	margin-top: 20px;
@@ -217,7 +218,7 @@ button {
 	border-width: 0px;
 	border-radius: 2px;
 	background-color: #EDF1F2;
-	color: #4A4A4A;
+	color: #5B696E;
 	font-size: 11px;
 	padding: 2px;
 }
