@@ -4,7 +4,12 @@ Parrot
 Parrot is a super easy to use forum solution that's built to be fast, secure, and simple. It's so quick to install that you'll finally have time to feed Polly that cracker.
 
 ![](http://codingbean.com/uploads/parrot-default.png)
-<div align="right">Default theme</div>
+<div align="right">Early default theme</div>
+
+<br/>
+
+![](http://codingbean.com/uploads/parrot-admin-2.png)
+<div align="right">Early admin panel</div>
 
 Use
 ===
