@@ -16,6 +16,11 @@ Use
 
 Currently Parrot is in the development stage. This means that even though you can use it on your server, it's still going to be missing quite a bit of features. I'd recommend waiting a while. Maybe even check out [this parrot](http://bit.ly/1jnMQ6S). If you still want to install, though, just download as ZIP and extract to any directory on your server you want, run the lightning fast installer, and start posting!
 
+Why
+===
+
+You may be thinking, "Why should I use Parrot when Discourse has a much large community and has been in development for years?" Well, for starters, Parrot is much more lightweight. Parrot also is super easy to extend, theme, get support for (just email me at iam@codingbean.com), and manage. It's made for the kinds of people who spend their days at coffee shops. Not some f*cked up company with people who are paid to do nothing. Parrot is for the doers. The pixel pushers.
+
 Contributing
 =========
 
