@@ -1,7 +1,7 @@
 Parrot
 ======
 
-Parrot is a super easy to use forum solution that's built to be fast, secure, and simple. It's so quick to install that you'll finally have time to feed Polly that cracker.
+Parrot is a super easy to use discussion platform that's built to be fast, secure, and simple. It's so quick to install that you'll finally have time to feed Polly that cracker.
 
 ![](http://codingbean.com/uploads/parrot-default.png)
 <div align="right">Early default theme</div>
@@ -14,7 +14,7 @@ Parrot is a super easy to use forum solution that's built to be fast, secure, an
 Use
 ===
 
-Currently Parrot is in the development stage. This means that even though you can use it on your server, it's still going to be missing quite a bit of features. I'd recommend waiting a while. Maybe even check out [this parrot](http://bit.ly/1jnMQ6S). If you still want to install, though, just download as ZIP and extract to any directory on your server you want, run the lightning fast installer, and start posting!
+Currently Parrot is in the development stage. This means that even though you can use it on your server, it's still going to be missing quite a bit of features. I'd recommend waiting a while. Maybe even check out [this parrot](http://bit.ly/1jnMQ6S) if you have time. If you still want to install, though, just download as ZIP and extract to any directory on your server you want, run the lightning fast installer, and start posting!
 
 Why
 ===
