@@ -235,3 +235,21 @@ select {
     -moz-box-sizing: border-box;
     box-sizing: border-box;
 }
+
+.details {
+    height: auto;
+    overflow: auto;
+	font-family: 'Helvetica Neue', sans-serif;
+	font-size: 16px;
+	color: #A1A1A1;
+}
+
+.details>.col {
+    float: left;
+    width: 25%;
+}
+
+.details>.lastcol {
+    float: right;
+    width: 25%;
+}

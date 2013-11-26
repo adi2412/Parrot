@@ -50,7 +50,13 @@ class auth {
             $rows = $query->fetchAll();
             if (count($rows) == 0) {
                 // woo! username is not taken
-                $query = database::getInstance()->query("INSERT INTO `" . DB_PREFIX . "Users` (session, username, password, name, email, role) VALUES (NULL, '$username', '$password', '$name', '$email', 1)");
+                if (preg_match("/^[A-Za-z0-9-_\s]+$/", $username)) {
+                    $query = database::getInstance()->query("INSERT INTO `" . DB_PREFIX . "Users` (session, username, password, name, email, role) VALUES (NULL, '$username', '$password', '$name', '$email', 1)");
+                } else {
+                    global $messages;
+                    $messages = 'Please only use numbers and letters in your username';
+                    require(APP . 'views' . DS . 'signup' . EXT);
+                }
             } else {
                 global $messages;
                 $messages = 'Username is already taken';
@@ -58,9 +64,88 @@ class auth {
             }
        } else {
             global $messages;
-            $messages = 'Please fill out all fields.';
+            $messages = 'Please fill out all fields';
             require(APP . 'views' . DS . 'signup' . EXT);
        }
+    }
+
+    /**
+     * Deletes an account
+     */
+    public function deleteAccount($username) {
+        // check if logged in again as an admin as a 
+        // safety net the first check is mainly just 
+        //to redirect pesky users
+        if (auth::isAdmin()) {
+            $query = database::getInstance()->query("DELETE FROM `" . DB_PREFIX . "Users` WHERE `username`='$username'");
+            $query->execute();
+        } else {
+            // not an admin
+        }
+    }
+
+    /**
+     * Demotes an account
+     */
+    public function demoteAccount($username) {
+        // check if logged in again as an admin as a 
+        // safety net the first check is mainly just 
+        //to redirect pesky users
+        if (auth::isAdmin()) {
+            if (auth::getCurrentUser() !== $username) {
+                $query = database::getInstance()->query("SELECT * FROM `" . DB_PREFIX . "Users` WHERE `username`='$username'");
+                $rows = $query->fetchAll();
+                $role;
+                foreach ($rows as $row) {
+                    $role = $row['role'];
+                }
+                if ($role > 1) {
+                    $role--;
+                } else {
+                    // can't go any less
+                }
+                database::getInstance()->query("UPDATE `" . DB_PREFIX . "Users` SET `role` = '$role' WHERE `username` = '$username'");
+                header('Location: http://' . getenv(DOMAIN_NAME) . BASE . 'admin');
+            } else {
+                global $messages;
+                $messages = 'You cannot change your own status';
+                require(APP . 'views' . DS . 'admin' . DS . 'index' . EXT);
+            }
+        } else {
+            // not an admin
+        }
+    }
+
+    /**
+     * Premotes an account
+     */
+    public function premoteAccount($username) {
+        // check if logged in again as an admin as a 
+        // safety net the first check is mainly just 
+        //to redirect pesky users
+        if (auth::isAdmin()) {
+            if (auth::getCurrentUser() !== $username) {
+                $query = database::getInstance()->query("SELECT * FROM `" . DB_PREFIX . "Users` WHERE `username`='$username'");
+                $rows = $query->fetchAll();
+                $role;
+                foreach ($rows as $row) {
+                    $role = $row['role'];
+                }
+                if ($role < 3) {
+                    $role++;
+                } else {
+                    // can't go any more
+                }
+                database::getInstance()->query("UPDATE `" . DB_PREFIX . "Users` SET `role` = '$role' WHERE `username` = '$username'");
+                header('Location: http://' . getenv(DOMAIN_NAME) . BASE . 'admin');
+            } else {
+                global $messages;
+                $messages = 'You cannot change your own status';
+                require(APP . 'views' . DS . 'admin' . DS . 'index' . EXT);
+            }
+        } else {
+            // not an admin
+        }
     }
 
     /**
@@ -85,7 +170,7 @@ class auth {
     /**
      * Checks if the current user is an admin
      */
-    function isAdmin() {
+    public function isAdmin() {
         if (auth::getCurrentUserNumRole() == 3) {
             return true;
         } else {
@@ -96,7 +181,7 @@ class auth {
     /**
      * Checks if the given username is an admin
      */
-    function checkAdmin($username) {
+    public function checkAdmin($username) {
         if (auth::getUserNumRole($username) == 3) {
             return true;
         } else {
@@ -107,7 +192,7 @@ class auth {
     /**
      * Checks if the current user is a moderator
      */
-    function isMod() {
+    public function isMod() {
         if (auth::getCurrentUserNumRole() == 2) {
             return true;
         } else {
@@ -118,7 +203,7 @@ class auth {
     /**
      * Checks if the current user is a participant 
      */
-    function isParticipant() {
+    public function isParticipant() {
         if (auth::getCurrentUserNumRole() == 1) {
             return true;
         } else {

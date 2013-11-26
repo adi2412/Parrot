@@ -32,6 +32,9 @@ Toro::serve(array(
     BASE . 'admin/category/:alpha/delete' => 'admin_cat_delete',
     BASE . 'admin/category/create' => 'admin_cat_create',
     BASE . 'admin/info/update' => 'admin_info_update',
+    BASE . 'admin/user/:alpha/delete' => 'admin_user_delete',
+    BASE . 'admin/user/:alpha/premote' => 'admin_user_premote',
+    BASE . 'admin/user/:alpha/demote' => 'admin_user_demote'
 ));
 
 ?>

@@ -46,6 +46,24 @@
 						</div>
 					</div>
 					<div class="grid-33">
+						<div class="inner">
+							<h1>Users</h1>
+							<?php while(have_user()) : theuser() ?>
+								<div class="details">
+									<div class="col">
+										<a href="<?php echo user_delete_link(); ?>"><h2 class="del"><?php echo user_username(); ?></h2></a>
+									</div>
+									<div class="col">
+										<a href="<?php echo user_premote_link(); ?>"><h2>Premote</h2></a>
+									</div>
+									<div class="col">
+										<a href="<?php echo user_demote_link(); ?>"><h2>Demote</h2></a>
+									</div>
+									<div class="lastcol">
+									</div>
+								</div>
+							<?php endwhile; ?>
+						</div>
 					</div>
 				</div>
 			</div>
