@@ -8,7 +8,7 @@ Parrot is a super easy to use discussion platform that's built to be fast, secur
 
 <br/>
 
-![](http://codingbean.com/uploads/parrot-admin-3.png)
+![](http://codingbean.com/uploads/parrot-admin-4.png)
 <div align="right">Early admin panel</div>
 
 Use
