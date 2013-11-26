@@ -8,7 +8,7 @@ Parrot is a super easy to use forum solution that's built to be fast, secure, an
 
 <br/>
 
-![](http://codingbean.com/uploads/parrot-admin-2.png)
+![](http://codingbean.com/uploads/parrot-admin-3.png)
 <div align="right">Early admin panel</div>
 
 Use
