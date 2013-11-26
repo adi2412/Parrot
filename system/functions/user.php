@@ -52,10 +52,10 @@ function user_delete_link() {
 
 /**
  * LOOP
- * Get's the link to premote a user
+ * Get's the link to promote a user
  */
-function user_premote_link() {
-	return discussion::encode_title(BASE . 'admin' . DS . 'user' . DS . user_username() . DS . 'premote');
+function user_promote_link() {
+	return discussion::encode_title(BASE . 'admin' . DS . 'user' . DS . user_username() . DS . 'promote');
 }
 
 /**

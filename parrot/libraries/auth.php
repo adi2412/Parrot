@@ -117,9 +117,9 @@ class auth {
     }
 
     /**
-     * Premotes an account
+     * Promotes an account
      */
-    public function premoteAccount($username) {
+    public function promoteAccount($username) {
         // check if logged in again as an admin as a 
         // safety net the first check is mainly just 
         //to redirect pesky users

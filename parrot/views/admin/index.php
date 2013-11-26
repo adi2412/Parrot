@@ -54,7 +54,7 @@
 										<a href="<?php echo user_delete_link(); ?>"><h2 class="del"><?php echo user_username(); ?></h2></a>
 									</div>
 									<div class="col">
-										<a href="<?php echo user_premote_link(); ?>"><h2>Premote</h2></a>
+										<a href="<?php echo user_promote_link(); ?>"><h2>Promote</h2></a>
 									</div>
 									<div class="col">
 										<a href="<?php echo user_demote_link(); ?>"><h2>Demote</h2></a>
