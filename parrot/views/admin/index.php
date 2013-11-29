@@ -1,4 +1,5 @@
 <?php if (auth::isLoggedIn() && auth::isAdmin()) : ?>
+	
 <!DOCTYPE html>
 <html>
 	<head>
@@ -51,7 +52,11 @@
 							<?php while(have_user()) : theuser() ?>
 								<div class="details">
 									<div class="col">
-										<a href="<?php echo user_delete_link(); ?>"><h2 class="del"><?php echo user_username(); ?></h2></a>
+										<?php if (!checkIfAdmin(user_username())) : ?>
+											<a href="<?php echo user_delete_link(); ?>"><h2 class="del"><?php echo user_username(); ?></h2></a>
+										<?php else : ?>
+											<a href="<?php echo user_delete_link(); ?>"><h2 class="del important"><?php echo user_username(); ?></h2></a>
+										<?php endif; ?>
 									</div>
 									<div class="col">
 										<a href="<?php echo user_promote_link(); ?>"><h2>Promote</h2></a>
@@ -69,12 +74,9 @@
 			</div>
 		</div>
 		<div class="credit">
-			<h1><a class="perma" href="https://github.com/Codingbean/Parrot">Powered by Parrot</a></h1>
+			<h1><a class="perma" href="https://github.com/Codingbean/Parrot">Powered by Parrot <?php echo VERSION; ?></a></h1>
 		</div>
 	</body>
 </html>
-
-<?php else : ?>
-
 
 <?php endif; ?>

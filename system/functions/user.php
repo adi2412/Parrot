@@ -33,7 +33,6 @@ function have_user() {
 }
 
 /**
- * LOOP
  * Updates the user object
  */
 function theuser() {
@@ -43,7 +42,6 @@ function theuser() {
 }
 
 /**
- * LOOP
  * Get's the link to delete a user
  */
 function user_delete_link() {
@@ -51,7 +49,6 @@ function user_delete_link() {
 }
 
 /**
- * LOOP
  * Get's the link to promote a user
  */
 function user_promote_link() {
@@ -59,7 +56,6 @@ function user_promote_link() {
 }
 
 /**
- * LOOP
  * Get's the link to demote a user
  */
 function user_demote_link() {
@@ -67,7 +63,7 @@ function user_demote_link() {
 }
 
 /**
- * Get all users
+ * Gets all users
  */
 function get_users() {
 	$query = database::getInstance()->query("SELECT * FROM `" . DB_PREFIX . "Users` ORDER BY `username`");
@@ -75,17 +71,25 @@ function get_users() {
 	$user_array;
 	for($i = 0; $i < count($rows); $i++) {
 	    $user_array[$i]['username'] = $rows[$i]['username'];
+	    $user_array[$i]['email'] = $rows[$i]['email'];
 	}
 	return $user_array;
 }
 
 /**
- * LOOP
  * Gets user's username
  */
 function user_username() {
 	global $user;
 	return $user['username'];
+}
+
+/**
+ * Gets user's email
+ */
+function user_email() {
+	global $user;
+	return $user['email'];
 }
 
 ?>

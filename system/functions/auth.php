@@ -53,4 +53,15 @@ function admin_loginLink() {
 	return BASE . 'login';
 }
 
+/**
+ * Checks if the given username is an admin
+ */
+function checkIfAdmin($username) {
+    if (auth::getUserNumRole($username) == 3) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 ?>

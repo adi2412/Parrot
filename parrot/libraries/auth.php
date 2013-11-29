@@ -77,8 +77,15 @@ class auth {
         // safety net the first check is mainly just 
         //to redirect pesky users
         if (auth::isAdmin()) {
-            $query = database::getInstance()->query("DELETE FROM `" . DB_PREFIX . "Users` WHERE `username`='$username'");
-            $query->execute();
+            if (auth::getCurrentUser() !== $username) {
+                $query = database::getInstance()->query("DELETE FROM `" . DB_PREFIX . "Users` WHERE `username`='$username'");
+                $query->execute();
+                header('Location: http://' . getenv(DOMAIN_NAME) . BASE . 'admin');
+            } else {
+                global $messages;
+                $messages = 'You cannot delete your own account';
+                require(APP . 'views' . DS . 'admin' . DS . 'index' . EXT);
+            }
         } else {
             // not an admin
         }
@@ -226,7 +233,7 @@ class auth {
     /**
      * Gets the numeric role of a user
      */
-    private function getUserNumRole($username) {
+    public function getUserNumRole($username) {
         $query = database::getInstance()->query("SELECT * FROM `" . DB_PREFIX . "Users` WHERE `username`='$username'");
         $rows = $query->fetchAll();
         foreach ($rows as $row) {

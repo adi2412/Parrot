@@ -253,3 +253,7 @@ select {
     float: right;
     width: 25%;
 }
+
+.important {
+	color: #5B696E;
+}
