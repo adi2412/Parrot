@@ -60,7 +60,7 @@ function discussion_menu($title) {
 	if ($owner == auth::getCurrentUser() || auth::isAdmin() || auth::isMod()) {
 		echo '<a href="' . delete_link($title) . '"><button class="red">Delete</button></a>';
 		if (auth::isAdmin() || auth::isMod()) {
-			echo '<a href="' . stick_link($title) . '"><button>' . stick_text() . '</button></a>';
+			echo '<a href="' . stick_link($title) . '"><button>Toggle Stick</button></a>';
 		}
 	} else {
 		// don't display delete, because they're not the owner
@@ -79,17 +79,6 @@ function delete_link($title) {
  */
 function stick_link($title) {
 	return BASE . 'discussion' . DS . discussion::encode_title($title) . DS . 'stick';
-}
-
-/**
- * Get's the text for the sticky of a discussion
- */
-function stick_text() {
-	if (is_sticky()) {
-		return 'Unstick';
-	} else {
-		return 'Stick';
-	}
 }
 
 /**
