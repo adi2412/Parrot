@@ -23,6 +23,21 @@ hr {
 /**
  * Links
  */
+a {
+	color: #A1A1A1;
+	text-decoration: none;
+	padding-bottom: 1px;
+	border-width: 0px;
+	border-bottom-width: 1px;
+	border-bottom-color: #A1A1A1;
+	border-bottom-style: dotted;
+}
+
+.clear {
+	border-width: 0px;
+	padding-bottom: 0px;
+}
+
 header>a {
 	text-decoration: none;
 	color: #5B696E;
@@ -34,6 +49,8 @@ header>a {
 	text-transform: uppercase;
 	text-decoration: none;
 	color: #A1A1A1;
+	border-width: 0px;
+	padding-bottom: 0px;
 }
 
 .reply>a {
@@ -45,7 +62,6 @@ header>a {
 
 footer {
 	padding: 40px;
-	padding-top: 30px;
 }
 
 header {

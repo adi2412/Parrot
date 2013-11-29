@@ -4,7 +4,7 @@
 	<div class="menu" align="right">
 		<?php discussion_menu($slug); ?>
 		<!-- log in / out button-->
-		<a href="<?php echo session_link(); ?>"><button><?php echo session_text(); ?></button></a>
+		<a href="<?php echo session_link(); ?>" class="clear"><button><?php echo session_text(); ?></button></a>
 	</div>
 	<?php while(have_discussion()) : thediscussion() ?>
 		<div class="discussion">

@@ -58,9 +58,9 @@ function discussion_menu($title) {
 	foreach ($rows as $row) { $owner = $row['author']; }
 	// display these if it's the owner of the article
 	if ($owner == auth::getCurrentUser() || auth::isAdmin() || auth::isMod()) {
-		echo '<a href="' . delete_link($title) . '"><button class="red">Delete</button></a>';
+		echo '<a class="clear" href="' . delete_link($title) . '"><button class="red">Delete</button></a>';
 		if (auth::isAdmin() || auth::isMod()) {
-			echo '<a href="' . stick_link($title) . '"><button>Toggle Stick</button></a>';
+			echo '<a class="clear" href="' . stick_link($title) . '"><button>Toggle Stick</button></a>';
 		}
 	} else {
 		// don't display delete, because they're not the owner

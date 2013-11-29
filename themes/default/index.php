@@ -2,8 +2,8 @@
 
 <div class="wrap">
 	<div class="menu" align="right">
-		<a href="<?php echo get_createlink(); ?>"><button>Create a new discussion</button></a>
-		<a href="<?php echo session_link(); ?>"><button><?php echo session_text(); ?></button></a>
+		<a href="<?php echo get_createlink(); ?>" class="clear"><button>Create a new discussion</button></a>
+		<a href="<?php echo session_link(); ?>" class="clear"><button><?php echo session_text(); ?></button></a>
 	</div>
 	<?php while(have_discussion()) : thediscussion() ?>
 		<div class="discussion-preview">
