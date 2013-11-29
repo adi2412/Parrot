@@ -59,6 +59,9 @@ function discussion_menu($title) {
 	// display these if it's the owner of the article
 	if ($owner == auth::getCurrentUser() || auth::isAdmin() || auth::isMod()) {
 		echo '<a href="' . delete_link($title) . '"><button class="red">Delete</button></a>';
+		if (auth::isAdmin() || auth::isMod()) {
+			echo '<a href="' . stick_link($title) . '"><button>' . stick_text() . '</button></a>';
+		}
 	} else {
 		// don't display delete, because they're not the owner
 	}
@@ -69,6 +72,24 @@ function discussion_menu($title) {
  */
 function delete_link($title) {
 	return BASE . 'discussion' . DS . discussion::encode_title($title) . DS . 'delete';
+}
+
+/**
+ * Get's the link to toggle the sticky of a discussion
+ */
+function stick_link($title) {
+	return BASE . 'discussion' . DS . discussion::encode_title($title) . DS . 'stick';
+}
+
+/**
+ * Get's the text for the sticky of a discussion
+ */
+function stick_text() {
+	if (is_sticky()) {
+		return 'Unstick';
+	} else {
+		return 'Stick';
+	}
 }
 
 /**
@@ -225,6 +246,15 @@ function reply_time() {
 function reply_content() {
 	global $reply;
 	return Parsedown::instance()->parse($reply['content']);
+}
+
+/**
+ * LOOP
+ * Checks if discussion is sticky
+ */
+function is_sticky() {
+	global $discussion;
+	return $discussion['sticky'];
 }
 
 ?>

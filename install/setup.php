@@ -24,10 +24,10 @@ if (!file_exists(PATH . 'config' . EXT)) {
   		echo 'Change your connection settings in the /install/config.php file. ;)';
   	}
 
-  	$query = "CREATE TABLE " . $DBprefix . "Discussion(title TEXT(20000), content TEXT(20000), author TEXT(20000), time TEXT(20000), category TEXT(20000) NULL, timestamp TIMESTAMP NOT NULL)";
+  	$query = "CREATE TABLE " . $DBprefix . "Discussion(title TEXT(20000), content TEXT(20000), author TEXT(20000), time TEXT(20000), category TEXT(20000) NULL, timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP , sticky text(20000))";
   	mysqli_query($DB, $query);
 
-  	$query = "CREATE TABLE " . $DBprefix . "Replies(discussionTitle TEXT(20000), content TEXT(20000), author TEXT(20000), time TEXT(20000), approved TEXT(20000), timestamp TIMESTAMP NOT NULL)";
+  	$query = "CREATE TABLE " . $DBprefix . "Replies(discussionTitle TEXT(20000), content TEXT(20000), author TEXT(20000), time TEXT(20000), approved TEXT(20000), timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP)";
   	mysqli_query($DB, $query);
 
   	$query = "CREATE TABLE " . $DBprefix . "Users(session TEXT(20000), username TEXT(20000), password TEXT(20000), name TEXT(20000), email TEXT(20000), role TEXT(20000))";
@@ -44,7 +44,7 @@ if (!file_exists(PATH . 'config' . EXT)) {
   	$DB = mysqli_connect($DBURL, $DBuser, $DBpassword, $DBname);
   	mysqli_query($DB, "INSERT INTO " . $DBprefix . "Users(session, username, password, name, email, role)VALUES (NULL, '$username', '$password', '$name', '$email', '3')");
   	$date = date('jS F, Y');
-  	mysqli_query($DB, "INSERT INTO " . $DBprefix . "Discussion(title, content, author, time, category, timestamp) VALUES('Hello World', 'This is your first discussion.', '$username', '$date', 'Uncategorized', NULL)");
+  	mysqli_query($DB, "INSERT INTO " . $DBprefix . "Discussion(title, content, author, time, category, timestamp, sticky) VALUES('Hello World', 'This is your first discussion.', '$username', '$date', 'Uncategorized', NULL, 'false')");
   	mysqli_query($DB, "INSERT INTO " . $DBprefix . "Category(title) VALUES('Uncategorized')");
   	mysqli_query($DB, "INSERT INTO " . $DBprefix . "Meta(title, description, theme) VALUES('$forumname', '$forumdescription', 'default')");
 

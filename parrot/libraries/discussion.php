@@ -27,7 +27,7 @@ class discussion {
 		    		$username = $row['username'];
 		    	}
 		    	$date = date('jS F, Y');
-		    	$query = database::getInstance()->query("INSERT INTO `" . DB_PREFIX . "Discussion` (title, author, content, time, category) VALUES ('$title', '$username', '$content', '$date', '$category')");
+		    	$query = database::getInstance()->query("INSERT INTO `" . DB_PREFIX . "Discussion` (title, author, content, time, category, timestamp, sticky) VALUES ('$title', '$username', '$content', '$date', '$category', NULL, 'false')");
 				header('Location: http://' . getenv(DOMAIN_NAME) . BASE . 'discussion' . DS . str_replace(' ', '-', $title));
 		    } else {
 		    	global $messages;
@@ -46,9 +46,11 @@ class discussion {
 	 * Get all discussions
  	 */
 	function get_discussions() {
-		$query = database::getInstance()->query("SELECT * FROM `" . DB_PREFIX . "Discussion` ORDER BY `timestamp` DESC");
-		$rows = $query->fetchAll();
+		// ugly, but gets the job done
 		$discuss_array;
+		$query = database::getInstance()->query("SELECT * FROM `" . DB_PREFIX . "Discussion` WHERE `sticky` = 'true' ORDER BY `timestamp` DESC");
+		$rows = $query->fetchAll();
+		$count = count($rows);
 		for($i = 0; $i < count($rows); $i++) {
 			$discuss_array[$i]['title'] = $rows[$i]['title'];
 			$discuss_array[$i]['content'] = $rows[$i]['content'];
@@ -56,6 +58,20 @@ class discussion {
 			$discuss_array[$i]['time'] = $rows[$i]['time'];
 			$discuss_array[$i]['replies'] = $rows[$i]['replies'];
 			$discuss_array[$i]['category'] = $rows[$i]['category'];
+			$discuss_array[$i]['sticky'] = true;
+		}
+		$query = database::getInstance()->query("SELECT * FROM `" . DB_PREFIX . "Discussion` WHERE `sticky` = 'false' ORDER BY `timestamp` DESC");
+		$rows = $query->fetchAll();
+		$row_i = 0;
+		for($i; $i < count($rows) + $count; $i++) {
+			$discuss_array[$i]['title'] = $rows[$row_i]['title'];
+			$discuss_array[$i]['content'] = $rows[$row_i]['content'];
+			$discuss_array[$i]['author'] = $rows[$row_i]['author'];
+			$discuss_array[$i]['time'] = $rows[$row_i]['time'];
+			$discuss_array[$i]['replies'] = $rows[$row_i]['replies'];
+			$discuss_array[$i]['category'] = $rows[$row_i]['category'];
+			$discuss_array[$i]['sticky'] = false;
+			$row_i++;
 		}
 		return $discuss_array;
 	}
@@ -75,6 +91,7 @@ class discussion {
 			$discuss_array[0]['time'] = $row['time'];
 			$discuss_array[0]['replies'] = $row['replies'];
 			$discuss_array[0]['category'] = $row['category'];
+			$discuss_array[0]['sticky'] = $row['sticky'];
 		}
 		return $discuss_array;
 	}
@@ -131,6 +148,26 @@ class discussion {
 	    	header('Location: http://' . getenv(DOMAIN_NAME) . BASE);
 		} else {
 			// not the same person
+		}
+	}
+
+	/**
+	 * Toggles the stick of a discussion
+	 */
+	public function stick($title) {
+		$title = discussion::decode_title($title);
+		$query = database::getInstance()->query("SELECT * FROM `" . DB_PREFIX . "Discussion` WHERE `title`='$title'");
+		$rows = $query->fetchAll();
+		$cur_val;
+		foreach ($rows as $row) { $cur_val = $row['sticky']; }
+		if ($cur_val == 'true') {
+			// set sticky to false
+			$query = database::getInstance()->query("UPDATE `" . DB_PREFIX . "Discussion` SET `sticky` = 'false' WHERE `title` = '$title'");
+			header('Location: http://' . getenv(DOMAIN_NAME) . BASE);
+		} else {
+			// set sticky to true
+			$query = database::getInstance()->query("UPDATE `" . DB_PREFIX . "Discussion` SET `sticky` = 'true' WHERE `title` = '$title'");
+			header('Location: http://' . getenv(DOMAIN_NAME) . BASE);
 		}
 	}
 
