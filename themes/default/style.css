@@ -248,3 +248,12 @@ button {
 	border-radius: 100%;
 	margin-right: 6px;
 }
+
+.small {
+	height: 16px;
+	width: auto;
+	float: left;
+	margin-right: 5px;
+	vertical-align: middle;
+	margin-top: 5px;
+}

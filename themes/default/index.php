@@ -7,7 +7,14 @@
 	</div>
 	<?php while(have_discussion()) : thediscussion() ?>
 		<div class="discussion-preview">
-			<a href="<?php echo the_link(); ?>"><h2><?php echo the_title(); ?></h2></a>
+			<a href="<?php echo the_link(); ?>">
+				<h2 align="left">
+					<?php if (is_sticky()) : ?>
+						<img src="<?php echo theme_url(); ?>imgs/pin.png" class="small"/>
+					<?php endif; ?>
+					<?php echo the_title(); ?>
+				</h2>
+			</a>
 			<div class="details">
 	    		<div class="col"><h3>By <?php echo the_author(); ?></h3></div>
 	    		<div class="col"><h3>In <?php echo the_category(); ?></div>
