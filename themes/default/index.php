@@ -10,7 +10,7 @@
 			<a href="<?php echo the_link(); ?>">
 				<h2 align="left">
 					<?php if (is_sticky()) : ?>
-						<img src="<?php echo theme_url(); ?>imgs/pin.png" class="small"/>
+						<img src="<?php echo theme_url(); ?>imgs/pin.png" class="small-img"/>
 					<?php endif; ?>
 					<?php echo the_title(); ?>
 				</h2>
