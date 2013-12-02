@@ -3,7 +3,7 @@ Parrot
 
 Parrot is a super easy to use discussion platform that's built to be fast, secure, and simple. It's so quick to install that you'll finally have time to feed Polly that cracker.
 
-![](http://codingbean.com/uploads/parrot-all.png)
+![](http://codingbean.com/uploads/default-theme-5.png)
 <div align="right">Early default theme</div>
 
 <br/>
