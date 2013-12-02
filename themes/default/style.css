@@ -275,6 +275,11 @@ button {
     box-sizing: border-box;
 }
 
+.login-text {
+	border-width: 0px;
+	text-decoration: underline;
+}
+
 .msg {
 	background-color: #fff;
 	color: #5B696E;
@@ -291,6 +296,10 @@ button {
 	-webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
+}
+
+.reply {
+	margin-bottom: 40px;
 }
 
 .wrap {

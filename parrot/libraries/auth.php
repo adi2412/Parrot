@@ -208,6 +208,17 @@ class auth {
     }
 
     /**
+     * Checks if the given username is an moderator
+     */
+    public function checkMod($username) {
+        if (auth::getUserNumRole($username) == 2) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
      * Checks if the current user is a participant 
      */
     public function isParticipant() {

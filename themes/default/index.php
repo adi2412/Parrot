@@ -18,8 +18,8 @@
 			<div class="details">
 	    		<div class="col"><h3>By <?php echo the_author(); ?></h3></div>
 	    		<div class="col"><h3>In <?php echo the_category(); ?></div>
-	    		<div class="col"></div>
-	    		<div class="lastcol"></div>
+	    		<div class="col"><h3><?php echo get_reply_count_text(); ?></h3></div>
+	    		<div class="lastcol"><h3><?php echo the_time(); ?></h3></div>
 			</div>
 		</div>
 		<hr>

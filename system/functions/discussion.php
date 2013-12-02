@@ -110,7 +110,7 @@ function reply_form($btnText = 'Reply', $errorMsg = 'Please log in to reply') {
 		</form>
 		';
 	} else {
-		echo '<a href="http://' . getenv(DOMAIN_NAME) . BASE . 'login' . '">' . $errorMsg . '</a>';
+		echo '<a class="login-text" href="http://' . getenv(DOMAIN_NAME) . BASE . 'login' . '">' . $errorMsg . '</a>';
 	}
 }
 
@@ -244,6 +244,21 @@ function reply_content() {
 function is_sticky() {
 	global $discussion;
 	return $discussion['sticky'];
+}
+
+/**
+ * LOOP
+ * Gets number of replies to a discussion
+ */
+function get_reply_count_text($noneText = 'No Replies', $oneText = '1 Reply', $manyText = 'Replies') {
+	$replies = discussion::get_replies(the_title());
+	if (!$replies) {
+		return $noneText;
+	} else if (count($replies) == 1) {
+		return $oneText;
+	} else {
+		return count($replies) . ' ' . $manyText;
+	}
 }
 
 ?>
