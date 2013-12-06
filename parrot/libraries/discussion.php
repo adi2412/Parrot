@@ -115,7 +115,7 @@ class discussion {
 	 * Gets the replies for a discussion
 	 */
 	public function get_replies($title) {
-		$query = database::getInstance()->query("SELECT * FROM `" . DB_PREFIX . "Replies` WHERE `discussionTitle`='$title'");
+		$query = database::getInstance()->query("SELECT * FROM `" . DB_PREFIX . "Replies` WHERE `discussionTitle`='$title' ORDER BY `timestamp` ASC");
 	    $rows = $query->fetchAll();
 	    $replies;
 	    for ($i = 0; $i < count($rows); $i++) {
