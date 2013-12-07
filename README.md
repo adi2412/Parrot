@@ -24,4 +24,4 @@ You may be thinking, "Why should I use Parrot when Discourse has a much larger c
 Contributing
 =========
 
-Parrot will never be done. It'll always be getting improvements, updated documentation, and more users. If you'd like to help create the future of community discussion, just start coding! If you don't know how to code, I'm always looking for designers for theme layouts and icons. Head over to the [wiki](http://github.com/Codingbean/Parrot/wiki/Contribute) for a list of needed jobs and instructions.
+Parrot will never be done. It'll always be getting improvements, updated documentation, and more users. If you'd like to help create the future of community discussion, just start coding! If you don't know how to code, I'm always looking for designers for theme layouts and custom icons. Head over to the [docs](http://parrot.docci.co/contribute) for a list of needed jobs and instructions.
