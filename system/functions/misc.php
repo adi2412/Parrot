@@ -36,6 +36,13 @@ function the_stylesheet() {
 }
 
 /**
+ * Get theme directory
+ */
+function get_theme_directory() {
+	return BASE . 'themes' . DS . siteinfo('theme') . DS;
+}
+
+/**
  * Get the site's URL
  */
 function get_site_url() {
