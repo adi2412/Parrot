@@ -101,6 +101,11 @@ p {
 	margin-bottom: 40px;
 }
 
+p>img {
+	width: 100%;
+	height: auto;
+}
+
 select {
 	width: inherit;
 	border-radius: 3px; 
