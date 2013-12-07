@@ -11,7 +11,7 @@ class edit_discussion {
 		$rows = $query->fetchAll();
 		$author;
 		foreach ($rows as $row) { $author = $row['author']; }
-		if ($author == auth::getCurrentUser()) {
+		if ($author == auth::getCurrentUser() || auth::isAdmin() || auth::isMod()) {
         	require(PATH . 'themes' . DS . siteinfo('theme') . DS . 'edit' . EXT);
         } else {
         	header('Location: http://' . getenv(DOMAIN_NAME) . BASE);

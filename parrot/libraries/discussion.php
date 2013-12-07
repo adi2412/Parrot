@@ -179,7 +179,7 @@ class discussion {
 		$rows = $query->fetchAll();
 		$author;
 		foreach ($rows as $row) { $author = $row['author']; }
-		if ($author == auth::getCurrentUser()) {
+		if ($author == auth::getCurrentUser() || auth::isAdmin() || auth::isMod()) {
 			$query = database::getInstance()->query("UPDATE `" . DB_PREFIX . "Discussion` SET `title` = '$title', `content` = '$content' WHERE `title` = '$title'");
 			header('Location: http://' . getenv(DOMAIN_NAME) . BASE . 'discussion' . DS . discussion::encode_title($title));
 		} else {
