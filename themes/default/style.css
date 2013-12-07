@@ -165,6 +165,22 @@ h5 {
 	text-align: center;
 }
 
+pre {
+	background-color: #EDF1F2;
+	padding: 20px;
+}
+
+code {
+	color: #5B696E;
+}
+
+p>code {
+	font-size: 12px;
+	background-color: #EDF1F2;
+	color: #5B696E;
+	padding: 2px;
+}
+
 /**
  * Buttons
  */
