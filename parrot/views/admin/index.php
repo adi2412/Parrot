@@ -39,7 +39,16 @@
 								<h2>Theme</h2>
 								<select name="theme">
 									<?php foreach (get_themes() as $theme) : ?>
-										<option value="<?php echo $theme['title']; ?>"><?php echo ucfirst($theme['title']); ?><?php echo ucfirst($theme['description']); ?></option>
+										<option value="<?php echo $theme['title']; ?>">
+											<?php
+											$desc_raw = null;
+											$desc_raw = $theme['description'];
+											echo ucfirst($theme['title']); 
+											if ($desc_raw) {
+												echo ' - ' . ucfirst($theme['description']); 
+											}
+											?>
+										</option>
 									<?php endforeach; ?>
 								</select>
 								<input type="submit" class="submit" value="Update">

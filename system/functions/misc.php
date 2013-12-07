@@ -52,12 +52,9 @@ function get_themes() {
 		$themes[$i]['title'] = basename($dirs[$i]);
 		$theme_description;
 		$json = json_decode(file_get_contents(PATH . 'themes' . DS . basename($dirs[$i]) . DS . 'about.json'));
-		if (!($json->{'Description'})) { 
-			$theme_description = '';
-		} else { 
-			$theme_description = ' - ' . $json->{'Description'}; 
-		}
-		$themes[$i]['description'] = $theme_description;
+		$themes[$i]['description'] = $json->{'Description'};
+		$themes[$i]['author'] = $json->{'Author'};
+		$themes[$i]['version'] = $json->{'Version'};
     }
 	return $themes;
 }
