@@ -105,7 +105,8 @@ class discussion {
 			$session = auth::getSession();
 	    	$author = auth::getCurrentUser();
 	    	$time = date('jS F, Y');
-	    	$query = database::getInstance()->query("INSERT INTO `" . DB_PREFIX . "Replies` (discussionTitle, content, author, time, approved, timestamp) VALUES ('$discussionTitle', '$content', '$author', '$time', 'true', NULL)");
+	    	$id = auth::generateRandomString(15);
+	    	$query = database::getInstance()->query("INSERT INTO `" . DB_PREFIX . "Replies` (discussionTitle, content, author, time, approved, id, timestamp) VALUES ('$discussionTitle', '$content', '$author', '$time', 'true', '$id', NULL)");
 		} else {
 			// no user logged in
 		}
@@ -122,6 +123,7 @@ class discussion {
 	    	$replies[$i]['content'] = $rows[$i]['content'];
 	    	$replies[$i]['author'] = $rows[$i]['author'];
 	    	$replies[$i]['time'] = $rows[$i]['time'];
+	    	$replies[$i]['id'] = $rows[$i]['id'];
 	    }
 	   	return $replies;
 	}
@@ -146,6 +148,31 @@ class discussion {
 	    	$query->execute();
 	    	$query = database::getInstance()->query("DELETE FROM `" . DB_PREFIX . "Replies` WHERE `discussionTitle`='$title'");
 	    	header('Location: http://' . getenv(DOMAIN_NAME) . BASE);
+		} else {
+			// not the same person
+		}
+	}
+
+	/**
+	 * Delete a reply
+	 */
+	public function delete_reply($id) {
+		// check if logged in again as a safety net
+		// the first check is mainly just to redirect
+		// pesky users
+		$query = database::getInstance()->query("SELECT * FROM `" . DB_PREFIX . "Replies` WHERE `id`='$id'");
+		$rows = $query->fetchAll();
+		$author;
+		$title;
+		foreach ($rows as $row) { 
+			$author = $row['author'];
+			$title = $row['discussionTitle'];
+		}
+
+		$currentUser = auth::getCurrentUser();
+	    if ($author == $currentUser || auth::isAdmin() || auth::isMod()) {
+	    	$query = database::getInstance()->query("DELETE FROM `" . DB_PREFIX . "Replies` WHERE `id`='$id'");
+	    	header('Location: http://' . getenv(DOMAIN_NAME) . BASE . 'discussion' . DS . discussion::encode_title($title));
 		} else {
 			// not the same person
 		}

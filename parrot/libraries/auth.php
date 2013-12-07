@@ -255,7 +255,7 @@ class auth {
     /**
      * Generates a random alpha-num string
      */
-    private function generateRandomString($length = 10) {
+    public function generateRandomString($length = 10) {
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $randomString = '';
         for ($i = 0; $i < $length; $i++) {

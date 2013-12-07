@@ -236,6 +236,15 @@ function reply_author() {
 
 /**
  * LOOP
+ * Gets the reply ID
+ */
+function reply_id() {
+	global $reply;
+	return $reply['id'];
+}
+
+/**
+ * LOOP
  * Gets the reply posted time
  */
 function reply_time() {
@@ -303,6 +312,24 @@ function discussion_content() {
 	$rows = $query->fetchAll();
 	foreach ($rows as $row) { $content = $row['content']; }
 	return $content;
+}
+
+/**
+ * LOOP
+ * Get's the link to delete a discussion
+ */
+function reply_deletelink() {
+	return BASE . 'reply' . DS . reply_id() . DS . 'delete';
+}
+
+/**
+ * LOOP
+ * A button to delete the reply
+ */
+function reply_delete_button() {
+	if (reply_author() == auth::getCurrentUser() || auth::isAdmin() || auth::isMod()) {
+		echo '<a href="' . reply_deletelink() . '"><h3>Delete</h3></a>';
+	}
 }
 
 ?>

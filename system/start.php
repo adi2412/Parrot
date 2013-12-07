@@ -37,7 +37,8 @@ Toro::serve(array(
     BASE . 'admin/info/update' => 'admin_info_update',
     BASE . 'admin/user/:alpha/delete' => 'admin_user_delete',
     BASE . 'admin/user/:alpha/promote' => 'admin_user_promote',
-    BASE . 'admin/user/:alpha/demote' => 'admin_user_demote'
+    BASE . 'admin/user/:alpha/demote' => 'admin_user_demote',
+    BASE . 'reply/:alpha/delete' => 'reply_delete'
 ));
 
 ?>

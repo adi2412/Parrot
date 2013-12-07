@@ -34,7 +34,7 @@
 					<div class="content">
 						<div class="details">
 							<div class="col"><h3>By <?php echo reply_author(); ?></h3></div>
-		    				<div class="col"></div>
+		    				<div class="col"><?php echo reply_delete_button(); ?></div>
 		    				<div class="lastcol"><h3><?php echo reply_time(); ?></h3></div>
 						</div>
 						<?php echo reply_content(); ?>

@@ -112,4 +112,13 @@ class view_discussion {
     }
 }
 
+class reply_delete {
+    function get($slug) {
+        /**
+         * This is the delete reply page
+         */
+        discussion::delete_reply($slug);
+    }
+}
+
 ?>
