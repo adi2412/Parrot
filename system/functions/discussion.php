@@ -328,7 +328,7 @@ function reply_deletelink() {
  */
 function reply_delete_button() {
 	if (reply_author() == auth::getCurrentUser() || auth::isAdmin() || auth::isMod()) {
-		echo '<a href="' . reply_deletelink() . '"><h3>Delete</h3></a>';
+		echo '<a href="' . reply_deletelink() . '" class="reply_delete_link"><h3>Delete</h3></a>';
 	}
 }
 
