@@ -59,6 +59,7 @@ function discussion_menu($title) {
 	// display these if it's the owner of the article
 	if ($owner == auth::getCurrentUser() || auth::isAdmin() || auth::isMod()) {
 		echo '<a class="clear" href="' . delete_link($title) . '"><button class="red">Delete</button></a>';
+		echo '<a class="clear" href="' . edit_link($title) . '"><button>Edit</button></a>';
 		if (auth::isAdmin() || auth::isMod()) {
 			echo '<a class="clear" href="' . stick_link($title) . '"><button>Toggle Stick</button></a>';
 		}
@@ -72,6 +73,13 @@ function discussion_menu($title) {
  */
 function delete_link($title) {
 	return BASE . 'discussion' . DS . discussion::encode_title($title) . DS . 'delete';
+}
+
+/**
+ * Get's the link to edit a discussion
+ */
+function edit_link($title) {
+	return BASE . 'discussion' . DS . discussion::encode_title($title) . DS . 'edit';
 }
 
 /**
@@ -93,6 +101,13 @@ function get_createlink() {
  */
 function get_submitLink() {
 	return BASE . 'discussion' . DS . 'submit';
+}
+
+/**
+ * Edit a discussion
+ */
+function get_editLink() {
+	return BASE . 'discussion' . DS . 'edit';
 }
 
 /**
@@ -248,7 +263,7 @@ function is_sticky() {
 
 /**
  * LOOP
- * Gets number of replies to a discussion
+ * Gets number of replies to a discussion in text
  */
 function get_reply_count_text($noneText = 'No Replies', $oneText = '1 Reply', $manyText = 'Replies') {
 	$replies = discussion::get_replies(the_title());
@@ -259,6 +274,35 @@ function get_reply_count_text($noneText = 'No Replies', $oneText = '1 Reply', $m
 	} else {
 		return count($replies) . ' ' . $manyText;
 	}
+}
+
+/**
+ * LOOP
+ * Gets number of replies to a discussion
+ */
+function get_reply_count() {
+	$replies = discussion::get_replies(the_title());
+	return count($replies);
+}
+
+/**
+ * Gets the discussion title for edit pages
+ */
+function discussion_title() {
+	global $discussion_title;
+	return $discussion_title;
+}
+
+/**
+ * Gets the discussion content for edit pages
+ */
+function discussion_content() {
+	global $discussion_title;
+	$content;
+	$query = database::getInstance()->query("SELECT * FROM `" . DB_PREFIX . "Discussion` WHERE `title`='$discussion_title'");
+	$rows = $query->fetchAll();
+	foreach ($rows as $row) { $content = $row['content']; }
+	return $content;
 }
 
 ?>

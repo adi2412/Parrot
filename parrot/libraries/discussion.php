@@ -172,6 +172,22 @@ class discussion {
 	}
 
 	/**
+	 * Edits a discussion
+	 */
+	public function edit($title, $content) {
+		$query = database::getInstance()->query("SELECT * FROM `" . DB_PREFIX . "Discussion` WHERE `title`='$title'");
+		$rows = $query->fetchAll();
+		$author;
+		foreach ($rows as $row) { $author = $row['author']; }
+		if ($author == auth::getCurrentUser()) {
+			$query = database::getInstance()->query("UPDATE `" . DB_PREFIX . "Discussion` SET `title` = '$title', `content` = '$content' WHERE `title` = '$title'");
+			header('Location: http://' . getenv(DOMAIN_NAME) . BASE);
+		} else {
+			// not the discussion author
+		}
+	}
+
+	/**
 	 * Encodes a title for URL
 	 */
 	public function encode_title($title) {
