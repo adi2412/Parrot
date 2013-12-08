@@ -67,13 +67,6 @@ function get_themes() {
 }
 
 /**
- * Get theme URL for requires
- */
-function theme_url() {
-	return BASE . 'themes' . DS . siteinfo('theme') . DS;
-}
-
-/**
  * Get info update link
  */
 function info_update_link() {
