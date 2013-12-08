@@ -237,11 +237,15 @@ class discussion {
 		$rows = $query->fetchAll();
 		$author;
 		foreach ($rows as $row) { $author = $row['author']; }
-		if ($author == auth::getCurrentUser() || auth::isAdmin() || auth::isMod()) {
+		$query = database::getInstance()->query("SELECT * FROM `" . DB_PREFIX . "Discussion` WHERE `title`='$discussionTitle'");
+		$rows = $query->fetchAll();
+		$locked;
+		foreach ($rows as $row) { $locked = $row['locked']; }
+		if ($author == auth::getCurrentUser() && $locked == 'false' || auth::isAdmin() && $locked == 'false' || auth::isMod() && $locked == 'false') {
 			$query = database::getInstance()->query("UPDATE `" . DB_PREFIX . "Discussion` SET `title` = '$title', `content` = '$content' WHERE `title` = '$title'");
 			header('Location: http://' . getenv(DOMAIN_NAME) . BASE . 'discussion' . DS . discussion::encode_title($title));
 		} else {
-			// not the discussion author
+			header('Location: http://' . getenv(DOMAIN_NAME) . BASE);
 		}
 	}
 

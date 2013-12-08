@@ -55,11 +55,14 @@ function discussion_menu($title) {
 	$query = database::getInstance()->query("SELECT * FROM `" . DB_PREFIX . "Discussion` WHERE `title`='$title'");
 	$rows = $query->fetchAll();
 	$owner;
-	foreach ($rows as $row) { $owner = $row['author']; }
+	$locked;
+	foreach ($rows as $row) { $owner = $row['author']; $locked = $row['locked']; }
 	// display these if it's the owner of the article
 	if ($owner == auth::getCurrentUser() || auth::isAdmin() || auth::isMod()) {
 		echo '<a class="clear" href="' . delete_link($title) . '"><button class="red">Delete</button></a>';
-		echo '<a class="clear" href="' . edit_link($title) . '"><button>Edit</button></a>';
+		if ($locked == 'false') {
+			echo '<a class="clear" href="' . edit_link($title) . '"><button>Edit</button></a>';
+		}
 		if (auth::isAdmin() || auth::isMod()) {
 			echo '<a class="clear" href="' . stick_link($title) . '"><button>Toggle Stick</button></a>';
 			echo '<a class="clear" href="' . lock_link($title) . '"><button>Toggle Lock</button></a>';

@@ -35,8 +35,9 @@ class edit_discussion {
         $query = database::getInstance()->query("SELECT * FROM `" . DB_PREFIX . "Discussion` WHERE `title`='$discussion_title'");
 		$rows = $query->fetchAll();
 		$author;
-		foreach ($rows as $row) { $author = $row['author']; }
-		if ($author == auth::getCurrentUser() || auth::isAdmin() || auth::isMod()) {
+        $locked;
+		foreach ($rows as $row) { $author = $row['author']; $locked = $row['locked']; }
+		if ($author == auth::getCurrentUser() && $locked == 'false' || auth::isAdmin() && $locked == 'false' || auth::isMod() && $locked == 'false') {
         	require(PATH . 'themes' . DS . siteinfo('theme') . DS . 'edit' . EXT);
         } else {
         	header('Location: http://' . getenv(DOMAIN_NAME) . BASE);
