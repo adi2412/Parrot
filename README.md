@@ -16,6 +16,9 @@ Why
 
 You may be thinking, "Why should I use Parrot when Discourse has a much larger community and has been in development for years?" Well, for starters, Parrot is much more lightweight. Parrot also is super easy to extend, theme, get support for (just visit [the forums](http://codingbean.com/parrot/)), and manage. It's made for the kinds of people who spend their days at coffee shops. Not some f*cked up company with people who are paid to do nothing. Parrot is for the doers. The pixel pushers.
 
+> Hey it looks good.<br/>
+ \- @idiot
+
 Contributing
 =========
 
