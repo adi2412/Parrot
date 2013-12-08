@@ -302,9 +302,9 @@ button {
 }
 
 .soft-text {
-	font-family: Georgia, serif;
-	color: #A1A1A1;
-	font-size: 16px;
+	font-family: Georgia, serif !important;
+	color: #A1A1A1 !important;
+	font-size: 16px !important;
 }
 
 .msg {
