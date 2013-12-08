@@ -2,8 +2,11 @@
 
 <div class="wrap">
 	<div class="menu" align="right">
-		<a href="<?php echo get_createlink(); ?>" class="clear"><button>Create a new discussion</button></a>
-		<a href="<?php echo session_link(); ?>" class="clear"><button><?php echo session_text(); ?></button></a>
+		<div class="gear-holder" align="right"><img src="<?php echo get_theme_directory(); ?>/imgs/gear.png" class="gear"/></div>
+		<div class="inner" id="options">
+			<a href="<?php echo get_createlink(); ?>" class="clear"><button>Create a new discussion</button></a>
+			<a href="<?php echo session_link(); ?>" class="clear"><button><?php echo session_text(); ?></button></a>
+		</div>
 	</div>
 	<?php while(have_discussion()) : thediscussion() ?>
 		<div class="discussion-preview">

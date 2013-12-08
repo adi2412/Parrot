@@ -340,4 +340,22 @@ button {
 
 .wrap>.menu {
 	margin-bottom: 50px;
+	overflow: auto;
+}
+
+.menu>.inner {
+	float: right;
+	display: none;
+}
+
+.gear-holder {
+	float: right;
+	margin-left: 12px;
+}
+
+.gear {
+	height: 30px;
+	width: auto;
+	margin-top: 8px;
+	cursor: pointer;
 }
