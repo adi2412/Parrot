@@ -132,8 +132,8 @@ function reply_form($btnText = 'Reply', $errorMsg = 'Please log in to reply') {
 		if (auth::isLoggedIn()) {
 			echo '
 			<form name="input" action="' . BASE . 'discussion' . DS . discussion::encode_title($discussion_title) . DS . 'reply' . '" method="post">
-				<textarea rows="7" placeholder="Just type..." name="content" class="boxsizingBorder"></textarea><br/>
-				<input type="submit" class="submit small" value="' . $btnText .'"/>
+				<textarea rows="5" placeholder="Just type..." name="content" class="reply_textarea"></textarea><br/>
+				<input type="submit" class="submit small" value="' . $btnText .'" class="reply_input"/>
 			</form>
 			';
 		} else {

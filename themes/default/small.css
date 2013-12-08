@@ -1,3 +1,11 @@
 .badge {
 	display: none;
 }
+
+.gear {
+	display: none;
+}
+
+.menu>.inner {
+	display: block;
+}
