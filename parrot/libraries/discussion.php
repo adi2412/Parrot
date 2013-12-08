@@ -27,17 +27,17 @@ class discussion {
 		    		$username = $row['username'];
 		    	}
 		    	$date = date('jS F, Y');
-		    	$query = database::getInstance()->query("INSERT INTO `" . DB_PREFIX . "Discussion` (title, author, content, time, category, timestamp, sticky) VALUES ('$title', '$username', '$content', '$date', '$category', NULL, 'false')");
+		    	$query = database::getInstance()->query("INSERT INTO `" . DB_PREFIX . "Discussion` (title, author, content, time, category, timestamp, sticky, locked) VALUES ('$title', '$username', '$content', '$date', '$category', NULL, 'false', 'false')");
 				header('Location: http://' . getenv(DOMAIN_NAME) . BASE . 'discussion' . DS . str_replace(' ', '-', $title));
 		    } else {
 		    	global $messages;
-		    	$messages = 'Please choose another title.';
+		    	$messages = 'Please choose another title';
 		    	require(PATH . 'themes' . DS . siteinfo('theme') . DS . 'create' . EXT);
 		    }
 		} else {
 			// the user should have already been re-directed to the login page by now
 			global $messages;
-		    $messages = 'Please login to post.';
+		    $messages = 'Please login to post';
 		    require(PATH . 'themes' . DS . siteinfo('theme') . DS . 'create' . EXT);
 		}
 	}
@@ -59,6 +59,7 @@ class discussion {
 			$discuss_array[$i]['replies'] = $rows[$i]['replies'];
 			$discuss_array[$i]['category'] = $rows[$i]['category'];
 			$discuss_array[$i]['sticky'] = true;
+			$discuss_array[$i]['locked'] = $rows[$i]['locked'];
 		}
 		$query = database::getInstance()->query("SELECT * FROM `" . DB_PREFIX . "Discussion` WHERE `sticky` = 'false' ORDER BY `timestamp` DESC");
 		$rows = $query->fetchAll();
@@ -71,6 +72,7 @@ class discussion {
 			$discuss_array[$i]['replies'] = $rows[$row_i]['replies'];
 			$discuss_array[$i]['category'] = $rows[$row_i]['category'];
 			$discuss_array[$i]['sticky'] = false;
+			$discuss_array[$i]['locked'] = $rows[$row_i]['locked'];
 			$row_i++;
 		}
 		return $discuss_array;
@@ -92,6 +94,8 @@ class discussion {
 			$discuss_array[0]['replies'] = $row['replies'];
 			$discuss_array[0]['category'] = $row['category'];
 			$discuss_array[0]['sticky'] = $row['sticky'];
+			$discuss_array[0]['locked'] = $row['locked'];
+
 		}
 		return $discuss_array;
 	}
@@ -100,7 +104,11 @@ class discussion {
 	 * Reply to a discussion
 	 */
 	public function reply($content, $discussionTitle) {
-		if (auth::isLoggedIn()) {
+		$query = database::getInstance()->query("SELECT * FROM `" . DB_PREFIX . "Discussion` WHERE `title`='$discussionTitle'");
+		$rows = $query->fetchAll();
+		$locked;
+		foreach ($rows as $row) { $locked = $row['locked']; }
+		if (auth::isLoggedIn() && $locked == 'false') {
 			$content = strip_tags($content);
 			$session = auth::getSession();
 	    	$author = auth::getCurrentUser();
@@ -168,9 +176,12 @@ class discussion {
 			$author = $row['author'];
 			$title = $row['discussionTitle'];
 		}
-
+		$query = database::getInstance()->query("SELECT * FROM `" . DB_PREFIX . "Discussion` WHERE `title`='$title'");
+		$rows = $query->fetchAll();
+		$locked;
+		foreach ($rows as $row) { $locked = $row['locked']; }
 		$currentUser = auth::getCurrentUser();
-	    if ($author == $currentUser || auth::isAdmin() || auth::isMod()) {
+	    if ($author == $currentUser || auth::isAdmin() || auth::isMod() && $locked == 'false') {
 	    	$query = database::getInstance()->query("DELETE FROM `" . DB_PREFIX . "Replies` WHERE `id`='$id'");
 	    	header('Location: http://' . getenv(DOMAIN_NAME) . BASE . 'discussion' . DS . discussion::encode_title($title));
 		} else {
@@ -195,6 +206,26 @@ class discussion {
 			// set sticky to true
 			$query = database::getInstance()->query("UPDATE `" . DB_PREFIX . "Discussion` SET `sticky` = 'true' WHERE `title` = '$title'");
 			header('Location: http://' . getenv(DOMAIN_NAME) . BASE);
+		}
+	}
+
+	/**
+	 * Toggles the lock of a discussion
+	 */
+	public function lock($title) {
+		$title = discussion::decode_title($title);
+		$query = database::getInstance()->query("SELECT * FROM `" . DB_PREFIX . "Discussion` WHERE `title`='$title'");
+		$rows = $query->fetchAll();
+		$cur_val;
+		foreach ($rows as $row) { $cur_val = $row['locked']; }
+		if ($cur_val == 'true') {
+			// set lock to false
+			$query = database::getInstance()->query("UPDATE `" . DB_PREFIX . "Discussion` SET `locked` = 'false' WHERE `title` = '$title'");
+			header('Location: http://' . getenv(DOMAIN_NAME) . BASE . 'discussion' . DS . discussion::encode_title($title));
+		} else {
+			// set lock to true
+			$query = database::getInstance()->query("UPDATE `" . DB_PREFIX . "Discussion` SET `locked` = 'true' WHERE `title` = '$title'");
+			header('Location: http://' . getenv(DOMAIN_NAME) . BASE . 'discussion' . DS . discussion::encode_title($title));
 		}
 	}
 

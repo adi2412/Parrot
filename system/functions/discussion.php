@@ -62,6 +62,7 @@ function discussion_menu($title) {
 		echo '<a class="clear" href="' . edit_link($title) . '"><button>Edit</button></a>';
 		if (auth::isAdmin() || auth::isMod()) {
 			echo '<a class="clear" href="' . stick_link($title) . '"><button>Toggle Stick</button></a>';
+			echo '<a class="clear" href="' . lock_link($title) . '"><button>Toggle Lock</button></a>';
 		}
 	} else {
 		// don't display delete, because they're not the owner
@@ -87,6 +88,13 @@ function edit_link($title) {
  */
 function stick_link($title) {
 	return BASE . 'discussion' . DS . discussion::encode_title($title) . DS . 'stick';
+}
+
+/**
+ * Get's the link to toggle the lock of a discussion
+ */
+function lock_link($title) {
+	return BASE . 'discussion' . DS . discussion::encode_title($title) . DS . 'lock';
 }
 
 /**
@@ -116,16 +124,20 @@ function get_editLink() {
  */
 function reply_form($btnText = 'Reply', $errorMsg = 'Please log in to reply') {
 	global $discussion_title;
-
-	if (auth::isLoggedIn()) {
-		echo '
-		<form name="input" action="' . BASE . 'discussion' . DS . discussion::encode_title($discussion_title) . DS . 'reply' . '" method="post">
-			<textarea rows="7" placeholder="Just type..." name="content" class="boxsizingBorder"></textarea><br/>
-			<input type="submit" class="submit small" value="' . $btnText .'"/>
-		</form>
-		';
+	global $discussion;
+	if ($discussion['locked'] == 'false') {
+		if (auth::isLoggedIn()) {
+			echo '
+			<form name="input" action="' . BASE . 'discussion' . DS . discussion::encode_title($discussion_title) . DS . 'reply' . '" method="post">
+				<textarea rows="7" placeholder="Just type..." name="content" class="boxsizingBorder"></textarea><br/>
+				<input type="submit" class="submit small" value="' . $btnText .'"/>
+			</form>
+			';
+		} else {
+			echo '<a class="soft-text" href="http://' . getenv(DOMAIN_NAME) . BASE . 'login' . '">' . $errorMsg . '</a>';
+		}
 	} else {
-		echo '<a class="login-text" href="http://' . getenv(DOMAIN_NAME) . BASE . 'login' . '">' . $errorMsg . '</a>';
+		echo '<span class="soft-text">This discussion is locked</span>';
 	}
 }
 
@@ -184,6 +196,15 @@ function the_link() {
 function the_time() {
 	global $discussion;
 	return $discussion['time'];
+}
+
+/**
+ * LOOP
+ * Gets if the discussion is locked
+ */
+function is_locked() {
+	global $discussion;
+	return $discussion['locked'];
 }
 
 /**
@@ -327,7 +348,7 @@ function reply_deletelink() {
  * A button to delete the reply
  */
 function reply_delete_button() {
-	if (reply_author() == auth::getCurrentUser() || auth::isAdmin() || auth::isMod()) {
+	if (reply_author() == auth::getCurrentUser() && is_locked() == 'false' || auth::isAdmin() && is_locked() == 'false' || auth::isMod() && is_locked() == 'false') {
 		echo '<a href="' . reply_deletelink() . '" class="reply_delete_link"><h3>Delete</h3></a>';
 	}
 }

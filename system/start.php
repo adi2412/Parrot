@@ -31,6 +31,7 @@ Toro::serve(array(
     BASE . 'discussion/:alpha/reply' => 'reply_discussion',
     BASE . 'discussion/:alpha/stick' => 'stick_discussion',
     BASE . 'discussion/:alpha/edit' => 'edit_discussion',
+    BASE . 'discussion/:alpha/lock' => 'lock_discussion',
     BASE . 'admin' => 'admin',
     BASE . 'admin/category/:alpha/delete' => 'admin_cat_delete',
     BASE . 'admin/category/create' => 'admin_cat_create',

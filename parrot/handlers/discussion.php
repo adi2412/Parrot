@@ -79,6 +79,12 @@ class stick_discussion {
     }
 }
 
+class lock_discussion {
+    function get($slug) {
+        discussion::lock($slug);
+    }
+}
+
 class submit_discussion {
     function post() {
     	/**
@@ -92,7 +98,7 @@ class submit_discussion {
             	discussion::submit($title, $content, $category);
             } else {
                 global $messages;
-                $messages = 'Only include spaces, letters and numbers in the title.';
+                $messages = 'Only include spaces, letters and numbers in the title';
                 require(PATH . 'themes' . DS . siteinfo('theme') . DS . 'create' . EXT);
             }
 		} else {

@@ -301,9 +301,10 @@ button {
     box-sizing: border-box;
 }
 
-.login-text {
-	border-width: 0px;
-	text-decoration: underline;
+.soft-text {
+	font-family: Georgia, serif;
+	color: #A1A1A1;
+	font-size: 16px;
 }
 
 .msg {
