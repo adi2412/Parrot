@@ -19,7 +19,7 @@ class admin_cat_create {
          * This is the submit category function
          */
         if (auth::isLoggedIn() || auth::isAdmin()) {
-            if (preg_match("/^[A-Za-z0-9-_\s]+$/", $_POST['title'])) {
+            if (preg_match("/^[A-Za-z0-9\s]+$/", $_POST['title'])) {
                 $title = $_POST['title'];
                 category::submit($title);
                 header('Location: http://' . getenv(DOMAIN_NAME) . BASE . 'admin');
@@ -54,7 +54,7 @@ class admin_info_update {
          * This is the submit category function
          */
         if (auth::isLoggedIn() || auth::isAdmin()) {
-            if (preg_match("/^[A-Za-z0-9-_\s]+$/", $_POST['title'])) {
+            if (preg_match("/^[A-Za-z0-9\s]+$/", $_POST['title'])) {
                 $title = $_POST['title'];
                 $description = $_POST['description'];
                 $theme = $_POST['theme'];

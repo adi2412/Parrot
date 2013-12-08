@@ -51,7 +51,7 @@ class edit_submit_discussion {
     	 * This is the submit discussion function
     	 */
 		if (auth::isLoggedIn()) {
-            if (preg_match("/^[A-Za-z0-9-_\s]+$/", $_POST['title'])) {
+            if (preg_match("/^[A-Za-z0-9\s]+$/", $_POST['title'])) {
             	$title = $_POST['title'];
                 $content = $_POST['content'];
             	discussion::edit($title, $content);
@@ -92,7 +92,7 @@ class submit_discussion {
     	 * This is the submit discussion function
     	 */
 		if (auth::isLoggedIn()) {
-            if (preg_match("/^[A-Za-z0-9-_\s]+$/", $_POST['title'])) {
+            if (preg_match("/^[A-Za-z0-9\s]+$/", $_POST['title'])) {
             	$title = $_POST['title'];
             	$content = $_POST['content'];
                 $category = $_POST['category'];
