@@ -201,11 +201,11 @@ class discussion {
 		if ($cur_val == 'true') {
 			// set sticky to false
 			$query = database::getInstance()->query("UPDATE `" . DB_PREFIX . "Discussion` SET `sticky` = 'false' WHERE `title` = '$title'");
-			header('Location: http://' . getenv(DOMAIN_NAME) . BASE);
+			header('Location: http://' . getenv(DOMAIN_NAME) . BASE . 'discussion' . DS . discussion::encode_title($title));
 		} else {
 			// set sticky to true
 			$query = database::getInstance()->query("UPDATE `" . DB_PREFIX . "Discussion` SET `sticky` = 'true' WHERE `title` = '$title'");
-			header('Location: http://' . getenv(DOMAIN_NAME) . BASE);
+			header('Location: http://' . getenv(DOMAIN_NAME) . BASE . 'discussion' . DS . discussion::encode_title($title));
 		}
 	}
 
