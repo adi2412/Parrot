@@ -25,8 +25,10 @@ class delete_discussion {
     }
 }
 
-class edit_discussion {
-    function get($slug) {
+class edit_discussion
+{
+    function get($slug)
+    {
         /**
     	 * This is the edit discussion page
     	 */

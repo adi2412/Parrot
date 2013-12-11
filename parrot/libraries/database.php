@@ -20,4 +20,9 @@ class database
         }
         return self::$instance;
     }
+
+    public static function getTableName($name)
+    {
+        return "`" . DB_PREFIX . $name . "`";
+    }
 }
