@@ -172,7 +172,7 @@ class discussion {
 		$rows = $query->fetchAll();
 		$author;
 		$title;
-		foreach ($rows as $row) { 
+		foreach ($rows as $row) {
 			$author = $row['author'];
 			$title = $row['discussionTitle'];
 		}
@@ -260,5 +260,3 @@ class discussion {
 		return str_replace('-', ' ', $title);
 	}
 }
-
-?>

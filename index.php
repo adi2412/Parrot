@@ -25,5 +25,3 @@ if (file_exists(PATH . 'install' . DS . 'config' . EXT)) {
 } else {
 	require_once(INSTALL . 'install' . EXT);
 }
-
-?>

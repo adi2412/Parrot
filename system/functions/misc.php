@@ -83,5 +83,3 @@ function msg_read() {
 		$messages = null;
 	}
 }
-
-?>

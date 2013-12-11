@@ -109,5 +109,3 @@ class admin_user_promote {
         }
     }
 }
-
-?>

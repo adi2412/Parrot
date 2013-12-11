@@ -355,5 +355,3 @@ function reply_delete_button() {
 		echo '<a href="' . reply_deletelink() . '" class="reply_delete_link"><h3>Delete</h3></a>';
 	}
 }
-
-?>

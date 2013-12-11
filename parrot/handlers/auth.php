@@ -46,5 +46,3 @@ class verify_login {
         auth::verify($_POST['username'], $_POST['password']);
     }
 }
-
-?>

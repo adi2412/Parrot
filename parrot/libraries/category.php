@@ -27,8 +27,8 @@ class category {
    * Deletes a category
    */
   public function delete($slug) {
-    // check if logged in again as an admin as a 
-    // safety net the first check is mainly just 
+    // check if logged in again as an admin as a
+    // safety net the first check is mainly just
     //to redirect pesky users
     $title = discussion::decode_title($slug);
     if (auth::isAdmin()) {
@@ -39,5 +39,3 @@ class category {
     }
   }
 }
-
-?>

@@ -63,5 +63,3 @@ function checkIfAdmin($username) {
         return false;
     }
 }
-
-?>

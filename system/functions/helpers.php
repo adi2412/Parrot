@@ -13,5 +13,3 @@ function get_header() {
 function get_footer() {
 	require(PATH . 'themes' . DS . siteinfo('theme') . DS . 'footer' . EXT);
 }
-
-?>

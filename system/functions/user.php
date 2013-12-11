@@ -91,5 +91,3 @@ function user_email() {
 	global $user;
 	return $user['email'];
 }
-
-?>

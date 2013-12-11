@@ -73,8 +73,8 @@ class auth {
      * Deletes an account
      */
     public function deleteAccount($username) {
-        // check if logged in again as an admin as a 
-        // safety net the first check is mainly just 
+        // check if logged in again as an admin as a
+        // safety net the first check is mainly just
         //to redirect pesky users
         if (auth::isAdmin()) {
             if (auth::getCurrentUser() !== $username) {
@@ -95,8 +95,8 @@ class auth {
      * Demotes an account
      */
     public function demoteAccount($username) {
-        // check if logged in again as an admin as a 
-        // safety net the first check is mainly just 
+        // check if logged in again as an admin as a
+        // safety net the first check is mainly just
         //to redirect pesky users
         if (auth::isAdmin()) {
             if (auth::getCurrentUser() !== $username) {
@@ -127,8 +127,8 @@ class auth {
      * Promotes an account
      */
     public function promoteAccount($username) {
-        // check if logged in again as an admin as a 
-        // safety net the first check is mainly just 
+        // check if logged in again as an admin as a
+        // safety net the first check is mainly just
         //to redirect pesky users
         if (auth::isAdmin()) {
             if (auth::getCurrentUser() !== $username) {
@@ -219,7 +219,7 @@ class auth {
     }
 
     /**
-     * Checks if the current user is a participant 
+     * Checks if the current user is a participant
      */
     public function isParticipant() {
         if (auth::getCurrentUserNumRole() == 1) {
@@ -264,5 +264,3 @@ class auth {
         return $randomString;
     }
 }
-
-?>

@@ -72,5 +72,3 @@ function cat_title() {
 	global $category;
 	return $category['title'];
 }
-
-?>

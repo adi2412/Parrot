@@ -63,4 +63,3 @@ if (!file_exists(PATH . 'config' . EXT)) {
 
 	header('Location: http://' . $_POST['url'] . 'login');
 }
-?>

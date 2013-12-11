@@ -5,7 +5,7 @@ class discussions {
     	/**
     	 * This is the home page
     	 */
-        // TODO: Make the theme name an option    
+        // TODO: Make the theme name an option
         require(PATH . 'themes' . DS . siteinfo('theme') . DS . 'index' . EXT);
     }
 }
@@ -127,5 +127,3 @@ class reply_delete {
         discussion::delete_reply($slug);
     }
 }
-
-?>

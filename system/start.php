@@ -18,7 +18,7 @@ ToroHook::add('404', function() {
  */
 Toro::serve(array(
     BASE => 'discussions',
-    BASE . 'login/verify' => 'verify_login',  
+    BASE . 'login/verify' => 'verify_login',
     BASE . 'login' => 'login',
     BASE . 'signup' => 'signup',
     BASE . 'signup/submit' => 'submit_signup',
@@ -41,5 +41,3 @@ Toro::serve(array(
     BASE . 'admin/user/:alpha/demote' => 'admin_user_demote',
     BASE . 'reply/:alpha/delete' => 'reply_delete'
 ));
-
-?>

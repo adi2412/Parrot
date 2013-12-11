@@ -5,7 +5,7 @@
  */
 $files = glob(APP . 'libraries' . DS . '/*' . EXT);
 foreach ($files as $file) {
-    require_once($file);   
+    require_once($file);
 }
 
 /**
@@ -13,7 +13,7 @@ foreach ($files as $file) {
  */
 $files = glob(SYS . 'functions' . DS . '/*' . EXT);
 foreach ($files as $file) {
-    require_once($file);   
+    require_once($file);
 }
 
 /**
@@ -21,7 +21,7 @@ foreach ($files as $file) {
  */
 $files = glob(APP . 'handlers' . DS . '/*' . EXT);
 foreach ($files as $file) {
-    require_once($file);   
+    require_once($file);
 }
 
 /**
@@ -29,5 +29,3 @@ foreach ($files as $file) {
  */
 $discussion_title = null;
 $messages;
-
-?>
