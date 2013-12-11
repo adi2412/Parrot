@@ -59,7 +59,5 @@ if (!file_exists(PATH . 'config' . EXT)) {
 	file_put_contents(dirname(__FILE__) . '/' . 'config.php', "define('DB_URL', '" . $DBURL . "');", FILE_APPEND);
 	file_put_contents(dirname(__FILE__) . '/' . 'config.php', "define('DB_PREFIX', '" . $DBprefix . "');", FILE_APPEND);
 
-	file_put_contents(dirname(__FILE__) . '/' . 'config.php', " ?>", FILE_APPEND);
-
 	header('Location: http://' . $_POST['url'] . 'login');
 }
