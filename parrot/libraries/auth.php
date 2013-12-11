@@ -1,19 +1,28 @@
 <?php
 
-class auth {
+class auth
+{
     /**
      * Checks if the request to login is valid
      */
-	public function verify($username, $password) {
-		$query = database::getInstance()->query("SELECT * FROM `" . DB_PREFIX . "Users` WHERE `username`='$username' AND `password`='$password'");
-    	$rows = $query->fetchAll();
+    public function verify($username, $password)
+    {
+        $query = "SELECT * FROM " . database::getTableName("users") . " WHERE `username` = ? AND `password` = ?";
+        $statement = database::getInstance()->prepare($query);
+        $statement->bindParam(1, $username, PDO::PARAM_STR);
+        $statement->bindParam(2, $password, PDO::PARAM_STR);
+        $statement->execute();
+        $rows = $statement->fetchAll();
         if (count($rows) == 1) {
             // OMG OMG OMG...
             // it's a real user... create a session for them and redirect
             // cookie expires on one hour
             $randString = auth::generateRandomString(15);
             setcookie('parrotSession', $randString, time()+3600, BASE);
-            $query = database::getInstance()->query("UPDATE `" . DB_PREFIX . "Users` SET `session`='$randString' WHERE `username`='$username'");
+            $query = "UPDATE " . database::getTableName("users") . " SET `session` = ? WHERE `username` = ?";
+            $statement = database::getInstance()->prepare($query);
+            $statement->bindParam(1, $randString, PDO::PARAM_STR);
+            $statement->bindParam(2, $username, PDO::PARAM_STR);
             $query->execute();
             header('Location: http://' . getenv(DOMAIN_NAME) . BASE);
         } else {
@@ -26,15 +35,18 @@ class auth {
     /**
      * Checks if the current user is logged in
      */
-    public function isLoggedIn() {
+    public function isLoggedIn()
+    {
         $cookie = $_COOKIE['parrotSession'];
-        $query = database::getInstance()->query("SELECT * FROM `" . DB_PREFIX . "Users` WHERE `session`='$cookie'");
-        $rows = $query->fetchAll();
+        $query = "SELECT * FROM " . database::getTableName("users") . " WHERE `session` = ?";
+        $statement = database::getInstance()->prepare($query);
+        $statement->bindParam(1, $cookie, PDO::PARAM_STR);
+        $rows = $statement->fetchAll();
         $matches = false;
         foreach ($rows as $row) {
             $matches = true;
         }
-        if (isset($_COOKIE['parrotSession']) && $matches == true) {
+        if (isset($cookie) && $matches == true) {
             return true;
         } else {
             return false;
@@ -44,14 +56,25 @@ class auth {
     /**
      * Creates an account
      */
-    public function createAccount($username, $password, $email, $name) {
-       if (!empty($username) && !empty($password) && !empty($email) && !empty($name)) {
-            $query = database::getInstance()->query("SELECT * FROM `" . DB_PREFIX . "Users` WHERE `username`='$username'");
-            $rows = $query->fetchAll();
+    public function createAccount($username, $password, $email, $name)
+    {
+        if (!empty($username) && !empty($password) && !empty($email) && !empty($name)) {
+            $query = "SELECT * FROM " . database::getTableName("users") . " WHERE `username` = ?";
+            $statement = database::getInstance()->prepare($query);
+            $statement->bindParam(1, $username, PDO::PARAM_STR);
+            $statement->execute();
+            $rows = $statement->fetchAll();
             if (count($rows) == 0) {
                 // woo! username is not taken
                 if (preg_match("/^[A-Za-z0-9-_\s]+$/", $username)) {
-                    $query = database::getInstance()->query("INSERT INTO `" . DB_PREFIX . "Users` (session, username, password, name, email, role) VALUES (NULL, '$username', '$password', '$name', '$email', 1)");
+                    $query = "INSERT INTO " . database::getTableName("users") . " (`session`, `username`, `password`, `name`, `email`, `role`)";
+                    $query .= " VALUES (NULL, ?, ?, ?, ?, 1)";
+                    $statement = database::getInstance()->prepare($query);
+                    $statement->bindParam(1, $username, PDO::PARAM_STR);
+                    $statement->bindParam(2, $password, PDO::PARAM_STR);
+                    $statement->bindParam(3, $name, PDO::PARAM_STR);
+                    $statement->bindParam(4, $email, PDO::PARAM_STR);
+                    $statement->execute();
                 } else {
                     global $messages;
                     $messages = 'Please only use numbers and letters in your username';
@@ -62,24 +85,27 @@ class auth {
                 $messages = 'Username is already taken';
                 require(APP . 'views' . DS . 'signup' . EXT);
             }
-       } else {
+        } else {
             global $messages;
             $messages = 'Please fill out all fields';
             require(APP . 'views' . DS . 'signup' . EXT);
-       }
+        }
     }
 
     /**
      * Deletes an account
      */
-    public function deleteAccount($username) {
+    public function deleteAccount($username)
+    {
         // check if logged in again as an admin as a
         // safety net the first check is mainly just
         //to redirect pesky users
         if (auth::isAdmin()) {
             if (auth::getCurrentUser() !== $username) {
-                $query = database::getInstance()->query("DELETE FROM `" . DB_PREFIX . "Users` WHERE `username`='$username'");
-                $query->execute();
+                $query = "DELETE FROM " . database::getTableName("users") . " WHERE `username` = ?";
+                $statement = database::getInstance()->prepare($query);
+                $statement->bindParam(1, $username, PDO::PARAM_STR);
+                $statement->execute();
                 header('Location: http://' . getenv(DOMAIN_NAME) . BASE . 'admin');
             } else {
                 global $messages;
@@ -94,7 +120,8 @@ class auth {
     /**
      * Demotes an account
      */
-    public function demoteAccount($username) {
+    public function demoteAccount($username)
+    {
         // check if logged in again as an admin as a
         // safety net the first check is mainly just
         //to redirect pesky users

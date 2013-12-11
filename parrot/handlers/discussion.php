@@ -34,11 +34,17 @@ class edit_discussion
     	 */
         global $discussion_title;
         $discussion_title = discussion::decode_title($slug);
-        $query = database::getInstance()->query("SELECT * FROM `" . DB_PREFIX . "Discussion` WHERE `title`='$discussion_title'");
-		$rows = $query->fetchAll();
-		$author;
+        $query = "SELECT * FROM " . database::getTableName("Discussion") . " WHERE `title` = ?";
+        $statement = database::getInstance()->prepare($query);
+        $statement->bindParam(1, $discussion_title, PDO::PARAM_STR);
+        $statement->execute();
+        $rows = $statement->fetchAll();
+        $author;
         $locked;
-		foreach ($rows as $row) { $author = $row['author']; $locked = $row['locked']; }
+		foreach ($rows as $row) {
+            $author = $row['author'];
+            $locked = $row['locked'];
+        }
 		if ($author == auth::getCurrentUser() && $locked == 'false' || auth::isAdmin() && $locked == 'false' || auth::isMod() && $locked == 'false') {
         	require(PATH . 'themes' . DS . siteinfo('theme') . DS . 'edit' . EXT);
         } else {
