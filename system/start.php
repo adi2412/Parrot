@@ -5,6 +5,8 @@
  */
 require_once(SYS . 'boot' . EXT);
 
+require_once(SYS . "toro" . EXT);
+
 /**
  * Page not found (404)
  *  - TODO: Custom page in theme
