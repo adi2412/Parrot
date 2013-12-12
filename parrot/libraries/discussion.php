@@ -1,46 +1,48 @@
 <?php
 
-class discussion {
-	/**
-	 * Create a discussion
-	 */
-	public function submit($title, $content, $category) {
-		// check if logged in again as a safety net
-		// the first check is mainly just to redirect
-		// pesky users
-		$query = database::getInstance()->query("SELECT * FROM `" . DB_PREFIX . "Discussion` WHERE `title`='$title'");
-	    $rows = $query->fetchAll();
-	    $checkTitle;
-	    foreach ($rows as $row) {
-	    	$checkTitle = $row['title'];
-	    }
-		if (auth::isLoggedIn()) {
-			if ($checkTitle !== $title) {
-				// strip the HTML tags... Markdown only
-				$title = strip_tags($title);
-				$content = strip_tags($content);
-				$session = auth::getSession();
-				$query = database::getInstance()->query("SELECT * FROM `" . DB_PREFIX . "Users` WHERE `session`='$session'");
-		    	$rows = $query->fetchAll();
-		    	$username;
-		    	foreach ($rows as $row) {
-		    		$username = $row['username'];
-		    	}
+class discussion
+{
+    /**
+     * Create a discussion
+     */
+    public function submit($title, $content, $category)
+    {
+        // check if logged in again as a safety net
+        // the first check is mainly just to redirect
+        // pesky users
+        $query = database::getInstance()->query("SELECT * FROM `" . DB_PREFIX . "Discussion` WHERE `title`='$title'");
+        $rows = $query->fetchAll();
+        $checkTitle;
+        foreach ($rows as $row) {
+            $checkTitle = $row['title'];
+        }
+        if (auth::isLoggedIn()) {
+            if ($checkTitle !== $title) {
+                // strip the HTML tags... Markdown only
+                $title = strip_tags($title);
+                $content = strip_tags($content);
+                $session = auth::getSession();
+                $query = database::getInstance()->query("SELECT * FROM `" . DB_PREFIX . "Users` WHERE `session`='$session'");
+                $rows = $query->fetchAll();
+                $username;
+                foreach ($rows as $row) {
+                    $username = $row['username'];
+                }
 		    	$date = date('jS F, Y');
 		    	$query = database::getInstance()->query("INSERT INTO `" . DB_PREFIX . "Discussion` (title, author, content, time, category, timestamp, sticky, locked) VALUES ('$title', '$username', '$content', '$date', '$category', NULL, 'false', 'false')");
 				header('Location: http://' . getenv(DOMAIN_NAME) . BASE . 'discussion' . DS . str_replace(' ', '-', $title));
 		    } else {
-		    	global $messages;
-		    	$messages = 'Please choose another title';
-		    	require(PATH . 'themes' . DS . siteinfo('theme') . DS . 'create.php');
-		    }
-		} else {
-			// the user should have already been re-directed to the login page by now
-			global $messages;
-		    $messages = 'Please login to post';
-		    require(PATH . 'themes' . DS . siteinfo('theme') . DS . 'create.php');
-		}
-	}
+                global $messages;
+                $messages = 'Please choose another title';
+                require(PATH . 'themes' . DS . siteinfo('theme') . DS . 'create.php');
+            }
+        } else {
+            // the user should have already been re-directed to the login page by now
+            global $messages;
+            $messages = 'Please login to post';
+            require(PATH . 'themes' . DS . siteinfo('theme') . DS . 'create.php');
+        }
+    }
 
 	/**
 	 * Get all discussions
