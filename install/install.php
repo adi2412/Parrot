@@ -46,7 +46,7 @@
                     font-size: 13px;
                     margin: 10px;
                     text-decoration: none;
-                    color: #D6D6D6;
+                    color: #A4A4A4;
                     margin-left: 0px;
                 }
 
@@ -61,13 +61,13 @@
                     -webkit-box-sizing: border-box;
                     -moz-box-sizing: border-box;
                     box-sizing: border-box;
-                    color: #EDF1F2;
+                    color: #AAA;
                 }
 
                 input:focus {
                     outline: none;
                     background-color: #EDF1F2;
-                    color: #fff;
+                    color: #666;
                 }
 
                 .group {
