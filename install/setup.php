@@ -1,5 +1,5 @@
 <?php
-if (!file_exists(PATH . 'config' . EXT)) {
+if (!file_exists(PATH . "config.php")) {
     $forumname = $_POST['forumname'];
     $forumdescription = $_POST['forumdescription'];
 
@@ -48,7 +48,7 @@ if (!file_exists(PATH . 'config' . EXT)) {
     mysqli_query($DB, "INSERT INTO " . $DBprefix . "Category(title) VALUES('Uncategorized')");
     mysqli_query($DB, "INSERT INTO " . $DBprefix . "Meta(title, description, theme) VALUES('$forumname', '$forumdescription', 'default')");
 
-    file_put_contents(dirname(__FILE__) . '/' . 'config.php', "<?php ", FILE_APPEND);
+    file_put_contents(dirname(__FILE__) . "/" . "config.php", "<?php ", FILE_APPEND);
 
     // file_put_contents(dirname(__FILE__) . '/' . 'config.php', "define('FORUM_NAME', '" . $forumname . "');", FILE_APPEND);
     // file_put_contents(dirname(__FILE__) . '/' . 'config.php', "define('FORUM_DESCRIPTION', '" . $forumdescription . "');", FILE_APPEND);

@@ -3,7 +3,7 @@
 /**
  * Libraries
  */
-$files = glob(APP . 'libraries' . DS . '/*' . EXT);
+$files = glob(APP . "libraries" . DS . "/*.php");
 foreach ($files as $file) {
     require_once($file);
 }
@@ -11,7 +11,7 @@ foreach ($files as $file) {
 /**
  * Functions
  */
-$files = glob(SYS . 'functions' . DS . '/*' . EXT);
+$files = glob(SYS . "functions" . DS . "/*.php");
 foreach ($files as $file) {
     require_once($file);
 }
@@ -19,7 +19,7 @@ foreach ($files as $file) {
 /**
  * Handlers
  */
-$files = glob(APP . 'handlers' . DS . '/*' . EXT);
+$files = glob(APP . "handlers" . DS . "/*.php");
 foreach ($files as $file) {
     require_once($file);
 }

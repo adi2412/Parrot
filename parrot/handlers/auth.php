@@ -1,16 +1,18 @@
 <?php
 
-class login {
-    function get() {
-    	/**
-    	 * This is the login page
-    	 */
+class login
+{
+    function get()
+    {
+        /**
+         * This is the login page
+         */
         // TODO: Make the theme name an option
-		if (auth::isLoggedIn()) {
-			unset($_COOKIE['parrotSession']);
+        if (auth::isLoggedIn()) {
+            unset($_COOKIE['parrotSession']);
             setcookie('parrotSession', null, -1, BASE);
-		}
-        require(APP . 'views' . DS . 'login' . EXT);
+        }
+        require(APP . 'views' . DS . 'login.php');
     }
 }
 
@@ -20,16 +22,18 @@ class signup {
          * This is the signup page
          */
         // TODO: Make the theme name an option
-        require(APP . 'views' . DS . 'signup' . EXT);
+        require(APP . 'views' . DS . 'signup.php');
     }
 }
 
-class submit_signup {
-     function post() {
+class submit_signup
+{
+    function post()
+    {
         auth::createAccount($_POST['username'], $_POST['password'], $_POST['email'], $_POST['name']);
         auth::verify($_POST['username'], $_POST['password']);
         header('Location: http://' . getenv(DOMAIN_NAME) . BASE . 'login');
-     }
+    }
 }
 
 class user {

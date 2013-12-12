@@ -1,4 +1,4 @@
-<?php if (!file_exists(PATH . 'config' . EXT)) : ?>
+<?php if (!file_exists(PATH . "config.php")) : ?>
     <!DOCTYPE html>
     <html>
         <head>

@@ -28,7 +28,7 @@ class auth
         } else {
             global $messages;
             $messages = 'Incorrect username or password.';
-            require(APP . 'views' . DS . 'login' . EXT);
+            require(APP . 'views' . DS . 'login.php');
         }
 	}
 
@@ -78,17 +78,17 @@ class auth
                 } else {
                     global $messages;
                     $messages = 'Please only use numbers and letters in your username';
-                    require(APP . 'views' . DS . 'signup' . EXT);
+                    require(APP . 'views' . DS . 'signup.php');
                 }
             } else {
                 global $messages;
                 $messages = 'Username is already taken';
-                require(APP . 'views' . DS . 'signup' . EXT);
+                require(APP . 'views' . DS . 'signup.php');
             }
         } else {
             global $messages;
             $messages = 'Please fill out all fields';
-            require(APP . 'views' . DS . 'signup' . EXT);
+            require(APP . 'views' . DS . 'signup.php');
         }
     }
 
@@ -110,7 +110,7 @@ class auth
             } else {
                 global $messages;
                 $messages = 'You cannot delete your own account';
-                require(APP . 'views' . DS . 'admin' . DS . 'index' . EXT);
+                require(APP . 'views' . DS . 'admin' . DS . 'index.php');
             }
         } else {
             // not an admin
@@ -143,7 +143,7 @@ class auth
             } else {
                 global $messages;
                 $messages = 'You cannot change your own status';
-                require(APP . 'views' . DS . 'admin' . DS . 'index' . EXT);
+                require(APP . 'views' . DS . 'admin' . DS . 'index.php');
             }
         } else {
             // not an admin
@@ -175,7 +175,7 @@ class auth
             } else {
                 global $messages;
                 $messages = 'You cannot change your own status';
-                require(APP . 'views' . DS . 'admin' . DS . 'index' . EXT);
+                require(APP . 'views' . DS . 'admin' . DS . 'index.php');
             }
         } else {
             // not an admin

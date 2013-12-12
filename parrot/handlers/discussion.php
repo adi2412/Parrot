@@ -6,7 +6,7 @@ class discussions {
     	 * This is the home page
     	 */
         // TODO: Make the theme name an option
-        require(PATH . 'themes' . DS . siteinfo('theme') . DS . 'index' . EXT);
+        require(PATH . 'themes' . DS . siteinfo('theme') . DS . 'index.php');
     }
 }
 
@@ -15,7 +15,7 @@ class create_discussion {
     	/**
     	 * This is the create discussion page
     	 */
-        require(PATH . 'themes' . DS . siteinfo('theme') . DS . 'create' . EXT);
+        require(PATH . 'themes' . DS . siteinfo('theme') . DS . 'create.php');
     }
 }
 
@@ -46,7 +46,7 @@ class edit_discussion
             $locked = $row['locked'];
         }
 		if ($author == auth::getCurrentUser() && $locked == 'false' || auth::isAdmin() && $locked == 'false' || auth::isMod() && $locked == 'false') {
-        	require(PATH . 'themes' . DS . siteinfo('theme') . DS . 'edit' . EXT);
+            require(PATH . 'themes' . DS . siteinfo('theme') . DS . 'edit.php');
         } else {
         	header('Location: http://' . getenv(DOMAIN_NAME) . BASE);
         }
@@ -66,7 +66,7 @@ class edit_submit_discussion {
             } else {
                 global $messages;
                 $messages = 'Only include spaces, letters and numbers in the title';
-                require(PATH . 'themes' . DS . siteinfo('theme') . DS . 'index' . EXT);
+                require(PATH . 'themes' . DS . siteinfo('theme') . DS . 'index.php');
             }
 		} else {
 			header('Location: http://' . getenv(DOMAIN_NAME) . BASE . 'login');
@@ -108,7 +108,7 @@ class submit_discussion {
             } else {
                 global $messages;
                 $messages = 'Only include spaces, letters and numbers in the title';
-                require(PATH . 'themes' . DS . siteinfo('theme') . DS . 'create' . EXT);
+                require(PATH . 'themes' . DS . siteinfo('theme') . DS . 'create.php');
             }
 		} else {
 			header('Location: http://' . getenv(DOMAIN_NAME) . BASE . 'login');
@@ -123,7 +123,7 @@ class view_discussion {
     	 */
         global $discussion_title;
         $discussion_title = discussion::decode_title($slug);
-        require_once(PATH . 'themes' . DS . siteinfo('theme') . DS . 'discussion' . EXT);
+        require_once(PATH . 'themes' . DS . siteinfo('theme') . DS . 'discussion.php');
     }
 }
 

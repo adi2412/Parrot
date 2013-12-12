@@ -26,7 +26,7 @@ class admin_cat_create {
             } else {
                 global $messages;
                 $messages = 'Only include spaces, letters and numbers in the name.';
-                require(APP . 'views' . DS . 'admin' . DS . 'index' . EXT);
+                require(APP . 'views' . DS . 'admin' . DS . 'index.php');
             }
         } else {
             header('Location: http://' . getenv(DOMAIN_NAME) . BASE . 'login');
@@ -63,7 +63,7 @@ class admin_info_update {
             } else {
                 global $messages;
                 $messages = 'Only include spaces, letters and numbers in the name.';
-                require(APP . 'views' . DS . 'admin' . DS . 'index' . EXT);
+                require(APP . 'views' . DS . 'admin' . DS . 'index.php');
             }
         } else {
             header('Location: http://' . getenv(DOMAIN_NAME) . BASE . 'login');

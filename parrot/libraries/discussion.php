@@ -32,13 +32,13 @@ class discussion {
 		    } else {
 		    	global $messages;
 		    	$messages = 'Please choose another title';
-		    	require(PATH . 'themes' . DS . siteinfo('theme') . DS . 'create' . EXT);
+		    	require(PATH . 'themes' . DS . siteinfo('theme') . DS . 'create.php');
 		    }
 		} else {
 			// the user should have already been re-directed to the login page by now
 			global $messages;
 		    $messages = 'Please login to post';
-		    require(PATH . 'themes' . DS . siteinfo('theme') . DS . 'create' . EXT);
+		    require(PATH . 'themes' . DS . siteinfo('theme') . DS . 'create.php');
 		}
 	}
 

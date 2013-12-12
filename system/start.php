@@ -3,16 +3,16 @@
 /**
  * Get requires and init important variables
  */
-require_once(SYS . 'boot' . EXT);
+require_once(SYS . "boot.php");
 
-require_once(SYS . "toro" . EXT);
+require_once(SYS . "toro.php");
 
 /**
  * Page not found (404)
  *  - TODO: Custom page in theme
  */
-ToroHook::add('404', function() {
-    echo 'Not found';
+ToroHook::add("404", function() {
+    echo "Not found";
 });
 
 /**
