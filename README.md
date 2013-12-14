@@ -3,9 +3,6 @@ Parrot
 
 Parrot is a super easy to use discussion platform that's built to be fast, secure, and simple. It's so quick to install that you'll finally have time to feed Polly that cracker.
 
-![](http://codingbean.com/uploads/parrot.png)
-<div align="right">Default theme</div>
-
 Use
 ===
 
@@ -14,7 +11,7 @@ Currently Parrot is in the development stage. This means that even though you ca
 Why
 ===
 
-You may be thinking, "Why should I use Parrot when Discourse has a much larger community and has been in development for years?" Well, for starters, Parrot is much more lightweight. Parrot also is super easy to extend, theme, get support for (just visit [the forums](http://codingbean.com/parrot/)), and manage. It's made for the kinds of people who spend their days at coffee shops. Not some f*cked up company with people who are paid to do nothing. Parrot is for the doers. The pixel pushers.
+You may be thinking, "Why should I use Parrot when Discourse has a much larger community and has been in development for years?" Well, for starters, Parrot is much more lightweight. Parrot also is super easy to extend, theme, get support for (just visit [the forums](http://codingbean.com/parrot/)), and manage. Besides, it's crafted with love.
 
 > Hey it looks good.<br/>
  \- @idiot
