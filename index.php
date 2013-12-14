@@ -14,9 +14,6 @@ define('SYS', PATH . 'system' . DS);
 define('INSTALL', PATH . 'install' . DS);
 define('BASE', substr($_SERVER['SCRIPT_NAME'], 0, strpos($_SERVER['SCRIPT_NAME'],basename($_SERVER['SCRIPT_NAME']))));
 
-// posts-per-page
-define('PPS', '5');
-
 // let's fly
 if (file_exists(PATH . "install" . DS . "config.php")) {
 	require_once(INSTALL . "config.php");

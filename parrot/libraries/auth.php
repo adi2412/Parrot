@@ -7,7 +7,7 @@ class auth
      */
     public function verify($username, $password)
     {
-        $query = "SELECT * FROM " . database::getTableName("users") . " WHERE `username` = ? AND `password` = ?";
+        $query = "SELECT * FROM " . database::getTableName('Users') . " WHERE `username` = ? AND `password` = ?";
         $statement = database::getInstance()->prepare($query);
         $statement->bindParam(1, $username, PDO::PARAM_STR);
         $statement->bindParam(2, $password, PDO::PARAM_STR);
@@ -19,11 +19,11 @@ class auth
             // cookie expires on one hour
             $randString = auth::generateRandomString(15);
             setcookie('parrotSession', $randString, time()+3600, BASE);
-            $query = "UPDATE " . database::getTableName("users") . " SET `session` = ? WHERE `username` = ?";
+            $query = "UPDATE " . database::getTableName('Users') . " SET `session` = ? WHERE `username` = ?";
             $statement = database::getInstance()->prepare($query);
             $statement->bindParam(1, $randString, PDO::PARAM_STR);
             $statement->bindParam(2, $username, PDO::PARAM_STR);
-            $query->execute();
+            $statement->execute();
             header('Location: http://' . getenv(DOMAIN_NAME) . BASE);
         } else {
             global $messages;
@@ -38,9 +38,10 @@ class auth
     public function isLoggedIn()
     {
         $cookie = $_COOKIE['parrotSession'];
-        $query = "SELECT * FROM " . database::getTableName("users") . " WHERE `session` = ?";
+        $query = "SELECT * FROM " . database::getTableName('Users') . " WHERE `session` = ?";
         $statement = database::getInstance()->prepare($query);
         $statement->bindParam(1, $cookie, PDO::PARAM_STR);
+        $statement->execute();
         $rows = $statement->fetchAll();
         $matches = false;
         foreach ($rows as $row) {
@@ -59,7 +60,7 @@ class auth
     public function createAccount($username, $password, $email, $name)
     {
         if (!empty($username) && !empty($password) && !empty($email) && !empty($name)) {
-            $query = "SELECT * FROM " . database::getTableName("users") . " WHERE `username` = ?";
+            $query = "SELECT * FROM " . database::getTableName('Users') . " WHERE `username` = ?";
             $statement = database::getInstance()->prepare($query);
             $statement->bindParam(1, $username, PDO::PARAM_STR);
             $statement->execute();
@@ -67,7 +68,7 @@ class auth
             if (count($rows) == 0) {
                 // woo! username is not taken
                 if (preg_match("/^[A-Za-z0-9-_\s]+$/", $username)) {
-                    $query = "INSERT INTO " . database::getTableName("users") . " (`session`, `username`, `password`, `name`, `email`, `role`)";
+                    $query = "INSERT INTO " . database::getTableName('Users') . " (`session`, `username`, `password`, `name`, `email`, `role`)";
                     $query .= " VALUES (NULL, ?, ?, ?, ?, 1)";
                     $statement = database::getInstance()->prepare($query);
                     $statement->bindParam(1, $username, PDO::PARAM_STR);
@@ -102,7 +103,7 @@ class auth
         //to redirect pesky users
         if (auth::isAdmin()) {
             if (auth::getCurrentUser() !== $username) {
-                $query = "DELETE FROM " . database::getTableName("users") . " WHERE `username` = ?";
+                $query = "DELETE FROM " . database::getTableName('Users') . " WHERE `username` = ?";
                 $statement = database::getInstance()->prepare($query);
                 $statement->bindParam(1, $username, PDO::PARAM_STR);
                 $statement->execute();
@@ -127,7 +128,7 @@ class auth
         //to redirect pesky users
         if (auth::isAdmin()) {
             if (auth::getCurrentUser() !== $username) {
-                $query = database::getInstance()->query("SELECT * FROM `" . DB_PREFIX . "Users` WHERE `username`='$username'");
+                $query = database::getInstance()->query("SELECT * FROM " . database::getTableName('Users') . " WHERE `username`='$username'");
                 $rows = $query->fetchAll();
                 $role;
                 foreach ($rows as $row) {
@@ -138,7 +139,7 @@ class auth
                 } else {
                     // can't go any less
                 }
-                database::getInstance()->query("UPDATE `" . DB_PREFIX . "Users` SET `role` = '$role' WHERE `username` = '$username'");
+                database::getInstance()->query("UPDATE " . database::getTableName('Users') . " SET `role` = '$role' WHERE `username` = '$username'");
                 header('Location: http://' . getenv(DOMAIN_NAME) . BASE . 'admin');
             } else {
                 global $messages;
@@ -159,7 +160,7 @@ class auth
         //to redirect pesky users
         if (auth::isAdmin()) {
             if (auth::getCurrentUser() !== $username) {
-                $query = database::getInstance()->query("SELECT * FROM `" . DB_PREFIX . "Users` WHERE `username`='$username'");
+                $query = database::getInstance()->query("SELECT * FROM " . database::getTableName('Users') . " WHERE `username`='$username'");
                 $rows = $query->fetchAll();
                 $role;
                 foreach ($rows as $row) {
@@ -170,7 +171,7 @@ class auth
                 } else {
                     // can't go any more
                 }
-                database::getInstance()->query("UPDATE `" . DB_PREFIX . "Users` SET `role` = '$role' WHERE `username` = '$username'");
+                database::getInstance()->query("UPDATE " . database::getTableName('Users') . " SET `role` = '$role' WHERE `username` = '$username'");
                 header('Location: http://' . getenv(DOMAIN_NAME) . BASE . 'admin');
             } else {
                 global $messages;
@@ -194,7 +195,7 @@ class auth
      */
     public function getCurrentUser() {
         $cookie = $_COOKIE['parrotSession'];
-        $query = database::getInstance()->query("SELECT * FROM `" . DB_PREFIX . "Users` WHERE `session`='$cookie'");
+        $query = database::getInstance()->query("SELECT * FROM " . database::getTableName('Users') . " WHERE `session`='$cookie'");
         $rows = $query->fetchAll();
         foreach ($rows as $row) {
             return $row['username'];
@@ -261,7 +262,7 @@ class auth
      */
     private function getCurrentUserNumRole() {
         $cookie = $_COOKIE['parrotSession'];
-        $query = database::getInstance()->query("SELECT * FROM `" . DB_PREFIX . "Users` WHERE `session`='$cookie'");
+        $query = database::getInstance()->query("SELECT * FROM " . database::getTableName('Users') . " WHERE `session`='$cookie'");
         $rows = $query->fetchAll();
         foreach ($rows as $row) {
             return $row['role'];
@@ -272,7 +273,7 @@ class auth
      * Gets the numeric role of a user
      */
     public function getUserNumRole($username) {
-        $query = database::getInstance()->query("SELECT * FROM `" . DB_PREFIX . "Users` WHERE `username`='$username'");
+        $query = database::getInstance()->query("SELECT * FROM " . database::getTableName('Users') . " WHERE `username`='$username'");
         $rows = $query->fetchAll();
         foreach ($rows as $row) {
             return $row['role'];

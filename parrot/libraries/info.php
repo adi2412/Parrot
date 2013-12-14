@@ -11,7 +11,7 @@ class info
         // the first check is mainly just to redirect
         // pesky users
         if (auth::isLoggedIn() && auth::isAdmin()) {
-            database::getInstance()->query("UPDATE `" . DB_PREFIX . "Meta` SET `title` = '$title', `description` = '$description', `theme` = '$theme'");
+            database::getInstance()->query("UPDATE " . database::getTableName('Meta') . " SET `title` = '$title', `description` = '$description', `theme` = '$theme'");
         } else {
             // not logged in / not admin
         }
