@@ -2,25 +2,27 @@
 
 class login
 {
+    /**
+     * This is the login page
+     */
     function get()
     {
-        /**
-         * This is the login page
-         */
         // TODO: Make the theme name an option
         if (auth::isLoggedIn()) {
             unset($_COOKIE['parrotSession']);
-            setcookie('parrotSession', null, -1, BASE);
+            setcookie('parrotSession', null, -1, Parrot::getInstance()->config()->getConfig("app/basepath"));
         }
         require(APP . 'views' . DS . 'login.php');
     }
 }
 
-class signup {
-    function get() {
-        /**
-         * This is the signup page
-         */
+class signup
+{
+    /**
+     * This is the signup page
+     */
+    function get()
+    {
         // TODO: Make the theme name an option
         require(APP . 'views' . DS . 'signup.php');
     }
@@ -32,21 +34,25 @@ class submit_signup
     {
         auth::createAccount($_POST['username'], $_POST['password'], $_POST['email'], $_POST['name']);
         auth::verify($_POST['username'], $_POST['password']);
-        header('Location: http://' . getenv(DOMAIN_NAME) . BASE . 'login');
+        header("Location: " . Parrot::getInstance()->getUrl("login"));
     }
 }
 
-class user {
-    function get($slug) {
-        /**
-         * This is the user profile page
-         */
-        echo 'Woo! Hi, '. $slug;
+class user
+{
+    /**
+     * This is the user profile page
+     */
+    function get($slug)
+    {
+        echo "Woo! Hi, " . $slug;
     }
 }
 
-class verify_login {
-    function post() {
-        auth::verify($_POST['username'], $_POST['password']);
+class verify_login
+{
+    function post()
+    {
+        auth::verify($_POST["username"], $_POST["password"]);
     }
 }

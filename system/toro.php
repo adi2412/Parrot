@@ -2,31 +2,29 @@
 
 class Toro
 {
-    public static function serve($routes)
+    public static function serve(array $routes, array $server, $basepath = '/')
     {
         ToroHook::fire('before_request', compact('routes'));
 
-        $request_method = strtolower($_SERVER['REQUEST_METHOD']);
-        $path_info = '/';
-        if (!empty($_SERVER['PATH_INFO'])) {
-            $path_info = $_SERVER['PATH_INFO'];
+        $request_method = strtolower($server['REQUEST_METHOD']);
+        $path_info = $basepath;
+        if (!empty($server['REQUEST_URI'])) {
+            $path_info = (strpos($server['REQUEST_URI'], '?') > 0) ? strstr($server['REQUEST_URI'], '?', true) : $server['REQUEST_URI'];
+        } elseif (!empty($server['PATH_INFO'])) {
+            $path_info = $server['PATH_INFO'];
+        } elseif (!empty($server['ORIG_PATH_INFO']) && $server['ORIG_PATH_INFO'] !== '/index.php') {
+            $path_info = $server['ORIG_PATH_INFO'];
         }
-        else if (!empty($_SERVER['ORIG_PATH_INFO']) && $_SERVER['ORIG_PATH_INFO'] !== '/index.php') {
-            $path_info = $_SERVER['ORIG_PATH_INFO'];
+        if ($basepath !== "/" && substr($path_info, 0, strlen($basepath)) === $basepath) {
+            $path_info = substr($path_info, strlen($basepath));
         }
-        else {
-            if (!empty($_SERVER['REQUEST_URI'])) {
-                $path_info = (strpos($_SERVER['REQUEST_URI'], '?') > 0) ? strstr($_SERVER['REQUEST_URI'], '?', true) : $_SERVER['REQUEST_URI'];
-            }
-        }
-        
+
         $discovered_handler = null;
         $regex_matches = array();
 
         if (isset($routes[$path_info])) {
             $discovered_handler = $routes[$path_info];
-        }
-        else if ($routes) {
+        } elseif ($routes) {
             $tokens = array(
                 ':string' => '([a-zA-Z]+)',
                 ':number' => '([0-9]+)',
@@ -48,8 +46,7 @@ class Toro
         if ($discovered_handler) {
             if (is_string($discovered_handler)) {
                 $handler_instance = new $discovered_handler();
-            }
-            elseif (is_callable($discovered_handler)) {
+            } elseif (is_callable($discovered_handler)) {
                 $handler_instance = $discovered_handler();
             }
         }
@@ -57,7 +54,7 @@ class Toro
         if ($handler_instance) {
             unset($regex_matches[0]);
 
-            if (self::is_xhr_request() && method_exists($handler_instance, $request_method . '_xhr')) {
+            if (self::is_xhr_request($server) && method_exists($handler_instance, $request_method . '_xhr')) {
                 header('Content-type: application/json');
                 header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
                 header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT');
@@ -71,21 +68,19 @@ class Toro
                 ToroHook::fire('before_handler', compact('routes', 'discovered_handler', 'request_method', 'regex_matches'));
                 $result = call_user_func_array(array($handler_instance, $request_method), $regex_matches);
                 ToroHook::fire('after_handler', compact('routes', 'discovered_handler', 'request_method', 'regex_matches', 'result'));
-            }
-            else {
+            } else {
                 ToroHook::fire('404', compact('routes', 'discovered_handler', 'request_method', 'regex_matches'));
             }
-        }
-        else {
+        } else {
             ToroHook::fire('404', compact('routes', 'discovered_handler', 'request_method', 'regex_matches'));
         }
 
         ToroHook::fire('after_request', compact('routes', 'discovered_handler', 'request_method', 'regex_matches', 'result'));
     }
 
-    private static function is_xhr_request()
+    private static function is_xhr_request(array $server)
     {
-        return isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] === 'XMLHttpRequest';
+        return isset($server['HTTP_X_REQUESTED_WITH']) && $server['HTTP_X_REQUESTED_WITH'] === 'XMLHttpRequest';
     }
 }
 
@@ -122,3 +117,4 @@ class ToroHook
         return self::$instance;
     }
 }
+

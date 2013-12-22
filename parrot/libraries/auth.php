@@ -7,8 +7,10 @@ class auth
      */
     public function verify($username, $password)
     {
-        $query = "SELECT * FROM " . database::getTableName('Users') . " WHERE `username` = ? AND `password` = ?";
-        $statement = database::getInstance()->prepare($query);
+        $database = Parrot::getInstance()->database();
+
+        $query = "SELECT * FROM " . $database->getTableName("Users") . " WHERE `username` = ? AND `password` = ?";
+        $statement = $database->newStatement($query);
         $statement->bindParam(1, $username, PDO::PARAM_STR);
         $statement->bindParam(2, $password, PDO::PARAM_STR);
         $statement->execute();
@@ -18,28 +20,34 @@ class auth
             // it's a real user... create a session for them and redirect
             // cookie expires on one hour
             $randString = auth::generateRandomString(15);
-            setcookie('parrotSession', $randString, time()+3600, BASE);
-            $query = "UPDATE " . database::getTableName('Users') . " SET `session` = ? WHERE `username` = ?";
-            $statement = database::getInstance()->prepare($query);
+            setcookie("parrotSession", $randString, time() + 3600, Parrot::getInstance()->config()->getConfig("app/basepath"));
+            $query = "UPDATE " . $database->getTableName("Users") . " SET `session` = ? WHERE `username` = ?";
+            $statement = $database->newStatement($query);
             $statement->bindParam(1, $randString, PDO::PARAM_STR);
             $statement->bindParam(2, $username, PDO::PARAM_STR);
             $statement->execute();
-            header('Location: http://' . getenv(DOMAIN_NAME) . BASE);
+            header("Location: " . Parrot::getInstance()->getUrl());
         } else {
             global $messages;
             $messages = 'Incorrect username or password.';
             require(APP . 'views' . DS . 'login.php');
         }
-	}
+    }
 
     /**
      * Checks if the current user is logged in
      */
     public function isLoggedIn()
     {
-        $cookie = $_COOKIE['parrotSession'];
-        $query = "SELECT * FROM " . database::getTableName('Users') . " WHERE `session` = ?";
-        $statement = database::getInstance()->prepare($query);
+        if (isset($_COOKIE["parrotSession"])) {
+            $cookie = $_COOKIE["parrotSession"];
+        } else {
+            return false;
+        }
+
+        $database = Parrot::getInstance()->database();
+        $query = "SELECT * FROM " . $database->getTableName("Users") . " WHERE `session` = ?";
+        $statement = $database->newStatement($query);
         $statement->bindParam(1, $cookie, PDO::PARAM_STR);
         $statement->execute();
         $rows = $statement->fetchAll();
@@ -47,7 +55,7 @@ class auth
         foreach ($rows as $row) {
             $matches = true;
         }
-        if (isset($cookie) && $matches == true) {
+        if ($matches == true) {
             return true;
         } else {
             return false;
@@ -60,17 +68,18 @@ class auth
     public function createAccount($username, $password, $email, $name)
     {
         if (!empty($username) && !empty($password) && !empty($email) && !empty($name)) {
-            $query = "SELECT * FROM " . database::getTableName('Users') . " WHERE `username` = ?";
-            $statement = database::getInstance()->prepare($query);
+            $database = Parrot::getInstance()->database();
+            $query = "SELECT * FROM " . $database->getTableName("Users") . " WHERE `username` = ?";
+            $statement = $database->newStatement($query);
             $statement->bindParam(1, $username, PDO::PARAM_STR);
             $statement->execute();
             $rows = $statement->fetchAll();
             if (count($rows) == 0) {
                 // woo! username is not taken
                 if (preg_match("/^[A-Za-z0-9-_\s]+$/", $username)) {
-                    $query = "INSERT INTO " . database::getTableName('Users') . " (`session`, `username`, `password`, `name`, `email`, `role`)";
+                    $query = "INSERT INTO " . $database->getTableName("Users") . " (`session`, `username`, `password`, `name`, `email`, `role`)";
                     $query .= " VALUES (NULL, ?, ?, ?, ?, 1)";
-                    $statement = database::getInstance()->prepare($query);
+                    $statement = $database->newStatement($query);
                     $statement->bindParam(1, $username, PDO::PARAM_STR);
                     $statement->bindParam(2, $password, PDO::PARAM_STR);
                     $statement->bindParam(3, $name, PDO::PARAM_STR);
@@ -103,11 +112,12 @@ class auth
         //to redirect pesky users
         if (auth::isAdmin()) {
             if (auth::getCurrentUser() !== $username) {
-                $query = "DELETE FROM " . database::getTableName('Users') . " WHERE `username` = ?";
-                $statement = database::getInstance()->prepare($query);
+                $database = Parrot::getInstance()->database();
+                $query = "DELETE FROM " . $database->getTableName("Users") . " WHERE `username` = ?";
+                $statement = $database->newStatement($query);
                 $statement->bindParam(1, $username, PDO::PARAM_STR);
                 $statement->execute();
-                header('Location: http://' . getenv(DOMAIN_NAME) . BASE . 'admin');
+                header("Location: " . Parrot::getInstance()->getUrl("admin"));
             } else {
                 global $messages;
                 $messages = 'You cannot delete your own account';
@@ -128,8 +138,12 @@ class auth
         //to redirect pesky users
         if (auth::isAdmin()) {
             if (auth::getCurrentUser() !== $username) {
-                $query = database::getInstance()->query("SELECT * FROM " . database::getTableName('Users') . " WHERE `username`='$username'");
-                $rows = $query->fetchAll();
+                $database = Parrot::getInstance()->database();
+                $query = "SELECT * FROM " . $database->getTableName("Users") . "WHERE `username` = ?";
+                $statement = $database->newStatement($query);
+                $statement->bindParam(1, $username, PDO::PARAM_STR);
+                $statement->execute();
+                $rows = $statement->fetchAll();
                 $role;
                 foreach ($rows as $row) {
                     $role = $row['role'];
@@ -139,8 +153,12 @@ class auth
                 } else {
                     // can't go any less
                 }
-                database::getInstance()->query("UPDATE " . database::getTableName('Users') . " SET `role` = '$role' WHERE `username` = '$username'");
-                header('Location: http://' . getenv(DOMAIN_NAME) . BASE . 'admin');
+                $query = "UPDATE " . $database->getTableName("Users") . " SET `role` = ? WHERE `username` = ?";
+                $statement = $database->newStatement($query);
+                $statement->bindParam(1, $role, PDO::PARAM_STR);
+                $statement->bindParam(2, $username, PDO::PARAM_STR);
+                $statement->execute();
+                header("Location: " . Parrot::getInstance()->getUrl("admin"));
             } else {
                 global $messages;
                 $messages = 'You cannot change your own status';
@@ -154,14 +172,19 @@ class auth
     /**
      * Promotes an account
      */
-    public function promoteAccount($username) {
+    public function promoteAccount($username)
+    {
         // check if logged in again as an admin as a
         // safety net the first check is mainly just
         //to redirect pesky users
         if (auth::isAdmin()) {
             if (auth::getCurrentUser() !== $username) {
-                $query = database::getInstance()->query("SELECT * FROM " . database::getTableName('Users') . " WHERE `username`='$username'");
-                $rows = $query->fetchAll();
+                $database = Parrot::getInstance()->database();
+                $query = "SELECT * FROM " . $database->getTableName("Users") . " WHERE `username` = ?";
+                $statement = $database->newStatement($query);
+                $statement->bindParam(1, $username, PDO::PARAM_STR);
+                $statement->execute();
+                $rows = $statement->fetchAll();
                 $role;
                 foreach ($rows as $row) {
                     $role = $row['role'];
@@ -171,8 +194,12 @@ class auth
                 } else {
                     // can't go any more
                 }
-                database::getInstance()->query("UPDATE " . database::getTableName('Users') . " SET `role` = '$role' WHERE `username` = '$username'");
-                header('Location: http://' . getenv(DOMAIN_NAME) . BASE . 'admin');
+                $query = "UPDATE " . $database->getTableName("Users") . " SET `role` = ? WHERE `username` = ?";
+                $statement = $database->newStatement($query);
+                $statement->bindParam(1, $role, PDO::PARAM_STR);
+                $statement->bindParam(2, $username, PDO::PARAM_STR);
+                $statement->execute();
+                header("Location: " . Parrot::getInstance()->getUrl("admin"));
             } else {
                 global $messages;
                 $messages = 'You cannot change your own status';
@@ -186,20 +213,29 @@ class auth
     /**
      * Gets the session cookie
      */
-    public function getSession() {
+    public function getSession()
+    {
        return $_COOKIE['parrotSession'];
     }
 
     /**
      * Gets the username of the current user
      */
-    public function getCurrentUser() {
-        $cookie = $_COOKIE['parrotSession'];
-        $query = database::getInstance()->query("SELECT * FROM " . database::getTableName('Users') . " WHERE `session`='$cookie'");
-        $rows = $query->fetchAll();
-        foreach ($rows as $row) {
-            return $row['username'];
+    public function getCurrentUser()
+    {
+        if (isset($_COOKIE["parrotSession"])) {
+            $cookie = $_COOKIE['parrotSession'];
+            $database = Parrot::getInstance()->database();
+            $query = "SELECT `username` FROM " . $database->getTableName("Users") . " WHERE `session` = ?";
+            $statement = $database->newStatement($query);
+            $statement->bindParam(1, $cookie, PDO::PARAM_STR);
+            $statement->execute();
+            $row = $statement->fetch(PDO::FETCH_ASSOC);
+            if (!empty($row["username"])) {
+                return $row["username"];
+            }
         }
+        return null;
     }
 
     /**
@@ -260,32 +296,43 @@ class auth
     /**
      * Gets the numeric role of the current user
      */
-    private function getCurrentUserNumRole() {
-        $cookie = $_COOKIE['parrotSession'];
-        $query = database::getInstance()->query("SELECT * FROM " . database::getTableName('Users') . " WHERE `session`='$cookie'");
-        $rows = $query->fetchAll();
-        foreach ($rows as $row) {
-            return $row['role'];
+    private function getCurrentUserNumRole()
+    {
+        if (isset($_COOKIE["parrotSession"])) {
+            $cookie = $_COOKIE["parrotSession"];
+            $database = Parrot::getInstance()->database();
+            $query = "SELECT `role` FROM " . $database->getTableName("Users") . " WHERE `session` = ?";
+            $statement = $database->newStatement($query);
+            $statement->bindParam(1, $cookie, PDO::PARAM_STR);
+            $statement->execute();
+            $row = $statement->fetch(PDO::FETCH_ASSOC);
+            return $row["role"];
+        } else {
+            return null;
         }
     }
 
     /**
      * Gets the numeric role of a user
      */
-    public function getUserNumRole($username) {
-        $query = database::getInstance()->query("SELECT * FROM " . database::getTableName('Users') . " WHERE `username`='$username'");
-        $rows = $query->fetchAll();
-        foreach ($rows as $row) {
-            return $row['role'];
-        }
+    public function getUserNumRole($username)
+    {
+        $database = Parrot::getInstance()->database();
+        $query = "SELECT `role` FROM " . $database->getTableName("Users") . " WHERE `username` = ?";
+        $statement = $database->newStatement($query);
+        $statement->bindParam(1, $username, PDO::PARAM_STR);
+        $statement->execute();
+        $row = $statement->fetch(PDO::FETCH_ASSOC);
+        return $row["role"];
     }
 
     /**
      * Generates a random alpha-num string
      */
-    public function generateRandomString($length = 10) {
-        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        $randomString = '';
+    public function generateRandomString($length = 10)
+    {
+        $characters = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        $randomString = "";
         for ($i = 0; $i < $length; $i++) {
             $randomString .= $characters[rand(0, strlen($characters) - 1)];
         }

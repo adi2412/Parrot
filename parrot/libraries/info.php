@@ -7,6 +7,7 @@ class info
      */
     public function update($title, $description, $theme)
     {
+        throw new Exception("Remove this");
         // check if logged in again as a safety net
         // the first check is mainly just to redirect
         // pesky users

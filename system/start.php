@@ -1,9 +1,10 @@
 <?php
 
-/**
- * Get requires and init important variables
- */
-require_once(SYS . "boot.php");
+/** Check to see if Parrot has been installed. */
+if (!file_exists(SYS . "etc" . DS . "install")) {
+    header("Location: " . Parrot::getInstance()->getUrl("install.php"));
+    exit;
+}
 
 require_once(SYS . "toro.php");
 
@@ -15,31 +16,33 @@ ToroHook::add("404", function() {
     echo "Not found";
 });
 
-/**
- * Routes
- */
-Toro::serve(array(
-    BASE                                    => 'discussions',
-    BASE . 'login/verify'                   => 'verify_login',
-    BASE . 'login'                          => 'login',
-    BASE . 'signup'                         => 'signup',
-    BASE . 'signup/submit'                  => 'submit_signup',
-    BASE . 'user/:string'                   => 'user',
-    BASE . 'discussion/create'              => 'create_discussion',
-    BASE . 'discussion/submit'              => 'submit_discussion',
-    BASE . 'discussion/edit'                => 'edit_submit_discussion',
-    BASE . 'discussion/:alpha'              => 'view_discussion',
-    BASE . 'discussion/:alpha/delete'       => 'delete_discussion',
-    BASE . 'discussion/:alpha/reply'        => 'reply_discussion',
-    BASE . 'discussion/:alpha/stick'        => 'stick_discussion',
-    BASE . 'discussion/:alpha/edit'         => 'edit_discussion',
-    BASE . 'discussion/:alpha/lock'         => 'lock_discussion',
-    BASE . 'admin'                          => 'admin',
-    BASE . 'admin/category/:alpha/delete'   => 'admin_cat_delete',
-    BASE . 'admin/category/create'          => 'admin_cat_create',
-    BASE . 'admin/info/update'              => 'admin_info_update',
-    BASE . 'admin/user/:alpha/delete'       => 'admin_user_delete',
-    BASE . 'admin/user/:alpha/promote'      => 'admin_user_promote',
-    BASE . 'admin/user/:alpha/demote'       => 'admin_user_demote',
-    BASE . 'reply/:alpha/delete'            => 'reply_delete'
-));
+// All routes should start with a leading slash.
+$routes = array(
+    "/"                                 => 'discussions',
+    "/login/verify"                     => 'verify_login',
+    "/login"                            => 'login',
+    "/signup"                           => 'signup',
+    "/signup/submit"                    => 'submit_signup',
+    "/user/:string"                     => 'user',
+    "/discussion/create"                => 'create_discussion',
+    "/discussion/submit"                => 'submit_discussion',
+    "/discussion/edit"                  => 'edit_submit_discussion',
+    "/discussion/:alpha"                => 'view_discussion',
+    "/discussion/:alpha/delete"         => 'delete_discussion',
+    "/discussion/:alpha/reply"          => 'reply_discussion',
+    "/discussion/:alpha/stick"          => 'stick_discussion',
+    "/discussion/:alpha/edit"           => 'edit_discussion',
+    "/discussion/:alpha/lock"           => 'lock_discussion',
+    "/admin"                            => 'admin',
+    "/admin/category/:alpha/delete"     => 'admin_cat_delete',
+    "/admin/category/create"            => 'admin_cat_create',
+    "/admin/info/update"                => 'admin_info_update',
+    "/admin/user/:alpha/delete"         => 'admin_user_delete',
+    "/admin/user/:alpha/promote"        => 'admin_user_promote',
+    "/admin/user/:alpha/demote"         => 'admin_user_demote',
+    "/reply/:alpha/delete"              => 'reply_delete'
+);
+
+$basePath = Parrot::getInstance()->config()->getConfig("app/basepath");
+
+Toro::serve($routes, $_SERVER, $basePath);

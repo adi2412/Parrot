@@ -1,5 +1,5 @@
 $(window).load(function() {
-	$('.gear').click(function() {
-		$('.inner').toggle('slide', { direction: 'right' }, 500);
-	});
+    $('.gear').click(function() {
+        $('.inner').toggle('slide', { direction: 'right' }, 500);
+    });
 });
