@@ -1,5 +1,6 @@
 /nbproject
 /system/etc
+!/system/etc/.gitignore
 /system/config.php
 Thumbs.db
 
