@@ -8,6 +8,11 @@ Use
 
 Currently Parrot is in the development stage. This means that even though you can use it on your server, it's still going to be missing quite a few features. I'd recommend waiting a while. Maybe even check out [this parrot](http://bit.ly/1jnMQ6S) if you have time. If you still want to install, though, just download as ZIP and extract to any directory on your server you want, run the lightning fast installer, and start posting!
 
+Installation
+===
+
+The installation procedure has recently changed. You will now need to make a copy of the /system/config.sample.php file (name it config.php) before trying to install Parrot. In here, you will set several values, including database connection details, the base URL being used, and the name of the forum. You will also need to make sure the /system/etc directory is writeable by the webserver.
+
 Why
 ===
 
