@@ -50,7 +50,7 @@ function the_javascript($javascript = "main.js")
 
 function get_theme_baseurl()
 {
-    return Parrot::getInstance()->getUrl("themes/" . Parrot::getInstance()->config()->getConfig("forum/theme"));
+    return Parrot::getInstance()->getUrl("themes/" . siteinfo('theme'));
 }
 
 /**
@@ -60,7 +60,7 @@ function get_theme_baseurl()
  */
 function get_theme_directory()
 {
-    return BASE . "themes" . DS . Parrot::getInstance()->config()->getConfig("forum/theme") . DS;
+    return BASE . "themes" . DS . siteinfo('theme') . DS;
 }
 
 /**
