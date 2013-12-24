@@ -35,21 +35,18 @@ function siteinfo($selector) {
 /**
  * Get stylesheet
  */
-function the_stylesheet($stylesheet = "style.css")
-{
+function the_stylesheet($stylesheet = "style.css") {
     return get_theme_baseurl() . "/css/" . $stylesheet;
 }
 
 /**
  * Get javascript
  */
-function the_javascript($javascript = "main.js")
-{
+function the_javascript($javascript = "main.js") {
     return get_theme_baseurl() . "/js/" . $javascript;
 }
 
-function get_theme_baseurl()
-{
+function get_theme_baseurl() {
     return Parrot::getInstance()->getUrl("themes/" . siteinfo('theme'));
 }
 
@@ -58,9 +55,12 @@ function get_theme_baseurl()
  * TODO: I don't think this function is necessary any longer. If it is, it should be altered to suit its name.
  * In its current state it won't even function properly because the BASE constant has been removed.
  */
-function get_theme_directory()
-{
+function get_theme_directory() {
     return BASE . "themes" . DS . siteinfo('theme') . DS;
+}
+
+function get_link($link = '') {
+    return Parrot::getInstance()->getUrl($link);
 }
 
 /**

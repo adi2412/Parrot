@@ -10,11 +10,11 @@
                 <?php endwhile; ?>
             </select>
             <input value="Submit" type="submit" class="submit" form="post"/>
-            <a href="<?php echo Parrot::getInstance()->getUrl("login"); ?>" class="clear"><button><?php echo session_text(); ?></button></a>
+            <a href="<?php echo get_link("login"); ?>" class="clear"><button><?php echo session_text(); ?></button></a>
         </div>
     </div>
     <?php msg_read(); ?>
-    <form id="post" name="input" action="<?php echo Parrot::getInstance()->getUrl("discussion/submit"); ?>" method="post">
+    <form id="post" name="input" action="<?php echo get_link("discussion/submit"); ?>" method="post">
         <input placeholder="Title" name="title" class="boxsizingBorder" required autocomplete="off"/>
         <textarea rows="10" placeholder="Just type..." name="content" class="boxsizingBorder" required></textarea>
     </form>

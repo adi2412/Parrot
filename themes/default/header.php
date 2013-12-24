@@ -11,7 +11,7 @@
     </head>
     <body>
         <header>
-            <a href="<?php echo Parrot::getInstance()->getUrl(); ?>">
+            <a href="<?php echo get_link(); ?>">
                 <h1><?php echo siteinfo('title'); ?></h1>
             </a>
         </header>

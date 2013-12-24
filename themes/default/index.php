@@ -4,8 +4,8 @@
     <div class="menu" align="right">
         <div class="gear-holder" align="right"><img src="<?php echo get_theme_baseurl(); ?>/img/gear.png" class="gear"/></div>
         <div class="inner" id="options">
-            <a href="<?php echo Parrot::getInstance()->getUrl("discussion/create"); ?>" class="clear"><button>Create a new discussion</button></a>
-            <a href="<?php echo Parrot::getInstance()->getUrl("login"); ?>" class="clear"><button><?php echo session_text(); ?></button></a>
+            <a href="<?php echo get_link("discussion/create"); ?>" class="clear"><button>Create a new discussion</button></a>
+            <a href="<?php echo get_link("login"); ?>" class="clear"><button><?php echo session_text(); ?></button></a>
         </div>
     </div>
     <?php while (have_discussion()) : thediscussion() ?>

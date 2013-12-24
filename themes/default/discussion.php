@@ -6,7 +6,7 @@
         <div class="inner" id="options">
             <?php discussion_menu($slug); ?>
             <!-- log in / out button-->
-            <a href="<?php echo Parrot::getInstance()->getUrl("login"); ?>" class="clear"><button><?php echo session_text(); ?></button></a>
+            <a href="<?php echo get_link("login"); ?>" class="clear"><button><?php echo session_text(); ?></button></a>
         </div>
     </div>
     <?php while(have_discussion()) : thediscussion() ?>
