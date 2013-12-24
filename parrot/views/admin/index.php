@@ -4,7 +4,7 @@
 <html>
     <head>
         <!-- meta -->
-        <title><?php echo Parrot::getInstance()->config()->getConfig("forum/name"); ?> :: Admin</title>
+        <title><?php echo siteinfo('title'); ?> :: Admin</title>
         <link rel="stylesheet" type="text/css" href="<?php echo Parrot::getInstance()->getUrl("parrot/views/assets/css/style.css"); ?>">
     </head>
     <body>
@@ -33,9 +33,9 @@
                             <h1>Meta</h1>
                             <form action="<?php echo Parrot::getInstance()->getUrl("admin/info/update"); ?>" method="post">
                                 <h2>Name</h2>
-                                <input name="title" value="<?php echo Parrot::getInstance()->config()->getConfig("forum/name"); ?>" class="full" autocomplete="off">
+                                <input name="title" value="<?php echo siteinfo('title'); ?>" class="full" autocomplete="off">
                                 <h2>Description</h2>
-                                <input name="description" value="<?php echo Parrot::getInstance()->config()->getConfig("forum/description"); ?>" class="full" autocomplete="off">
+                                <input name="description" value="<?php echo siteinfo('description') ?>" class="full" autocomplete="off">
                                 <h2>Theme</h2>
                                 <select name="theme">
                                     <?php foreach (get_themes() as $theme) : ?>

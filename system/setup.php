@@ -47,9 +47,19 @@ $categoryQuery = "CREATE TABLE " . $database->getTableName("Category") . " (`id`
 $categoryStatement = $database->newStatement($categoryQuery);
 $categoryStatement->execute();
 
-//$metaQuery = "CREATE TABLE " . $database->getTableName("Meta") . " (`title` VARCHAR(250), `description` TEXT, `theme` VARCHAR(250))";
-//$metaStatement = $database->newStatement($metaQuery);
-//$metaStatement->execute();
+// meta
+$meta_title = Parrot::getInstance()->config()->getConfig('forum/name');
+$meta_description = Parrot::getInstance()->config()->getConfig('forum/description');
+$meta_theme = Parrot::getInstance()->config()->getConfig('forum/theme');
+
+$metaQuery = "CREATE TABLE " . $database->getTableName("Meta") . " (`title` VARCHAR(250), `description` TEXT, `theme` VARCHAR(250))";
+$metaStatement = $database->newStatement($metaQuery);
+$metaStatement->execute();
+
+$insertMetaQuery = "INSERT INTO " . $database->getTableName("Meta") . " (`title`, `description`, `theme`) VALUES ('$meta_title', '$meta_description', '$meta_theme')";
+$insertMetaStatement = $database->newStatement($insertMetaQuery);
+$insertMetaStatement->execute();
+// end of meta
 
 $insertAdminUserQuery = "INSERT INTO " . $database->getTableName("Users") . " (`session`, `username`, `password`, `name`, `email`, `role`) VALUES (NULL, ?, ?, ?, ?, 3)";
 $insertAdminUserStatement = $database->newStatement($insertAdminUserQuery);
@@ -71,4 +81,5 @@ $insertDiscussionStatement->execute();
 file_put_contents(SYS . "etc" . DS . "install", "installed");
 
 header("Location: " . Parrot::getInstance()->getUrl());
+
 exit;

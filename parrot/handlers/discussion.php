@@ -8,7 +8,7 @@ class discussions
     function get()
     {
         // TODO: Make the theme name an option
-        require(PATH . "themes" . DS . Parrot::getInstance()->config()->getConfig("forum/theme") . DS . "index.php");
+        require(PATH . "themes" . DS . siteinfo('theme') . DS . "index.php");
     }
 }
 
@@ -19,7 +19,7 @@ class create_discussion
      */
     function get()
     {
-        require(PATH . "themes" . DS . Parrot::getInstance()->config()->getConfig("forum/theme") . DS . "create.php");
+        require(PATH . "themes" . DS . siteinfo('theme') . DS . "create.php");
     }
 }
 
@@ -53,7 +53,7 @@ class edit_discussion
             $locked = $row["locked"];
         }
         if ($author == auth::getCurrentUser() && $locked == 0 || auth::isAdmin() && $locked == 0 || auth::isMod() && $locked == 0) {
-            require(PATH . "themes" . DS . Parrot::getInstance()->config()->getConfig("forum/theme") . DS . "edit.php");
+            require(PATH . "themes" . DS . siteinfo('theme') . DS . "edit.php");
         } else {
             header("Location: " . Parrot::getInstance()->getUrl());
         }
@@ -75,7 +75,7 @@ class edit_submit_discussion
             } else {
                 global $messages;
                 $messages = 'Only include spaces, letters and numbers in the title';
-                require(PATH . "themes" . DS . Parrot::getInstance()->config()->getConfig("forum/theme") . DS . "index.php");
+                require(PATH . "themes" . DS . siteinfo('theme') . DS . "index.php");
             }
         } else {
             header("Location: " . Parrot::getInstance()->getUrl("login"));
@@ -123,7 +123,7 @@ class submit_discussion
             } else {
                 global $messages;
                 $messages = 'Only include spaces, letters and numbers in the title';
-                require(PATH . "themes" . DS . Parrot::getInstance()->config()->getConfig("forum/theme") . DS . "create.php");
+                require(PATH . "themes" . DS . siteinfo('theme') . DS . "create.php");
             }
         } else {
             header("Location: " . Parrot::getInstance()->getUrl("login"));
@@ -140,7 +140,7 @@ class view_discussion
     {
         global $discussion_title;
         $discussion_title = discussion::decode_title($slug);
-        require_once(PATH . "themes" . DS . Parrot::getInstance()->config()->getConfig("forum/theme") . DS . "discussion.php");
+        require_once(PATH . "themes" . DS . siteinfo('theme') . DS . "discussion.php");
     }
 }
 

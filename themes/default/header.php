@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title><?php echo Parrot::getInstance()->config()->getConfig("forum/name"); ?> :: <?php echo Parrot::getInstance()->config()->getConfig("forum/description"); ?></title>
+        <title><?php echo siteinfo('title'); ?> :: <?php echo siteinfo('description'); ?></title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" type="text/css" href="<?php echo the_stylesheet(); ?>">
         <link rel="stylesheet" media="only screen and (max-width: 400px)" type="text/css" href="<?php echo the_stylesheet("small.css"); ?>">
@@ -12,6 +12,6 @@
     <body>
         <header>
             <a href="<?php echo Parrot::getInstance()->getUrl(); ?>">
-                <h1><?php echo Parrot::getInstance()->config()->getConfig("forum/name"); ?></h1>
+                <h1><?php echo siteinfo('title'); ?></h1>
             </a>
         </header>

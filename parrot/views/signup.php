@@ -2,7 +2,7 @@
 <html>
     <head>
         <!-- meta -->
-        <title><?php echo Parrot::getInstance()->config()->getConfig("forum/name"); ?> :: Signup</title>
+        <title><?php echo siteinfo('title'); ?> :: Signup</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" type="text/css" href="<?php echo Parrot::getInstance()->getUrl("parrot/views/assets/css/style.css"); ?>">
     </head>
@@ -19,7 +19,7 @@
                         <input type="submit" class="submit" value="Signup"/>
                     </form>
                     <a href="<?php echo Parrot::getInstance()->getUrl("login"); ?>"><button class="light">Login</button></a><br/><br/>
-                    <a href="<?php echo Parrot::getInstance()->getUrl(); ?>" class="small">&larr; Back to <?php echo Parrot::getInstance()->config()->getConfig("forum/name"); ?></a>
+                    <a href="<?php echo Parrot::getInstance()->getUrl(); ?>" class="small">&larr; Back to <?php echo siteinfo('title'); ?></a>
                 </div>
             </div>
         </div>

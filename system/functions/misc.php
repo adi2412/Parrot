@@ -1,5 +1,37 @@
 <?php
 
+function siteinfo($selector) {
+    $database = Parrot::getInstance()->database();
+
+    if ($selector == 'title') {
+        $query = "SELECT * FROM " . $database->getTableName("Meta");
+        $statement = $database->newStatement($query);
+        $statement->execute();
+        $rows = $statement->fetchAll();
+        $title;
+        foreach ($rows as $row) { $title = $row['title']; }
+        return $title;
+    } else if ($selector == 'description') {
+        $query = "SELECT * FROM " . $database->getTableName("Meta");
+        $statement = $database->newStatement($query);
+        $statement->execute();
+        $rows = $statement->fetchAll();
+        $description;
+        foreach ($rows as $row) { $description = $row['description']; }
+        return $description;
+    } else if ($selector == 'theme') {
+        $query = "SELECT * FROM " . $database->getTableName("Meta");
+        $statement = $database->newStatement($query);
+        $statement->execute();
+        $rows = $statement->fetchAll();
+        $theme;
+        foreach ($rows as $row) { $theme = $row['theme']; }
+        return $theme;
+    } else {
+        return 'Unknown selector';
+    }
+}
+
 /**
  * Get stylesheet
  */
