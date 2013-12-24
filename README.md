@@ -6,18 +6,21 @@ Parrot is a discussion platform that is built to be fast, secure and simple. The
 How do I use Parrot?
 ===
 
-Parrot is currently under development. You can still use it, but it lacks features and may contain bugs that has to be addressed properly. We encourage *you not* to use Parrot in a production environment ( available on the web, to users that is). Mean while you should definitely check out [this parrot](http://bit.ly/1jnMQ6S) if you like too!
+Parrot is currently under development. You can still use it, but it lacks features and may contain bugs that has to be addressed properly. We encourage *you not* to use Parrot in a production environment (available on the web, to users that is). Mean while you should definitely check out [this parrot](http://bit.ly/1jnMQ6S) if you like too!
 
 Installation
 ===
 
 The Installation is simple and fast, as promised. 
 
-1. Start off by extracting the downloaded .zip folder to your web root. Next you need to copy the ```system/config.sample.php``` files content and save it as *config.php*. 
+1. Start off by extracting the downloaded .zip folder to your web root. 
+2. Download [Lory](https://github.com/GetParrot/Lory)(the default theme), extract it, and put its contents in the `themes/default` folder.
+3. Next you need to copy the `system/config.sample.php` files content and save it as `config.php`. 
+2. Open the config.php file and fill the details needed, database configuration, base url and base path. Be sure to save it.
+3. Make sure the system/etc directory is writable by the web server **(chmod 777)**.
+4. Open Parrot's URL in your browser and enjoy the world's best discussion platform!
 
-2. Open the config.php file and fill the details needed, database configuration, base url and base path. Save!
-
-3. Make sure the system/etc directory is writable by the web server **(chmod 777)**
+The install process will be much more simple in the future, but right now it needs to remain this way to keep us developers sane.
 
 
 ## Requirements
