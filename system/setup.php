@@ -48,9 +48,9 @@ $categoryStatement = $database->newStatement($categoryQuery);
 $categoryStatement->execute();
 
 // meta
-$meta_title = Parrot::getInstance()->config()->getConfig('forum/name');
-$meta_description = Parrot::getInstance()->config()->getConfig('forum/description');
-$meta_theme = Parrot::getInstance()->config()->getConfig('forum/theme');
+$meta_title = "Parrot";
+$meta_description = "Minimalist discussion platform.";
+$meta_theme = "default";
 
 $metaQuery = "CREATE TABLE " . $database->getTableName("Meta") . " (`title` VARCHAR(250), `description` TEXT, `theme` VARCHAR(250))";
 $metaStatement = $database->newStatement($metaQuery);
