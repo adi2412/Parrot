@@ -14,7 +14,7 @@ Installation
 The Installation is simple and fast, as promised. 
 
 1. Start off by extracting the downloaded .zip folder to your web root. 
-2. Download [Lory](https://github.com/GetParrot/Lory)(the default theme), extract it, and put its contents in the `themes/default` folder.
+2. Download [Lory](https://github.com/GetParrot/Lory) (the default theme), extract it, and put its contents in the `themes/default` folder.
 3. Next you need to copy the `system/config.sample.php` files content and save it as `config.php`. 
 2. Open the config.php file and fill the details needed, database configuration, base url and base path. Be sure to save it.
 3. Make sure the system/etc directory is writable by the web server **(chmod 777)**.
