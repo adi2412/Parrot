@@ -13,6 +13,11 @@ Installation
 
 The installation procedure has recently changed. You will now need to make a copy of the /system/config.sample.php file (name it config.php) before trying to install Parrot. In here, you will set several values, including database connection details, the base URL being used, and the name of the forum. You will also need to make sure the /system/etc directory is writeable by the webserver.
 
+Requirements:
+  - PHP 5.4
+  - Ability to write to webserver
+  - Support for `.htaccess` files
+
 Why
 ===
 
