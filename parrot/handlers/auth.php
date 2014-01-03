@@ -45,7 +45,11 @@ class user
      */
     function get($slug)
     {
-        echo "Woo! Hi, " . $slug;
+        if(user_exist($slug)){
+            require(PATH . "themes" . DS . siteinfo('theme') . DS . "user.php");
+        }
+        else
+            echo "User does not exist";
     }
 }
 

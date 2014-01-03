@@ -85,7 +85,7 @@ class discussion
     }
 
     /**
-     * Get indivigual discussion details
+     * Get individual discussion details
      */
     public function get_discussion($title)
     {
@@ -108,6 +108,64 @@ class discussion
             $discuss_array[0]['locked'] = $row['locked'] == 1 ? true : false;
         }
         return $discuss_array;
+    }
+
+    /**
+     * Get a user's discussions
+     */
+    public function user_discussion($author)
+    {
+        $database = Parrot::getInstance()->database();
+        $query = "SELECT * FROM " . $database->getTableName("Discussion") . " WHERE `author` = ?";
+        $statement = $database->newStatement($query);
+        $statement->bindParam(1, $author, PDO::PARAM_STR);
+        $statement->execute();
+        $rows = $statement->fetchAll();
+        $discuss_array = array();
+        $i = 0;
+        foreach ($rows as $row) {
+            $discuss_array[$i]['title'] = $row['title'];
+            $discuss_array[$i]['content'] = $row['content'];
+            $discuss_array[$i]['author'] = $row['author'];
+            $discuss_array[$i]['time'] = $row['time'];
+            //$discuss_array[$i]['replies'] = $row['replies'];
+            $discuss_array[$i]['category'] = $row['category'];
+            $discuss_array[$i]['sticky'] = $row['sticky'] == 1 ? true : false;
+            $discuss_array[$i]['locked'] = $row['locked'] == 1 ? true : false;
+            $i++;
+        }
+        return $discuss_array;
+    }
+
+    /**
+     * Get a user's replies
+     */
+    public function user_reply($author)
+    {
+        $database = Parrot::getInstance()->database();
+        $query = "SELECT * FROM " . $database->getTableName("Replies") . " WHERE `author` = ?";
+        $statement = $database->newStatement($query);
+        $statement->bindParam(1, $author, PDO::PARAM_STR);
+        $statement->execute();
+        $rows = $statement->fetchAll();
+        $replies_array = array();
+        $i = 0;
+        foreach ($rows as $row) {
+            $replies_array[$i]['title'] = $row['discussionTitle'];
+            $replies_array[$i]['content'] = $row['content'];
+            $replies_array[$i]['author'] = $row['author'];
+            $replies_array[$i]['time'] = $row['time'];
+            //$discuss_array[$i]['replies'] = $row['replies'];
+            // $discuss_array[$i]['category'] = $row['category'];
+            // $discuss_array[$i]['sticky'] = $row['sticky'] == 1 ? true : false;
+            // $discuss_array[$i]['locked'] = $row['locked'] == 1 ? true : false;
+            // echo $discuss_array[$i]['title'] = $row['discussionTitle'].
+            // $discuss_array[$i]['content'] = $row['content'].
+            // $discuss_array[$i]['author'] = $row['author'].
+            // $discuss_array[$i]['time'] = $row['time'];
+            $i++;
+        }
+        return $replies_array;
     }
 
     /**

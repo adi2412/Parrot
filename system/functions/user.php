@@ -33,6 +33,21 @@ function have_user() {
 }
 
 /**
+ * Check if the user exists
+ */
+function user_exist($username)
+{
+    global $users_index, $user, $users, $user_title;
+    while(have_user())
+        theuser();
+    if(user_username() == $username)
+        return true;
+    else
+        theuser();
+    return false;
+}
+
+/**
  * Updates the user object
  */
 function theuser() {

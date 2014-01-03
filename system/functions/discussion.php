@@ -48,6 +48,41 @@ function thediscussion() {
 }
 
 /**
+ * Gets user's discussions
+ */
+function user_discussions($username){
+    global $discussions_index, $discussions, $discussions_count;
+    $user_discussions = array();
+    $discussions = discussion::user_discussion($username);
+    $discussions_count = count(discussion::user_discussion($username));
+    if ($discussions && $discussions_index + 1 <= $discussions_count) {
+        $discussions_index++;
+        return true;
+    } else {
+        $discussions_count = 0;
+        $discussions_index = 0;
+        return false;
+    }
+}
+
+/**
+* Gets user's replies
+*/
+function user_replies($username){
+    global $discussions_index, $discussions, $discussions_count;
+    $user_discussions = array();
+    $discussions = discussion::user_reply($username);
+    $discussions_count = count(discussion::user_reply($username));
+    if ($discussions && $discussions_index + 1 <= $discussions_count) {
+        $discussions_index++;
+        return true;
+    } else {
+        $discussions_count = 0;
+        return false;
+    }
+}
+
+/**
  * Show the discussion menu
  */
 function discussion_menu($title)

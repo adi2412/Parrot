@@ -3,4 +3,5 @@
 !/system/etc/.gitignore
 /system/config.php
 Thumbs.db
+.DS_Store
 
